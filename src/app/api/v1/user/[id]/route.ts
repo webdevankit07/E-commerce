@@ -10,17 +10,17 @@ export const GET = async (req: NextRequest, { params }: { params: { id: string }
         const { id } = params;
         const { isAdmin } = await validateToken(req);
         if (!isAdmin) {
-            return NextResponse.json({ success: false, message: 'You are not admin' }, { status: 400 });
+            return NextResponse.json({ message: 'You are not admin', success: false }, { status: 400 });
         }
 
         const user = await User.findById(id).select('-password');
         if (!user) {
-            return NextResponse.json({ success: false, message: 'user not found!' }, { status: 400 });
+            return NextResponse.json({ message: 'user not found!', success: false }, { status: 400 });
         }
 
         return NextResponse.json(user, { status: 200 });
     } catch (error: any) {
         console.log('Error while geting user:', error.message);
-        return NextResponse.json({ success: false, message: error.message }, { status: 500 });
+        return NextResponse.json({ message: error.message, success: false }, { status: 500 });
     }
 };

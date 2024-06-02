@@ -9,11 +9,11 @@ export const DELETE = async (req: NextRequest) => {
         const { userId } = await validateToken(req);
         await User.findByIdAndDelete(userId);
 
-        const res = NextResponse.json({ success: true, message: 'Account successfully deleted' }, { status: 200 });
+        const res = NextResponse.json({ message: 'Account successfully deleted', success: true }, { status: 200 });
         res.cookies.delete('access_token');
         return res;
     } catch (error: any) {
         console.log('Error while deleting the user:', error);
-        return NextResponse.json({ success: false, message: error.message }, { status: 500 });
+        return NextResponse.json({ message: error.message, success: false }, { status: 500 });
     }
 };

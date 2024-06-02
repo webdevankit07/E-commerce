@@ -8,14 +8,14 @@ export const DELETE = async (req: NextRequest) => {
     try {
         const { userId, isAdmin } = await validateToken(req);
         if (!isAdmin) {
-            return NextResponse.json({ success: false, message: 'only admin can delete the user' }, { status: 400 });
+            return NextResponse.json({ message: 'only admin can delete the user', success: false }, { status: 400 });
         }
 
         await User.findByIdAndDelete(userId);
 
-        return NextResponse.json({ success: true, message: 'user successfully deleted' }, { status: 200 });
+        return NextResponse.json({ message: 'user successfully deleted', success: true }, { status: 200 });
     } catch (error: any) {
         console.log('Error while deleting the user:', error);
-        return NextResponse.json({ success: false, message: error.message }, { status: 500 });
+        return NextResponse.json({ message: error.message, success: false }, { status: 500 });
     }
 };

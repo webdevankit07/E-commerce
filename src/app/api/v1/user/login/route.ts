@@ -19,7 +19,7 @@ export const POST = async (req: NextRequest) => {
             await userExist.save();
 
             const response = NextResponse.json(
-                { success: true, message: 'User logged in successfully' },
+                { message: 'User logged in successfully', success: true },
                 { status: 200 }
             );
             response.cookies.set('access_token', accessToken, {
@@ -34,10 +34,10 @@ export const POST = async (req: NextRequest) => {
             });
             return response;
         } else {
-            return NextResponse.json({ success: false, message: 'Invalid credentials' }, { status: 400 });
+            return NextResponse.json({ message: 'Invalid credentials', success: false }, { status: 400 });
         }
     } catch (error: any) {
         console.error('Error while login: ' + error.message);
-        return Response.json({ success: false, message: error.message }, { status: 500 });
+        return Response.json({ message: error.message, success: false }, { status: 500 });
     }
 };

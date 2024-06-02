@@ -9,16 +9,16 @@ export const POST = async (req: NextRequest) => {
     try {
         const { refreshToken } = await validateToken(req);
         const user = await User.findOne({ refreshToken });
-        if (!user) return NextResponse.json({ success: false, message: 'Invalid refresh token' }, { status: 400 });
+        if (!user) return NextResponse.json({ message: 'Invalid refresh token', success: false }, { status: 400 });
 
         await User.findOneAndUpdate({ refreshToken }, { refreshToken: '' });
 
-        const res = NextResponse.json({ success: true, message: 'Logout successful' }, { status: 200 });
+        const res = NextResponse.json({ message: 'Logout successful', success: true }, { status: 200 });
         res.cookies.delete('access_token');
         res.cookies.delete('refresh_token');
         return res;
     } catch (error: any) {
         console.log('Error while logout:', error);
-        return NextResponse.json({ success: false, message: error.message }, { status: 500 });
+        return NextResponse.json({ message: error.message, success: false }, { status: 500 });
     }
 };
