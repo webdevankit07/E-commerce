@@ -2,7 +2,6 @@ import { z } from 'zod';
 
 export const CreateProductSchema = z.object({
     title: z.string({ required_error: 'title is required' }),
-    slug: z.string({ required_error: 'slug is required' }),
     description: z.string({ required_error: 'description is required' }),
     price: z.number({ required_error: 'price is required' }),
     category: z.string({ required_error: 'category is required' }),
