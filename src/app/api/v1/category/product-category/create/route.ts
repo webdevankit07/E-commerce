@@ -1,7 +1,7 @@
 import { ConnectDB } from '@/config/connectDB';
 import { validate } from '@/helpers/validateData';
 import { validateToken } from '@/helpers/validateToken';
-import { ProductCategory } from '@/models/productcategory.model';
+import ProductCategory from '@/models/productcategory.model';
 import { CreateProductCategorySchema } from '@/validators/category/categorySchema';
 import { NextRequest, NextResponse } from 'next/server';
 

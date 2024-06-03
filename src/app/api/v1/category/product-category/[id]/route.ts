@@ -1,6 +1,6 @@
 import { ConnectDB } from '@/config/connectDB';
 import { validateToken } from '@/helpers/validateToken';
-import { ProductCategory } from '@/models/productcategory.model';
+import ProductCategory from '@/models/productcategory.model';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const GET = async (req: NextRequest, { params }: { params: { id: string } }) => {

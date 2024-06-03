@@ -9,5 +9,6 @@ const BlogcategorySchema: Schema<BlogcategorySchemaType> = new Schema(
     { timestamps: true }
 );
 
-export const BlogCategory =
+const BlogCategory =
     (models.BlogCategory as Model<BlogcategorySchemaType>) || model('BlogCategory', BlogcategorySchema);
+export default BlogCategory;

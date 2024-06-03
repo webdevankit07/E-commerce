@@ -1,6 +1,6 @@
 import { ConnectDB } from '@/config/connectDB';
 import { validateToken } from '@/helpers/validateToken';
-import { BlogCategory } from '@/models/blogcategory.model';
+import BlogCategory from '@/models/blogcategory.model';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const GET = async (req: NextRequest) => {

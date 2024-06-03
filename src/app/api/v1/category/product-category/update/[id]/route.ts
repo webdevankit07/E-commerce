@@ -1,11 +1,11 @@
 import { ConnectDB } from '@/config/connectDB';
 import { validate } from '@/helpers/validateData';
 import { validateToken } from '@/helpers/validateToken';
-import { ProductCategory } from '@/models/productcategory.model';
+import ProductCategory from '@/models/productcategory.model';
 import { UpdateBlogCategorySchema } from '@/validators/category/categorySchema';
 import { NextRequest, NextResponse } from 'next/server';
 
-export const POST = async (req: NextRequest, { params }: { params: { id: string } }) => {
+export const PUT = async (req: NextRequest, { params }: { params: { id: string } }) => {
     await ConnectDB();
 
     try {

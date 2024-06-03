@@ -9,5 +9,6 @@ const ProductcategorySchema: Schema<ProductcategorySchemaType> = new Schema(
     { timestamps: true }
 );
 
-export const ProductCategory =
+const ProductCategory =
     (models.ProductCategory as Model<ProductcategorySchemaType>) || model('ProductCategory', ProductcategorySchema);
+export default ProductCategory;

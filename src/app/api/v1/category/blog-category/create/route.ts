@@ -1,7 +1,7 @@
 import { ConnectDB } from '@/config/connectDB';
 import { validate } from '@/helpers/validateData';
 import { validateToken } from '@/helpers/validateToken';
-import { BlogCategory } from '@/models/blogcategory.model';
+import BlogCategory from '@/models/blogcategory.model';
 import { CreateBlogCategorySchema } from '@/validators/category/categorySchema';
 import { NextRequest, NextResponse } from 'next/server';
 
