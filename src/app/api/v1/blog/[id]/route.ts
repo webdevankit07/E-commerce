@@ -11,7 +11,9 @@ export const GET = async (req: NextRequest, { params }: { params: { id: string }
         const { isAdmin } = await validateToken(req);
         if (!isAdmin) return NextResponse.json({ message: 'Only admin can access', success: false }, { status: 400 });
 
-        const blog = await Blog.findByIdAndUpdate(id, { $inc: { numViews: 1 } }).populate('likes');
+        const blog = await Blog.findByIdAndUpdate(id, { $inc: { numViews: 1 } })
+            .populate('likes')
+            .select('-__v');
 
         return NextResponse.json({ blog, message: 'success', success: true }, { status: 200 });
     } catch (error: any) {

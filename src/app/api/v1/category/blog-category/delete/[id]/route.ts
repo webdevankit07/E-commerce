@@ -23,7 +23,7 @@ export const DELETE = async (req: NextRequest, { params }: { params: { id: strin
 
         return NextResponse.json({ deletedcategory, message: 'Category deleted', success: true }, { status: 200 });
     } catch (error: any) {
-        console.log('Error while updating blog category', error.message);
+        console.log('Error while deleting blog category', error.message);
         return NextResponse.json({ message: error.message, success: false }, { status: 500 });
     }
 };

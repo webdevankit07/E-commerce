@@ -10,7 +10,7 @@ export const GET = async (req: NextRequest) => {
         const { isAdmin } = await validateToken(req);
         if (!isAdmin) return NextResponse.json({ message: 'You are not admin', success: false }, { status: 400 });
 
-        const users = await User.find().select('-password');
+        const users = await User.find().select('-password -__v');
         return NextResponse.json({ users }, { status: 200 });
     } catch (error: any) {
         console.log('Error while geting all users:', error.message);

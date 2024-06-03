@@ -7,12 +7,7 @@ export const GET = async (req: NextRequest) => {
     await ConnectDB();
 
     try {
-        const { isAdmin } = await validateToken(req);
-        if (!isAdmin) {
-            return NextResponse.json({ message: 'You are not admin', success: false }, { status: 400 });
-        }
-
-        const categories = await BlogCategory.find();
+        const categories = await BlogCategory.find().select('-__v');
         if (!categories) {
             return NextResponse.json({ message: 'no category exists', success: false }, { status: 400 });
         }

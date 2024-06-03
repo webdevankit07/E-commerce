@@ -1,11 +1,11 @@
 import { Schema, model, Model, models, Document } from 'mongoose';
 
 interface BrandSchemaType extends Document {
-    title: string;
+    name: string;
 }
 
 const BrandSchema: Schema<BrandSchemaType> = new Schema(
-    { title: { type: String, required: true, unique: true, index: true } },
+    { name: { type: String, required: true, unique: true, index: true } },
     { timestamps: true }
 );
 

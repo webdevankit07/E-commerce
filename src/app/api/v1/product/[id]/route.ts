@@ -6,7 +6,7 @@ export const GET = async (req: NextRequest, { params }: { params: { id: string }
     await ConnectDB();
 
     try {
-        const product = await Product.findById(params.id);
+        const product = await Product.findById(params.id).select('-__v');
         if (!product) return NextResponse.json({ message: 'Product not found', success: false }, { status: 400 });
 
         return NextResponse.json({ product, message: 'success', success: true }, { status: 200 });

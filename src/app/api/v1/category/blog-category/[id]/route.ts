@@ -9,12 +9,7 @@ export const GET = async (req: NextRequest, { params }: { params: { id: string }
     try {
         const { id: categoryId } = params;
 
-        const { isAdmin } = await validateToken(req);
-        if (!isAdmin) {
-            return NextResponse.json({ message: 'You are not admin', success: false }, { status: 400 });
-        }
-
-        const category = await BlogCategory.findById(categoryId);
+        const category = await BlogCategory.findById(categoryId).select('-__v');
         if (!category) {
             return NextResponse.json({ message: 'Category does not exists', success: false }, { status: 400 });
         }

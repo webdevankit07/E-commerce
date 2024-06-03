@@ -10,7 +10,7 @@ export const GET = async (req: NextRequest) => {
         const { isAdmin } = await validateToken(req);
         if (!isAdmin) return NextResponse.json({ message: 'Only admin can access', success: false }, { status: 400 });
 
-        const blogs = await Blog.find();
+        const blogs = await Blog.find().select('-__v');
 
         return NextResponse.json({ blogs, message: 'success', success: true }, { status: 200 });
     } catch (error: any) {

@@ -13,7 +13,7 @@ export const GET = async (req: NextRequest, { params }: { params: { id: string }
             return NextResponse.json({ message: 'You are not admin', success: false }, { status: 400 });
         }
 
-        const user = await User.findById(id).select('-password');
+        const user = await User.findById(id).select('-password -__v');
         if (!user) {
             return NextResponse.json({ message: 'user not found!', success: false }, { status: 400 });
         }
