@@ -14,6 +14,6 @@ export const PUT = async (req: NextRequest, { params }: { params: { id: string }
         return NextResponse.json({ message: 'user unblocked', success: true }, { status: 200 });
     } catch (error: any) {
         console.log('Error while blocking user', error.message);
-        return NextResponse.json({ success: false, message: error.message }, { status: 500 });
+        return NextResponse.json({ message: error.message, success: false }, { status: 500 });
     }
 };
