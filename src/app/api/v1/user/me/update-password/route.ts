@@ -23,7 +23,7 @@ export const PUT = async (req: NextRequest) => {
 
         return NextResponse.json({ message: 'password changed successfully', success: false }, { status: 200 });
     } catch (error: any) {
-        console.log('Error while fetching user:', error);
+        console.log('Error while updating password:', error);
         return NextResponse.json({ message: error.message, success: false }, { status: 500 });
     }
 };

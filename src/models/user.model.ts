@@ -1,6 +1,7 @@
 import { model, Model, models, Schema, Document, ObjectId } from 'mongoose';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import crypto from 'crypto';
 
 export interface UserSchemaType extends Document {
     firstname: string;
@@ -15,9 +16,13 @@ export interface UserSchemaType extends Document {
     address: ObjectId[];
     wishlist: ObjectId[];
     refreshToken: string;
+    passwordChangedAt: Date;
+    passwordResetToken: string;
+    passwordResetExpires: Date;
     isPasswordCorrect: (value: string) => Promise<boolean>;
     genaratetAccessToken: () => string;
     genaratetRefreshToken: () => string;
+    genaratetPasswordResetToken: () => Promise<string>;
 }
 
 const UserSchema: Schema<UserSchemaType> = new Schema(
@@ -34,6 +39,9 @@ const UserSchema: Schema<UserSchemaType> = new Schema(
         address: [{ type: Schema.Types.ObjectId, ref: 'Address' }],
         wishlist: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
         refreshToken: { type: String },
+        passwordChangedAt: Date,
+        passwordResetToken: String,
+        passwordResetExpires: Date,
     },
     { timestamps: true }
 );
@@ -58,6 +66,13 @@ UserSchema.methods.genaratetRefreshToken = function () {
     const cookieData = { _id: this._id, email: this.email, username: this.username };
     const secretKey = process.env.REFRESH_TOKEN_SECRET as string;
     return jwt.sign(cookieData, secretKey, { expiresIn: '10d' });
+};
+
+UserSchema.methods.genaratetPasswordResetToken = async function () {
+    const resetToken = crypto.randomBytes(32).toString('hex');
+    this.passwordResetToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+    this.passwordResetExpires = Date.now() + 1000 * 60 * 10;
+    return resetToken;
 };
 
 const User = (models.User as Model<UserSchemaType>) || model<UserSchemaType>('User', UserSchema);

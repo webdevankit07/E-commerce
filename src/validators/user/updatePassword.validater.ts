@@ -7,3 +7,10 @@ export const updatePasswordSchema = z.object({
         .min(8, 'password must be at least 8 characters')
         .max(100, 'password must be at most 100 characters'),
 });
+
+export const resetPasswordSchema = z.object({
+    newPassword: z
+        .string({ required_error: 'new password is required' })
+        .min(8, 'password must be at least 8 characters')
+        .max(100, 'password must be at most 100 characters'),
+});

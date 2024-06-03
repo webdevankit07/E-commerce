@@ -28,12 +28,18 @@ export const POST = async (request: NextRequest) => {
         const newUser = await User.create({ firstname, lastname, username, email, mobile, password });
 
         const accessToken = newUser.genaratetAccessToken();
+        const refreshToken = newUser.genaratetRefreshToken();
 
         const response = NextResponse.json({ message: 'User registered successfully', success: true }, { status: 201 });
         response.cookies.set('access_token', accessToken, {
             httpOnly: true,
             secure: true,
             maxAge: 1000 * 60 * 60 * 24,
+        });
+        response.cookies.set('refresh_token', refreshToken, {
+            httpOnly: true,
+            secure: true,
+            maxAge: 1000 * 60 * 60 * 24 * 3,
         });
         return response;
     } catch (error: any) {
