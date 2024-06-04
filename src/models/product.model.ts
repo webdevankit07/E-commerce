@@ -26,7 +26,7 @@ export interface ProductSchemaType extends Document {
     color: ColourType[];
     tags: string;
     ratings: RatingType[];
-    totalrating: number;
+    totalRating: number;
 }
 
 const ProductSchema: Schema<ProductSchemaType> = new Schema(
@@ -43,7 +43,7 @@ const ProductSchema: Schema<ProductSchemaType> = new Schema(
         color: [{ type: String, enum: ['Black', 'Brown', 'Red', 'White'] }],
         tags: String,
         ratings: [{ star: Number, comment: String, postedby: { type: Schema.Types.ObjectId, ref: 'User' } }],
-        totalrating: { type: Number, default: 0 },
+        totalRating: { type: Number, default: 0 },
     },
     { timestamps: true }
 );
