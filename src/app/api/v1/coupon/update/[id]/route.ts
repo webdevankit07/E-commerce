@@ -15,6 +15,7 @@ export const PUT = async (req: NextRequest, { params }: { params: { id: string }
         if (!isAdmin) {
             return NextResponse.json({ message: 'You are not Admin', success: false }, { status: 400 });
         }
+
         await validate(body, UpdateCouponSchema);
 
         const coupon = await Coupon.findByIdAndUpdate(id, body, { new: true });

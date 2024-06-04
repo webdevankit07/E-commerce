@@ -1,9 +1,9 @@
 import { v2 as cloudinary } from 'cloudinary';
 
 cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_API_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.CLOUD_API_KEY,
+    api_secret: process.env.CLOUD_API_SECRET,
 });
 
 export const uploadOnCloudinary = async (file: File, folder: string) => {
@@ -22,7 +22,21 @@ export const uploadOnCloudinary = async (file: File, folder: string) => {
                     if (err) {
                         reject(err);
                     }
-                    resolve(result);
+
+                    if (result) {
+                        const optimizeUrl = cloudinary.url(result.public_id, {
+                            fetch_format: 'auto',
+                            quality: 'auto',
+                            width: 300,
+                            height: 300,
+                        });
+                        resolve({
+                            public_id: result.public_id,
+                            url: result.url,
+                            secure_url: result.secure_url,
+                            optimizeUrl,
+                        });
+                    }
                 }
             )
             .end(bytes);

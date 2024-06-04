@@ -14,6 +14,11 @@ export const POST = async (req: NextRequest) => {
         if (!isAdmin) return NextResponse.json({ message: 'You are not Admin', success: false }, { status: 400 });
         await validate(body, CreateCouponSchema);
 
+        const couponExist = await Coupon.findOne({ name: body.name });
+        if (couponExist) {
+            return NextResponse.json({ message: 'Coupon already exists', success: false }, { status: 400 });
+        }
+
         const coupon = await Coupon.create(body);
 
         return NextResponse.json({ coupon, message: 'success', success: true }, { status: 200 });
