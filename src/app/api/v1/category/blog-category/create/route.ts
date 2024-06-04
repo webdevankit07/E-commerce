@@ -2,7 +2,7 @@ import { ConnectDB } from '@/config/connectDB';
 import { validate } from '@/helpers/validateData';
 import { validateToken } from '@/helpers/validateToken';
 import BlogCategory from '@/models/blogcategory.model';
-import { CreateBlogCategorySchema } from '@/validators/category/categorySchema';
+import { CreateBlogCategorySchema } from '@/validators/categorySchemas';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const POST = async (req: NextRequest) => {

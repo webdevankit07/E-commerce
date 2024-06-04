@@ -2,7 +2,7 @@ import { ConnectDB } from '@/config/connectDB';
 import { validate } from '@/helpers/validateData';
 import { validateToken } from '@/helpers/validateToken';
 import Brand from '@/models/brand.model';
-import { UpdateBrandSchema } from '@/validators/brand/brandSchema';
+import { UpdateBrandSchema } from '@/validators/brandSchemas';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const PUT = async (req: NextRequest, { params }: { params: { brandId: string } }) => {

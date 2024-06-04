@@ -2,7 +2,7 @@ import { ConnectDB } from '@/config/connectDB';
 import { validate } from '@/helpers/validateData';
 import { validateToken } from '@/helpers/validateToken';
 import Brand from '@/models/brand.model';
-import { CreateBrandSchema } from '@/validators/brand/brandSchema';
+import { CreateBrandSchema } from '@/validators/brandSchemas';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const POST = async (req: NextRequest) => {
