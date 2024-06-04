@@ -1,4 +1,4 @@
-import { resend } from '@/lib/resend';
+import { resend } from '@/utils/resend';
 import ResetPasswordEmail from '@/emails/ResetPasswordEmail';
 
 export const sendEmail = async (email: string, username: string, token: string) => {

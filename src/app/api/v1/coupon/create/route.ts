@@ -11,9 +11,7 @@ export const POST = async (req: NextRequest) => {
     try {
         const body = await req.json();
         const { isAdmin } = await validateToken(req);
-        if (!isAdmin) {
-            return NextResponse.json({ message: 'You are not Admin', success: false }, { status: 400 });
-        }
+        if (!isAdmin) return NextResponse.json({ message: 'You are not Admin', success: false }, { status: 400 });
         await validate(body, CreateCouponSchema);
 
         const coupon = await Coupon.create(body);
