@@ -3,12 +3,12 @@ import { validateToken } from '@/helpers/validateToken';
 import User from '@/models/user.model';
 import { NextRequest, NextResponse } from 'next/server';
 
-export const PUT = async (req: NextRequest, { params }: { params: { productId: string } }) => {
+export const PUT = async (req: NextRequest, { params }: { params: { id: string } }) => {
     await ConnectDB();
 
     try {
         const { user, userId } = await validateToken(req);
-        const { productId } = params;
+        const { id: productId } = params;
 
         const isProductAlreadyAddedToWishlist = user.wishlist.find((id) => id.toString() === productId.toString());
         let updatedUser;

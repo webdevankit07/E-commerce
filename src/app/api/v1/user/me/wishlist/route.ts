@@ -8,7 +8,7 @@ export const GET = async (req: NextRequest) => {
 
     try {
         const { userId } = await validateToken(req);
-        const me = await User.findById(userId).select('-password -__V');
+        const me = await User.findById(userId).populate('wishlist').select('wishlist');
 
         return NextResponse.json(me, { status: 200 });
     } catch (error: any) {
