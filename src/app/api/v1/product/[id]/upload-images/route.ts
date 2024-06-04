@@ -22,7 +22,7 @@ export const PUT = async (req: NextRequest, { params }: { params: { id: string }
             return NextResponse.json({ message: 'Product not found', success: false }, { status: 400 });
         }
 
-        const imageUrls = await uploadImages(images, 'images');
+        const imageUrls = await uploadImages(images, 'images/products');
 
         const updatedProduct = await Product.findByIdAndUpdate(
             productId,

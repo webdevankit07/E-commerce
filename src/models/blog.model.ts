@@ -1,4 +1,5 @@
 import { Schema, model, Model, models, Document, ObjectId } from 'mongoose';
+import { ImageType } from './product.model';
 
 interface BlogSchemaType extends Document {
     title: string;
@@ -10,7 +11,7 @@ interface BlogSchemaType extends Document {
     likes: ObjectId[];
     dislikes: ObjectId[];
     author: string;
-    images: [];
+    images: ImageType[];
 }
 
 const BlogSchema: Schema<BlogSchemaType> = new Schema(
@@ -24,7 +25,7 @@ const BlogSchema: Schema<BlogSchemaType> = new Schema(
         likes: [{ type: Schema.Types.ObjectId, ref: 'User' }],
         dislikes: [{ type: Schema.Types.ObjectId, ref: 'User' }],
         author: { type: String, default: 'Admin' },
-        images: [{ type: String, default: 'https://www.michelemmartin.com/.a/6a00d83451fd2469e2017c31cb5a04970b-pi' }],
+        images: [{ public_id: String, url: String, optimizeUrl: String }],
     },
     { toJSON: { virtuals: true }, toObject: { virtuals: true }, timestamps: true }
 );
