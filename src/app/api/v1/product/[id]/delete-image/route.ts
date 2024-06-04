@@ -25,8 +25,11 @@ export const DELETE = async (req: NextRequest, { params }: { params: { id: strin
         }
 
         await deleteFromCloudinary(imgId);
-        const images = product.images.filter((image) => image.public_id !== imgId);
-        const updatedProduct = await Product.findByIdAndUpdate(productId, { images }, { new: true });
+        const updatedProduct = await Product.findByIdAndUpdate(
+            productId,
+            { $pull: { images: { public_id: imgId } } },
+            { new: true }
+        );
 
         return NextResponse.json({ product: updatedProduct, message: 'success', success: false }, { status: 200 });
     } catch (error: any) {

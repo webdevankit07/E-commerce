@@ -3,6 +3,14 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 
+type AddressType = {
+    city: string;
+    state: string;
+    country: string;
+    postalCode: string;
+    _id: ObjectId;
+};
+
 export interface UserSchemaType extends Document {
     firstname: string;
     lastname: string;
@@ -13,7 +21,7 @@ export interface UserSchemaType extends Document {
     role: string;
     isBlocked: boolean;
     cart: unknown[];
-    address: ObjectId[];
+    address: AddressType[];
     wishlist: ObjectId[];
     refreshToken: string;
     passwordChangedAt: Date;
@@ -36,7 +44,7 @@ const UserSchema: Schema<UserSchemaType> = new Schema(
         role: { type: String, required: true, default: 'user' },
         isBlocked: { type: Boolean, default: false },
         cart: { type: Array, default: [] },
-        address: [{ type: Schema.Types.ObjectId, ref: 'Address' }],
+        address: [{ city: String, state: String, country: String, postalCode: String }],
         wishlist: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
         refreshToken: { type: String },
         passwordChangedAt: Date,
