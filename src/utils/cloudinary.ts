@@ -16,7 +16,7 @@ export const uploadOnCloudinary = async (file: File, folder: string) => {
             .upload_stream(
                 {
                     resource_type: 'auto',
-                    folder: folder,
+                    folder: `e-commerce/${folder}`,
                 },
                 (err: any, result) => {
                     if (err) {
@@ -33,7 +33,6 @@ export const uploadOnCloudinary = async (file: File, folder: string) => {
                         resolve({
                             public_id: result.public_id,
                             url: result.url,
-                            secure_url: result.secure_url,
                             optimizeUrl,
                         });
                     }
