@@ -14,6 +14,9 @@ export const DELETE = async (req: NextRequest, { params }: { params: { id: strin
         }
 
         const coupon = await Coupon.findByIdAndDelete(id);
+        if (!coupon) {
+            return NextResponse.json({ message: 'Coupon not found', success: false }, { status: 400 });
+        }
 
         return NextResponse.json({ coupon, message: 'success', success: true }, { status: 200 });
     } catch (error: any) {
