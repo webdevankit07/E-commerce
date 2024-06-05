@@ -10,7 +10,7 @@ export const DELETE = async (req: NextRequest, { params }: { params: { id: strin
         const { id: cartProductId } = params;
         const { userId } = await validateToken(req);
 
-        const cart = await Cart.findOne({ orderby: userId });
+        const cart = await Cart.findOne({ user: userId });
         if (!cart) {
             return NextResponse.json({ message: 'Cart not found', success: false }, { status: 400 });
         }
@@ -22,7 +22,7 @@ export const DELETE = async (req: NextRequest, { params }: { params: { id: strin
         const totalCartProducts = updatedCartProducts.reduce((sum, product) => sum + product.count, 0);
 
         const updatedCart = await Cart.findOneAndUpdate(
-            { orderby: userId },
+            { user: userId },
             { products: updatedCartProducts, cartTotal, totalCartProducts },
             { new: true }
         )

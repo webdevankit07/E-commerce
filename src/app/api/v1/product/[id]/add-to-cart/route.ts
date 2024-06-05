@@ -23,15 +23,16 @@ export const POST = async (req: NextRequest, { params }: { params: { id: string 
 
         const newProduct = { product: productId, count: body.count, color: body.color, price: currProduct.price };
 
-        const cartAlreadyExist = await Cart.findOne({ orderby: userId });
+        const cartAlreadyExist = await Cart.findOne({ user: userId });
         if (!cartAlreadyExist) {
             const cartTotal = currProduct.price * body.count;
             const totalCartProducts = newProduct.count;
+
             const newCart = await Cart.create({
                 products: [newProduct],
                 cartTotal,
                 totalCartProducts,
-                orderby: userId,
+                user: userId,
             });
 
             const updatedUser = await User.findByIdAndUpdate(userId, { cart: newCart._id }, { new: true })
@@ -68,8 +69,6 @@ export const POST = async (req: NextRequest, { params }: { params: { id: string 
                 .map((product) => product.count * product.price)
                 .reduce((acc, price) => acc + price, 0);
             const totalCartProducts = allProducts.reduce((sum, product) => sum + product.count, 0);
-
-            console.log(cartTotal);
 
             await Cart.findByIdAndUpdate(
                 cartAlreadyExist._id,

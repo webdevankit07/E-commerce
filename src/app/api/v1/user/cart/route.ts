@@ -11,7 +11,7 @@ export const GET = async (req: NextRequest) => {
         const { userId } = await validateToken(req);
 
         await Product.countDocuments();
-        const cart = await Cart.findOne({ orderby: userId })
+        const cart = await Cart.findOne({ user: userId })
             .populate('products.product', '_id title price images')
             .select('-__v -createdAt -updatedAt');
         if (!cart) {

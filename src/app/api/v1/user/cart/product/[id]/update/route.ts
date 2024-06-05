@@ -15,7 +15,7 @@ export const PUT = async (req: NextRequest, { params }: { params: { id: string }
         const { userId } = await validateToken(req);
         await validate(body, updateCartProductValidator);
 
-        const cart = await Cart.findOne({ orderby: userId });
+        const cart = await Cart.findOne({ user: userId });
         if (!cart) {
             return NextResponse.json({ message: 'Cart not found', success: false }, { status: 400 });
         }
@@ -38,7 +38,7 @@ export const PUT = async (req: NextRequest, { params }: { params: { id: string }
         const totalCartProducts = updatedCartProducts.reduce((sum, product) => sum + product.count, 0);
 
         const updatedCart = await Cart.findOneAndUpdate(
-            { orderby: userId },
+            { user: userId },
             { products: updatedCartProducts, cartTotal, totalCartProducts },
             { new: true }
         )

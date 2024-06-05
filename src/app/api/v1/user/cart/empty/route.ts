@@ -9,13 +9,13 @@ export const DELETE = async (req: NextRequest) => {
     try {
         const { userId } = await validateToken(req);
 
-        const cart = await Cart.findOne({ orderby: userId });
+        const cart = await Cart.findOne({ user: userId });
         if (!cart) {
             return NextResponse.json({ message: 'Cart not found', success: false }, { status: 400 });
         }
 
         const updatedCart = await Cart.findOneAndUpdate(
-            { orderby: userId },
+            { user: userId },
             { products: [], cartTotal: 0, totalCartProducts: 0 },
             { new: true }
         ).select('-__v -createdAt -updatedAt');

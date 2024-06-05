@@ -6,7 +6,7 @@ interface CartSchemaType extends Document {
     cartTotal: number;
     totalCartProducts: number;
     totalAfterDiscount: number;
-    orderby: ObjectId;
+    user: ObjectId;
 }
 
 const CartSchema: Schema<CartSchemaType> = new Schema(
@@ -17,7 +17,7 @@ const CartSchema: Schema<CartSchemaType> = new Schema(
         cartTotal: Number,
         totalCartProducts: Number,
         totalAfterDiscount: Number,
-        orderby: { type: Schema.Types.ObjectId, ref: 'User' },
+        user: { type: Schema.Types.ObjectId, ref: 'User' },
     },
     { timestamps: true }
 );
