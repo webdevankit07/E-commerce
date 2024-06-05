@@ -1,17 +1,7 @@
 import { Schema, model, Document, ObjectId, models, Model } from 'mongoose';
 
-export type ImageType = {
-    public_id: string;
-    url: string;
-    optimizeUrl: string;
-};
-
-type RatingType = {
-    star: number;
-    comment: string;
-    postedby: ObjectId;
-};
-
+export type ImageType = { public_id: string; url: string; optimizeUrl: string };
+type RatingType = { star: number; comment: string; postedby: ObjectId };
 type ColourType = 'Black' | 'Brown' | 'Red' | 'White';
 
 export interface ProductSchemaType extends Document {

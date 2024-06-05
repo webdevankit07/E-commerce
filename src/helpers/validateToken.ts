@@ -1,6 +1,7 @@
 import { NextRequest } from 'next/server';
 import jwt from 'jsonwebtoken';
 import User from '@/models/user.model';
+import { ObjectId } from 'mongoose';
 
 export const validateToken = async (req: NextRequest) => {
     try {
@@ -15,7 +16,7 @@ export const validateToken = async (req: NextRequest) => {
         const user = await User.findById(decodedAccessTokenData._id);
         if (!user) throw new Error('unauthorized request');
 
-        const userId = user._id;
+        const userId = user._id as ObjectId | string;
         const isAdmin = user.role === 'admin';
 
         return { user, userId, isAdmin, refreshToken };

@@ -20,7 +20,7 @@ export interface UserSchemaType extends Document {
     password: string;
     role: string;
     isBlocked: boolean;
-    cart: unknown[];
+    cart: ObjectId;
     address: AddressType[];
     wishlist: ObjectId[];
     refreshToken: string;
@@ -43,7 +43,7 @@ const UserSchema: Schema<UserSchemaType> = new Schema(
         password: { type: String, required: true },
         role: { type: String, required: true, default: 'user' },
         isBlocked: { type: Boolean, default: false },
-        cart: { type: Array, default: [] },
+        cart: { type: Schema.Types.ObjectId, ref: 'Cart' },
         address: [{ city: String, state: String, country: String, postalCode: String }],
         wishlist: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
         refreshToken: { type: String },
