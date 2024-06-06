@@ -2,7 +2,7 @@ import { ConnectDB } from '@/config/connectDB';
 import { validate } from '@/helpers/validateData';
 import { validateToken } from '@/helpers/validateToken';
 import Color from '@/models/color.model';
-import { UpdateColorSchema } from '@/validators/colorSchema.validator';
+import { UpdateColorValidator } from '@/validators/colorSchema.validator';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const PUT = async (req: NextRequest, { params }: { params: { id: string } }) => {
@@ -17,7 +17,7 @@ export const PUT = async (req: NextRequest, { params }: { params: { id: string }
             return NextResponse.json({ message: 'You are not admin', success: false }, { status: 400 });
         }
 
-        await validate(body, UpdateColorSchema);
+        await validate(body, UpdateColorValidator);
         console.log(colorId);
 
         const color = await Color.findById(colorId);

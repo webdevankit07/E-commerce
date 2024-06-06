@@ -2,7 +2,7 @@ import { ConnectDB } from '@/config/connectDB';
 import { validate } from '@/helpers/validateData';
 import { validateToken } from '@/helpers/validateToken';
 import Blog from '@/models/blog.model';
-import { CreateBlogSchema } from '@/validators/blog/createBlogSchema';
+import { CreateBlogValidator } from '@/validators/blogSchema.validators';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const POST = async (req: NextRequest) => {
@@ -14,7 +14,7 @@ export const POST = async (req: NextRequest) => {
         if (!isAdmin)
             return NextResponse.json({ message: 'Only admin can create the blog', success: false }, { status: 400 });
 
-        await validate(body, CreateBlogSchema);
+        await validate(body, CreateBlogValidator);
 
         const blog = await Blog.create(body);
 

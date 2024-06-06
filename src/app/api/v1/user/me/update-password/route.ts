@@ -1,7 +1,7 @@
 import { ConnectDB } from '@/config/connectDB';
 import { validate } from '@/helpers/validateData';
 import { validateToken } from '@/helpers/validateToken';
-import { updatePasswordSchema } from '@/validators/user/updatePassword.validater';
+import { updatePasswordValidator } from '@/validators/user/passwordSchemas.validators';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const PUT = async (req: NextRequest) => {
@@ -10,7 +10,7 @@ export const PUT = async (req: NextRequest) => {
     try {
         const body = await req.json();
         const { user } = await validateToken(req);
-        await validate(body, updatePasswordSchema);
+        await validate(body, updatePasswordValidator);
         const { oldPassword, newPassword } = body;
 
         const isPasswordCorrect = await user.isPasswordCorrect(oldPassword);

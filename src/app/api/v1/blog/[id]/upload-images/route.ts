@@ -11,6 +11,9 @@ export const PUT = async (req: NextRequest, { params }: { params: { id: string }
         const { id: blogId } = params;
         const formData = await req.formData();
         const images = formData.getAll('images') as unknown as File[];
+        if (!images) {
+            return NextResponse.json({ message: 'images required', success: false }, { status: 400 });
+        }
 
         const { isAdmin } = await validateToken(req);
         if (!isAdmin) {

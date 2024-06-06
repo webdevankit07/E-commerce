@@ -2,7 +2,7 @@ import { ConnectDB } from '@/config/connectDB';
 import { validate } from '@/helpers/validateData';
 import { validateToken } from '@/helpers/validateToken';
 import User from '@/models/user.model';
-import { SaveAddressSchema } from '@/validators/user/addressSchemas';
+import { SaveAddressValidator } from '@/validators/user/addressSchemas.validators';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const POST = async (req: NextRequest) => {
@@ -11,7 +11,7 @@ export const POST = async (req: NextRequest) => {
     try {
         const body = await req.json();
         const { userId } = await validateToken(req);
-        await validate(body, SaveAddressSchema);
+        await validate(body, SaveAddressValidator);
 
         const user = await User.findByIdAndUpdate(userId, { $push: { address: body } }, { new: true });
 

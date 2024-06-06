@@ -4,7 +4,7 @@ import { validateToken } from '@/helpers/validateToken';
 import Cart from '@/models/cart.model';
 import Product from '@/models/product.model';
 import User from '@/models/user.model';
-import { AddToCartValidator, CartProduct } from '@/validators/cartSchema.validatrors';
+import { AddToCartValidator } from '@/validators/cartSchema.validators';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const POST = async (req: NextRequest, { params }: { params: { id: string } }) => {

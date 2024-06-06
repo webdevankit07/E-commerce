@@ -1,7 +1,7 @@
 import { ConnectDB } from '@/config/connectDB';
 import { validate } from '@/helpers/validateData';
 import User from '@/models/user.model';
-import { resetPasswordSchema } from '@/validators/user/updatePassword.validater';
+import { resetPasswordvalidator } from '@/validators/user/passwordSchemas.validators';
 import { NextRequest, NextResponse } from 'next/server';
 import crypto from 'crypto';
 
@@ -12,7 +12,7 @@ export const PUT = async (req: NextRequest, { params }: { params: { token: strin
         const body = await req.json();
         const { newPassword } = body;
         const { token } = params;
-        await validate(body, resetPasswordSchema);
+        await validate(body, resetPasswordvalidator);
 
         const passwordResetToken = crypto.createHash('sha256').update(token).digest('hex');
         const user = await User.findOne({ passwordResetToken, passwordResetExpires: { $gt: Date.now() } });

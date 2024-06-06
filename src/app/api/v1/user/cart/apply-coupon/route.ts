@@ -3,7 +3,6 @@ import { validateToken } from '@/helpers/validateToken';
 import Cart from '@/models/cart.model';
 import { NextRequest, NextResponse } from 'next/server';
 import Coupon from '@/models/coupon.model';
-import moment from 'moment';
 
 export const POST = async (req: NextRequest) => {
     await ConnectDB();

@@ -2,7 +2,7 @@ import { ConnectDB } from '@/config/connectDB';
 import { validate } from '@/helpers/validateData';
 import { validateToken } from '@/helpers/validateToken';
 import Brand from '@/models/brand.model';
-import { CreateBrandSchema } from '@/validators/brandSchemas';
+import { CreateBrandValidator } from '@/validators/brandSchema.validators';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const POST = async (req: NextRequest) => {
@@ -16,7 +16,7 @@ export const POST = async (req: NextRequest) => {
             return NextResponse.json({ message: 'You are not admin', success: false }, { status: 400 });
         }
 
-        await validate(body, CreateBrandSchema);
+        await validate(body, CreateBrandValidator);
 
         const brand = await Brand.findOne({ name: body.name });
         if (brand) {

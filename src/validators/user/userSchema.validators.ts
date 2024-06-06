@@ -30,4 +30,11 @@ export const password = z
     .min(8, 'password must be at least 8 characters')
     .max(100, 'password must be at most 100 characters');
 
-export const registerUserSchema = z.object({ firstname, lastname, username, email, mobile, password });
+export const registerUserValidator = z.object({ firstname, lastname, username, email, mobile, password });
+export const updateUserValidator = z.object({
+    firstname: z.optional(firstname),
+    lastname: z.optional(lastname),
+    username: z.optional(username),
+    email: z.optional(email),
+    mobile: z.optional(mobile),
+});

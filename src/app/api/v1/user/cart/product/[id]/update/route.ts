@@ -4,7 +4,7 @@ import Cart from '@/models/cart.model';
 import { NextRequest, NextResponse } from 'next/server';
 import Product from '@/models/product.model';
 import { validate } from '@/helpers/validateData';
-import { updateCartProductValidator } from '@/validators/cartSchema.validatrors';
+import { updateCartProductValidator } from '@/validators/cartSchema.validators';
 
 export const PUT = async (req: NextRequest, { params }: { params: { id: string } }) => {
     await ConnectDB();

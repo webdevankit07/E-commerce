@@ -2,7 +2,7 @@ import { ConnectDB } from '@/config/connectDB';
 import { validate } from '@/helpers/validateData';
 import { validateToken } from '@/helpers/validateToken';
 import Coupon from '@/models/coupon.model';
-import { CreateCouponSchema } from '@/validators/couponSchemas';
+import { CreateCouponValidator } from '@/validators/couponSchema.validators';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const POST = async (req: NextRequest) => {
@@ -12,7 +12,7 @@ export const POST = async (req: NextRequest) => {
         const body = await req.json();
         const { isAdmin } = await validateToken(req);
         if (!isAdmin) return NextResponse.json({ message: 'You are not Admin', success: false }, { status: 400 });
-        await validate(body, CreateCouponSchema);
+        await validate(body, CreateCouponValidator);
 
         const couponExist = await Coupon.findOne({ name: body.name });
         if (couponExist) {

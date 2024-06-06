@@ -2,7 +2,7 @@ import { ConnectDB } from '@/config/connectDB';
 import { validate } from '@/helpers/validateData';
 import { validateToken } from '@/helpers/validateToken';
 import Color from '@/models/color.model';
-import { CreateColorSchema } from '@/validators/colorSchema.validator';
+import { CreateColorValidator } from '@/validators/colorSchema.validator';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const POST = async (req: NextRequest) => {
@@ -16,7 +16,7 @@ export const POST = async (req: NextRequest) => {
             return NextResponse.json({ message: 'You are not admin', success: false }, { status: 400 });
         }
 
-        await validate(body, CreateColorSchema);
+        await validate(body, CreateColorValidator);
 
         const color = await Color.findOne({ name: body.name });
         if (color) {

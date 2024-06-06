@@ -2,7 +2,7 @@ import { ConnectDB } from '@/config/connectDB';
 import { validate } from '@/helpers/validateData';
 import { validateToken } from '@/helpers/validateToken';
 import Blog from '@/models/blog.model';
-import { UpdateBlogSchema } from '@/validators/blog/updateBlogSchema';
+import { updateBlogValidator } from '@/validators/blogSchema.validators';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const PUT = async (req: NextRequest, { params }: { params: { id: string } }) => {
@@ -14,7 +14,7 @@ export const PUT = async (req: NextRequest, { params }: { params: { id: string }
         const { isAdmin } = await validateToken(req);
         if (!isAdmin)
             return NextResponse.json({ message: 'Only admin can update the blog', success: false }, { status: 400 });
-        await validate(body, UpdateBlogSchema);
+        await validate(body, updateBlogValidator);
 
         const updatedBlog = await Blog.findByIdAndUpdate(id, body, { new: true });
 

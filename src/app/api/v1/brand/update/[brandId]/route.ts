@@ -2,7 +2,7 @@ import { ConnectDB } from '@/config/connectDB';
 import { validate } from '@/helpers/validateData';
 import { validateToken } from '@/helpers/validateToken';
 import Brand from '@/models/brand.model';
-import { UpdateBrandSchema } from '@/validators/brandSchemas';
+import { UpdateBrandValidator } from '@/validators/brandSchema.validators';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const PUT = async (req: NextRequest, { params }: { params: { brandId: string } }) => {
@@ -17,7 +17,7 @@ export const PUT = async (req: NextRequest, { params }: { params: { brandId: str
             return NextResponse.json({ message: 'You are not admin', success: false }, { status: 400 });
         }
 
-        await validate(body, UpdateBrandSchema);
+        await validate(body, UpdateBrandValidator);
 
         const brand = await Brand.findById(brandId);
         if (!brand) {

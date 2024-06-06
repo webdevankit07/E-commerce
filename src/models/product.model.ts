@@ -14,7 +14,7 @@ export interface ProductSchemaType extends Document {
     quantity: number;
     sold: number;
     images: ImageType[];
-    color: ColourType[];
+    colors: ColourType[];
     tags: string;
     ratings: RatingType[];
     totalRating: number;
@@ -31,7 +31,7 @@ const ProductSchema: Schema<ProductSchemaType> = new Schema(
         quantity: { type: Number, required: true },
         sold: { type: Number, default: 0 },
         images: [{ public_id: String, url: String, optimizeUrl: String }],
-        color: [{ type: String, enum: ['Black', 'Brown', 'Red', 'White'] }],
+        colors: [{ type: String, enum: ['Black', 'Brown', 'Red', 'White'] }],
         tags: String,
         ratings: [{ star: Number, comment: String, postedby: { type: Schema.Types.ObjectId, ref: 'User' } }],
         totalRating: { type: Number, default: 0 },

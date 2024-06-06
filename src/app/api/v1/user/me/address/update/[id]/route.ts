@@ -2,7 +2,7 @@ import { ConnectDB } from '@/config/connectDB';
 import { validate } from '@/helpers/validateData';
 import { validateToken } from '@/helpers/validateToken';
 import User from '@/models/user.model';
-import { UpdateAddressSchema } from '@/validators/user/addressSchemas';
+import { UpdateAddressValidator } from '@/validators/user/addressSchemas.validators';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const PUT = async (req: NextRequest, { params }: { params: { id: string } }) => {
@@ -13,7 +13,7 @@ export const PUT = async (req: NextRequest, { params }: { params: { id: string }
         const { userId } = await validateToken(req);
         const body = await req.json();
         const { city, state, country, postalCode } = body;
-        await validate(body, UpdateAddressSchema);
+        await validate(body, UpdateAddressValidator);
 
         const user = await User.findById(userId);
         if (!user) {

@@ -3,7 +3,7 @@ import { validate } from '@/helpers/validateData';
 import { validateToken } from '@/helpers/validateToken';
 import Blog from '@/models/blog.model';
 import { deleteFromCloudinary } from '@/utils/cloudinary';
-import { DeleteImageSchema } from '@/validators/deleteImageSchema';
+import { DeleteImageValidator } from '@/validators/deleteImageSchema.validators';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const DELETE = async (req: NextRequest, { params }: { params: { id: string } }) => {
@@ -17,7 +17,7 @@ export const DELETE = async (req: NextRequest, { params }: { params: { id: strin
         if (!isAdmin) {
             return NextResponse.json({ message: 'You are not admin', success: false }, { status: 400 });
         }
-        await validate(body, DeleteImageSchema);
+        await validate(body, DeleteImageValidator);
 
         const product = await Blog.findById(blogId);
         if (!product) {

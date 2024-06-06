@@ -2,7 +2,7 @@ import { ConnectDB } from '@/config/connectDB';
 import { validate } from '@/helpers/validateData';
 import { validateToken } from '@/helpers/validateToken';
 import User from '@/models/user.model';
-import { updateUserSchema } from '@/validators/user/updateUser.validator';
+import { updateUserValidator } from '@/validators/user/userSchema.validators';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const PUT = async (req: NextRequest) => {
@@ -11,7 +11,7 @@ export const PUT = async (req: NextRequest) => {
     try {
         const body = await req.json();
         const { user } = await validateToken(req);
-        await validate(body, updateUserSchema);
+        await validate(body, updateUserValidator);
         const { firstname, lastname, username, email, mobile } = body;
 
         if (firstname) user.firstname = firstname;

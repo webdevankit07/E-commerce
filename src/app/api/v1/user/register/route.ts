@@ -2,7 +2,7 @@ import { ConnectDB } from '@/config/connectDB';
 import User from '@/models/user.model';
 import { NextRequest, NextResponse } from 'next/server';
 import { validate } from '@/helpers/validateData';
-import { registerUserSchema } from '@/validators/user/regiterUser.validator';
+import { registerUserValidator } from '@/validators/user/userSchema.validators';
 
 export const POST = async (request: NextRequest) => {
     await ConnectDB();
@@ -10,7 +10,7 @@ export const POST = async (request: NextRequest) => {
     try {
         const body = await request.json();
         const { firstname, lastname, username, email, mobile, password } = body;
-        await validate(body, registerUserSchema);
+        await validate(body, registerUserValidator);
 
         const userExistWithEmail = await User.findOne({ email });
         const userExistWithUsername = await User.findOne({ username });

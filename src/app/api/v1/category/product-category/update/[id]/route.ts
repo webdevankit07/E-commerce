@@ -2,7 +2,7 @@ import { ConnectDB } from '@/config/connectDB';
 import { validate } from '@/helpers/validateData';
 import { validateToken } from '@/helpers/validateToken';
 import ProductCategory from '@/models/productcategory.model';
-import { UpdateBlogCategorySchema } from '@/validators/categorySchemas';
+import { UpdateProductCategoryValidator } from '@/validators/categorySchema.validators';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const PUT = async (req: NextRequest, { params }: { params: { id: string } }) => {
@@ -16,7 +16,7 @@ export const PUT = async (req: NextRequest, { params }: { params: { id: string }
             return NextResponse.json({ message: 'You are not admin', success: false }, { status: 400 });
         }
 
-        await validate(body, UpdateBlogCategorySchema);
+        await validate(body, UpdateProductCategoryValidator);
 
         const category = await ProductCategory.findById(categoryID);
         if (!category) {

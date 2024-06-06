@@ -2,7 +2,7 @@ import { ConnectDB } from '@/config/connectDB';
 import { validate } from '@/helpers/validateData';
 import { validateToken } from '@/helpers/validateToken';
 import BlogCategory from '@/models/blogcategory.model';
-import { CreateBlogCategorySchema } from '@/validators/categorySchemas';
+import { CreateBlogCategoryValidator } from '@/validators/categorySchema.validators';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const POST = async (req: NextRequest) => {
@@ -15,7 +15,7 @@ export const POST = async (req: NextRequest) => {
             return NextResponse.json({ message: 'You are not admin', success: false }, { status: 400 });
         }
 
-        await validate(body, CreateBlogCategorySchema);
+        await validate(body, CreateBlogCategoryValidator);
         const category = await BlogCategory.findOne({ title: body.title });
         if (category) {
             return NextResponse.json({ message: 'Category already exists', success: false }, { status: 400 });

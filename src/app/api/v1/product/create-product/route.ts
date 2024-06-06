@@ -2,7 +2,7 @@ import { ConnectDB } from '@/config/connectDB';
 import { validate } from '@/helpers/validateData';
 import { validateToken } from '@/helpers/validateToken';
 import Product from '@/models/product.model';
-import { CreateProductSchema } from '@/validators/product/createProduct.validator';
+import { CreateProductValidator } from '@/validators/productSchema.vaidators';
 import { NextRequest, NextResponse } from 'next/server';
 import slugify from 'slugify';
 
@@ -13,7 +13,7 @@ export const POST = async (req: NextRequest) => {
         const body = await req.json();
         const { isAdmin } = await validateToken(req);
         if (!isAdmin) return NextResponse.json({ message: 'unauthorize access', success: false }, { status: 401 });
-        await validate(body, CreateProductSchema);
+        await validate(body, CreateProductValidator);
 
         const existProduct = await Product.findOne({ slug: body.slug });
         if (existProduct)
