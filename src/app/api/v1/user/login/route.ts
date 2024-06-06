@@ -15,8 +15,7 @@ export const POST = async (req: NextRequest) => {
             const accessToken = userExist.genaratetAccessToken();
             const refreshToken = userExist.genaratetRefreshToken();
 
-            userExist.refreshToken = refreshToken;
-            await userExist.save();
+            await User.findById(userExist._id, { refreshToken }, { new: true });
 
             const response = NextResponse.json(
                 { message: 'User logged in successfully', success: true },

@@ -1,13 +1,24 @@
 import { Document, model, Model, models, ObjectId, Schema } from 'mongoose';
 
+type StatusType = 'Not Processed' | 'Cash on Delivery' | 'Processing' | 'Dispatched' | 'Cancelled' | 'Delivered';
+
+interface PaymentIntentType {
+    id: string;
+    method: string;
+    amount: number;
+    status: StatusType;
+    created: Date;
+    currency: string;
+}
+
 interface OrderSchemaType extends Document {
     products: {
         product: ObjectId;
         count: number;
         color: string;
     }[];
-    paymentIntent: object;
-    orderStatus: 'Not Processed' | 'Cash on Delivery' | 'Processing' | 'Dispatched' | 'Cancelled' | 'Delivered';
+    paymentIntent: PaymentIntentType;
+    orderStatus: StatusType;
     orderby: ObjectId;
 }
 

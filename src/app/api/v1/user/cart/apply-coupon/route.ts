@@ -28,9 +28,9 @@ export const POST = async (req: NextRequest) => {
 
         const totalAfterDiscount = (cart.cartTotal - (cart.cartTotal * validCoupon.discount) / 100).toFixed(2);
 
-        // const updatedCart = await Cart.findOneAndUpdate({ user: userId }, { totalAfterDiscount }, { new: true });
+        const updatedCart = await Cart.findOneAndUpdate({ user: userId }, { totalAfterDiscount }, { new: true });
 
-        return NextResponse.json({ totalAfterDiscount, message: 'success', success: true }, { status: 200 });
+        return NextResponse.json({ updatedCart, message: 'success', success: true }, { status: 200 });
     } catch (error: any) {
         return NextResponse.json({ message: error.message, success: false }, { status: 500 });
     }
