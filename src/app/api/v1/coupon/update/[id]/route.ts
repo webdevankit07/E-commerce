@@ -22,7 +22,7 @@ export const PUT = async (req: NextRequest, { params }: { params: { id: string }
 
         return NextResponse.json({ coupon, message: 'success', success: true }, { status: 200 });
     } catch (error: any) {
-        console.log('Error while creating coupon', error.message);
+        console.log('Error while updating coupon', error.message);
         return NextResponse.json({ message: error.message, success: false }, { status: 500 });
     }
 };
