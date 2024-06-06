@@ -10,15 +10,15 @@ export const PUT = async (req: NextRequest, { params }: { params: { id: string }
 
     try {
         const body = await req.json();
+        const { name, expiry, discount } = body;
         const { id } = params;
         const { isAdmin } = await validateToken(req);
         if (!isAdmin) {
             return NextResponse.json({ message: 'You are not Admin', success: false }, { status: 400 });
         }
-
         await validate(body, UpdateCouponSchema);
 
-        const coupon = await Coupon.findByIdAndUpdate(id, body, { new: true });
+        const coupon = await Coupon.findByIdAndUpdate(id, { name, discount, expiry: new Date(expiry) }, { new: true });
 
         return NextResponse.json({ coupon, message: 'success', success: true }, { status: 200 });
     } catch (error: any) {
