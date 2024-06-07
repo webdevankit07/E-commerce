@@ -2,7 +2,7 @@ import { ConnectDB } from '@/config/connectDB';
 import { validate } from '@/helpers/validateData';
 import { validateToken } from '@/helpers/validateToken';
 import Blog from '@/models/blog.model';
-import { deleteFromCloudinary } from '@/utils/cloudinary';
+import { deleteFromCloudinary } from '@/services/cloudinary/cloudinary';
 import { DeleteImageValidator } from '@/validators/deleteImageSchema.validators';
 import { NextRequest, NextResponse } from 'next/server';
 

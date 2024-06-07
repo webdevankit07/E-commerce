@@ -1,5 +1,5 @@
 import { ImageType } from '@/models/product.model';
-import { uploadOnCloudinary } from '@/utils/cloudinary';
+import { uploadOnCloudinary } from '@/services/cloudinary/cloudinary';
 
 export const uploadImages = async (images: File[], folder: string) => {
     const imagesUploading = images.map(async (file) => {

@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { dataBaseURL } from '.';
 
 type ConnectionObject = {
     isConnected?: number;
@@ -10,7 +11,7 @@ export const ConnectDB = async () => {
     if (connection.isConnected) return console.log('Already connected to database');
 
     try {
-        const db = await mongoose.connect(process.env.DATABASE_URL as string);
+        const db = await mongoose.connect(dataBaseURL!);
 
         connection.isConnected = db.connections[0].readyState;
         console.log('DB Connected successfully');

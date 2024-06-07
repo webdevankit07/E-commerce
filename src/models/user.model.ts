@@ -2,6 +2,7 @@ import { model, Model, models, Schema, Document, ObjectId } from 'mongoose';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
+import { accessTokenSecret, refreshTokenSecret } from '@/config';
 
 type AddressType = {
     city: string;
@@ -66,14 +67,12 @@ UserSchema.methods.isPasswordCorrect = function (password: string) {
 
 UserSchema.methods.genaratetAccessToken = function () {
     const cookieData = { _id: this._id, email: this.email, username: this.username };
-    const secretKey = process.env.ACCESS_TOKEN_SECRET as string;
-    return jwt.sign(cookieData, secretKey, { expiresIn: '1d' });
+    return jwt.sign(cookieData, accessTokenSecret!, { expiresIn: '1d' });
 };
 
 UserSchema.methods.genaratetRefreshToken = function () {
     const cookieData = { _id: this._id, email: this.email, username: this.username };
-    const secretKey = process.env.REFRESH_TOKEN_SECRET as string;
-    return jwt.sign(cookieData, secretKey, { expiresIn: '10d' });
+    return jwt.sign(cookieData, refreshTokenSecret!, { expiresIn: '10d' });
 };
 
 UserSchema.methods.genaratetPasswordResetToken = async function () {
