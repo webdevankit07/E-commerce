@@ -1,5 +1,5 @@
-import { apiBaseUrl } from '@/config';
 import axios from 'axios';
+import { apiBaseUrl } from '.';
 
 export type ValidationError = {
     message: string;
