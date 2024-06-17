@@ -51,16 +51,16 @@ const HeaderBottom = () => {
                             />
                         </div>
                         <div
-                            className={`absolute px-2 py-2 z-[999999]  rounded-sm text-slate-600 bg-dark-1 drop-shadow-xl left-10 top-10 transition duration-200 ease-in-out ${
+                            className={`absolute px-2 py-2 z-[999999]  rounded-sm text-slate-600 bg-dark-1 drop-shadow-xl left-4 top-10 transition duration-200 ease-in-out ${
                                 open ? 'scale-1 opacity-100' : 'scale-0 opacity-0'
                             }`}
                             ref={dropdownMenu}
                         >
                             <ul>
-                                <ListItem name='ankit' setOpen={setOpen} url='/' />
-                                <ListItem name='ankit' setOpen={setOpen} url='/' />
-                                <ListItem name='ankit' setOpen={setOpen} url='/' />
-                                <ListItem name='ankit' setOpen={setOpen} url='/' />
+                                <ListItem name='ALL' setOpen={setOpen} url='/' />
+                                <ListItem name='SmartPhones' setOpen={setOpen} url='/' />
+                                <ListItem name='Clothes' setOpen={setOpen} url='/' />
+                                <ListItem name='Grocery' setOpen={setOpen} url='/' />
                             </ul>
                         </div>
                     </div>

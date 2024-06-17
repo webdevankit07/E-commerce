@@ -1,12 +1,12 @@
 import Header from '@/components/Header/Header';
-import Footer from '@/components/shared/Footer';
+import Footer from '@/components/Footer/Footer';
 import { ReactNode } from 'react';
 
 const RootLayout = ({ children }: { children: ReactNode }) => {
     return (
-        <main>
+        <main className='flex flex-col min-h-screen'>
             <Header />
-            {children}
+            <div className='flex-1'>{children}</div>
             <Footer />
         </main>
     );
