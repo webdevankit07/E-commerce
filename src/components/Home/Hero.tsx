@@ -29,22 +29,22 @@ const Hero = () => {
                     className='rounded-md h-[350px]'
                 >
                     <SwiperSlide>
-                        <Image src={'/images/banner (4).jpg'} layout='fill' alt='main-banner' objectFit='conatin' />
+                        <Image src={'/images/banner (4).jpg'} fill priority alt='main-banner' />
                     </SwiperSlide>
                     <SwiperSlide>
-                        <Image src={'/images/banner (5).jpg'} layout='fill' alt='main-banner' objectFit='conatin' />
+                        <Image src={'/images/banner (5).jpg'} fill alt='main-banner' />
                     </SwiperSlide>
                     <SwiperSlide>
-                        <Image src={'/images/banner (2).jpg'} layout='fill' alt='main-banner' objectFit='conatin' />
+                        <Image src={'/images/banner (2).jpg'} fill alt='main-banner' />
                     </SwiperSlide>
                     <SwiperSlide>
-                        <Image src={'/images/banner (3).jpg'} layout='fill' alt='main-banner' objectFit='conatin' />
+                        <Image src={'/images/banner (3).jpg'} fill alt='main-banner' />
                     </SwiperSlide>
                     <SwiperSlide>
-                        <Image src={'/images/banner (1).jpg'} layout='fill' alt='main-banner' objectFit='conatin' />
+                        <Image src={'/images/banner (1).jpg'} fill alt='main-banner' />
                     </SwiperSlide>
                     <SwiperSlide>
-                        <Image src={'/images/banner (1).png'} layout='fill' alt='main-banner' objectFit='conatin' />
+                        <Image src={'/images/banner (1).png'} fill alt='main-banner' />
                     </SwiperSlide>
                 </Swiper>
             </Container>

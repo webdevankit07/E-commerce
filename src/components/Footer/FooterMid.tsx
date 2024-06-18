@@ -62,18 +62,22 @@ const FooterMid = () => {
                                 Download our App and get extra 15% Discount on your first order..!
                             </p>
                             <div className='flex gap-2'>
-                                <Image
-                                    src={'/PlayStore logo.png'}
-                                    alt='playstore-logo'
-                                    width={112}
-                                    height={32}
-                                    className='cursor-pointer'
-                                />
+                                <div>
+                                    <Image
+                                        src={'/PlayStore logo.png'}
+                                        alt='playstore-logo'
+                                        width={112}
+                                        height={32}
+                                        style={{ width: 'auto', height: 'auto' }}
+                                        className='cursor-pointer'
+                                    />
+                                </div>
                                 <Image
                                     src={'/AppStore logo.png'}
                                     alt='playstore-logo'
                                     width={112}
                                     height={32}
+                                    style={{ width: 'auto', height: 'auto' }}
                                     className='cursor-pointer'
                                 />
                             </div>
