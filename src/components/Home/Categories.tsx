@@ -6,7 +6,7 @@ const Categories = () => {
     return (
         <section className='bg-slate-200 pb-10 pt-5'>
             <Container>
-                <div className='grid grid-cols-5 gap-x-16 gap-y-5 bg-white py-5 px-10 rounded-sm'>
+                <div className='grid grid-cols-5 gap-x-12 gap-y-5 bg-white py-5 px-8 rounded-sm'>
                     <CategoriesCard title='Computers & Laptop' details='10 Items' imgUrl='laptop.webp' location='/' />
                     <CategoriesCard title='Cameras & videos' details='10 Items' imgUrl='camera.webp' location='/' />
                     <CategoriesCard title='Smart Television' details='10 Items' imgUrl='tv.jpg' location='/' />

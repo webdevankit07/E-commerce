@@ -12,7 +12,7 @@ import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 
 const Hero = () => {
     return (
-        <div className='py-5'>
+        <section className='py-5'>
             <Container>
                 <Swiper
                     pagination={{
@@ -48,7 +48,7 @@ const Hero = () => {
                     </SwiperSlide>
                 </Swiper>
             </Container>
-        </div>
+        </section>
     );
 };
 
