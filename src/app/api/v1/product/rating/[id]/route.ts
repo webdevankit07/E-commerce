@@ -2,7 +2,7 @@ import { ConnectDB } from '@/config/connectDB';
 import { validate } from '@/helpers/validateData';
 import { validateToken } from '@/helpers/validateToken';
 import Product from '@/models/product.model';
-import { RatingSchema } from '@/validators/ratingSchema';
+import { RatingValidator } from '@/validators/ratingSchema.validators';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const PUT = async (req: NextRequest, { params }: { params: { id: string } }) => {
@@ -13,7 +13,7 @@ export const PUT = async (req: NextRequest, { params }: { params: { id: string }
         const { star, comment } = body;
         const { id } = params;
         const { userId } = await validateToken(req);
-        await validate(body, RatingSchema);
+        await validate(body, RatingValidator);
 
         const product = await Product.findById(id);
         if (!product) {
