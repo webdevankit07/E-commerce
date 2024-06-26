@@ -9,6 +9,7 @@ import {
 interface BreadCrumbProps {
     name: string;
     location: string;
+    lastElement?: boolean;
 }
 
 const BreadCrumb = ({ BreadCrumbs }: { BreadCrumbs: BreadCrumbProps[] }) => {
@@ -23,7 +24,9 @@ const BreadCrumb = ({ BreadCrumbs }: { BreadCrumbs: BreadCrumbProps[] }) => {
                         <>
                             <BreadcrumbSeparator />
                             <BreadcrumbItem>
-                                <BreadcrumbLink href={breadcrumb.location}>{breadcrumb.name}</BreadcrumbLink>
+                                <BreadcrumbLink href={breadcrumb.lastElement ? '#' : breadcrumb.location}>
+                                    {breadcrumb.name}
+                                </BreadcrumbLink>
                             </BreadcrumbItem>
                         </>
                     );
