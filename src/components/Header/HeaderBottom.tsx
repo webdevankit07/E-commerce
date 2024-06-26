@@ -66,7 +66,7 @@ const HeaderBottom = () => {
                     </div>
                     <div className='space-x-3 border-l-2 pl-5 border-gray-500 *:py-2 *:px-3 *:uppercase *:text-sm *:tracking-[0.3]'>
                         <Link href={'/'}>Home</Link>
-                        <Link href={'/'}>Our Store</Link>
+                        <Link href={'/store'}>Our Store</Link>
                         <Link href={'/'}>Blogs</Link>
                         <Link href={'/contact'}>Contact</Link>
                     </div>
