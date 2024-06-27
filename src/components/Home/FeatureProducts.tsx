@@ -1,10 +1,9 @@
-import Image from 'next/image';
 import Container from '../shared/Container';
 import ProductCard from './ProductCard';
 
 const FeatureProducts = () => {
     return (
-        <section className='py-5 pb-10 bg-slate-200'>
+        <section className='py-5 pb-10 bg-slate-100'>
             <Container>
                 <h3 className='font-semibold mb-4 text-lg'>Featured Collection</h3>
                 <div className='grid gap-5 grid-cols-6'>

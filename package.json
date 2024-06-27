@@ -17,6 +17,7 @@
         "@reduxjs/toolkit": "^2.2.5",
         "@tanstack/react-query": "^5.40.1",
         "@types/bcrypt": "^5.0.2",
+        "@types/react-image-magnify": "^2.7.4",
         "@types/react-stars": "^2.2.4",
         "axios": "^1.7.2",
         "bcrypt": "^5.1.1",

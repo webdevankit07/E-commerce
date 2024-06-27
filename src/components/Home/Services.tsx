@@ -7,7 +7,7 @@ import { FaRegCreditCard } from 'react-icons/fa';
 
 const Services = () => {
     return (
-        <section className='bg-slate-200 pt-10 pb-5'>
+        <section className='bg-slate-100 pt-10 pb-5'>
             <Container>
                 <div className='flex justify-between items-center'>
                     <div className='flex gap-3 items-center'>
