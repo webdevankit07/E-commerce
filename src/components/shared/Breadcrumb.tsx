@@ -8,7 +8,7 @@ import {
 
 interface BreadCrumbProps {
     name: string;
-    location: string;
+    location?: string;
     lastElement?: boolean;
 }
 

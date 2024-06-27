@@ -21,7 +21,7 @@ const ProductCard = ({ grid }: ProductCardprops) => {
             <div
                 className={`group  justify-center items-center relative  overflow-hidden ${grid === 1 && 'w-[500px]'}`}
             >
-                <Link href={'/'}>
+                <Link href={`products/${'asdbahsbdj'}`}>
                     <div className={`min-h-[200px] w-auto`}>
                         <Image
                             src={'/images/headphones.webp'}
@@ -67,7 +67,7 @@ const ProductCard = ({ grid }: ProductCardprops) => {
                     </Link>
                 </div>
             </div>
-            <div className='py-2 space-y-1'>
+            <Link href={`products/${'asdbahsbdj'}`} className='py-2 space-y-1'>
                 <h6 className='text-[#bf4800] text-[13px] font-medium'>Headphone</h6>
                 <p className='line-clamp-2 text-sm font-medium text-slate-900'>
                     Kids Headphones bulk 10 pack multi colored for students
@@ -81,7 +81,7 @@ const ProductCard = ({ grid }: ProductCardprops) => {
                     </p>
                 )}
                 <p className='text-sm font-semibold text-slate-900'>₹1200</p>
-            </div>
+            </Link>
         </div>
     );
 };

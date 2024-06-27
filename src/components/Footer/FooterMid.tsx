@@ -32,28 +32,28 @@ const FooterMid = () => {
                         </address>
                     </div>
                     <div>
-                        <ListHeading>Information</ListHeading>
-                        <ListItems name='Privacy Policy' url='/' />
-                        <ListItems name='Refund Policy' url='/' />
-                        <ListItems name='Shoping Policy' url='/' />
-                        <ListItems name='Terms & Conditions' url='/' />
-                        <ListItems name='Blogs' url='/' />
+                        <ListHeading>Quick Links</ListHeading>
+                        <ListItems name='Accessories' url='#' />
+                        <ListItems name='Laptop' url='#' />
+                        <ListItems name='Headphones' url='#' />
+                        <ListItems name='Tablets' url='#' />
+                        <ListItems name='Watch' url='#' />
                     </div>
                     <div>
                         <ListHeading>Account</ListHeading>
-                        <ListItems name='Search' url='/' />
-                        <ListItems name='About Us' url='/' />
-                        <ListItems name='Faq' url='/' />
-                        <ListItems name='Contact' url='/' />
-                        <ListItems name='Size Chart' url='/' />
+                        <ListItems name='Search' url='#' />
+                        <ListItems name='About Us' url='#' />
+                        <ListItems name='Faq' url='#' />
+                        <ListItems name='Contact' url='#' />
+                        <ListItems name='Size Chart' url='#' />
                     </div>
                     <div>
-                        <ListHeading>Quick Links</ListHeading>
-                        <ListItems name='Accessories' url='/' />
-                        <ListItems name='Laptop' url='/' />
-                        <ListItems name='Headphones' url='/' />
-                        <ListItems name='Tablets' url='/' />
-                        <ListItems name='Watch' url='/' />
+                        <ListHeading>Information</ListHeading>
+                        <ListItems name='Privacy Policy' url='#' />
+                        <ListItems name='Refund Policy' url='#' />
+                        <ListItems name='Shoping Policy' url='#' />
+                        <ListItems name='Terms & Conditions' url='#' />
+                        <ListItems name='Blogs' url='#' />
                     </div>
                     <div>
                         <ListHeading>Our App</ListHeading>
