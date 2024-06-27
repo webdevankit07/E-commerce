@@ -4,7 +4,7 @@ export function middleware(request: NextRequest) {
     const path = request.nextUrl.pathname;
     const token = request.cookies.get('access_token')?.value || '';
 
-    const isAuthRoutes = path === '/login' || path === '/signup';
+    const isAuthRoutes = path === '/sign-in' || path === '/sign-up';
 
     if (isAuthRoutes && token) {
         return NextResponse.redirect(new URL('/', request.nextUrl));
@@ -16,5 +16,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-    matcher: ['/login', '/signup'],
+    matcher: ['/sign-in', '/sign-up'],
 };
