@@ -7,6 +7,7 @@ import { TbMapPinCode } from 'react-icons/tb';
 import { PiPhoneCallFill } from 'react-icons/pi';
 import { MdEmail } from 'react-icons/md';
 import Link from 'next/link';
+import BreadCrumb from '@/components/shared/Breadcrumb';
 
 const Contact = () => {
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -14,9 +15,10 @@ const Contact = () => {
     };
 
     return (
-        <div className='bg-slate-100 py-10'>
+        <div className='bg-slate-100 pb-10'>
             <Container>
-                <div className='py-5 h-[500px]'>
+                <BreadCrumb BreadCrumbs={[{ location: '/contact', name: 'Contact', lastElement: true }]} />
+                <div className='mb-8 mt-2 h-[500px]'>
                     <iframe
                         src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d121058.93187219083!2d73.78056657797033!3d18.524761373588973!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2bf2e67461101%3A0x828d43bf9d9ee343!2sPune%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1719426661677!5m2!1sen!2sin'
                         width='100%'
