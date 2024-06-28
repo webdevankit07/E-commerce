@@ -14,7 +14,6 @@ import { RiShoppingBag3Fill } from 'react-icons/ri';
 import { FaCodeCompare } from 'react-icons/fa6';
 import { PiShareNetworkFill } from 'react-icons/pi';
 import { usePathname } from 'next/navigation';
-import { baseURL } from '@/config';
 import { useState } from 'react';
 
 const Productdetails = ({ params }: { params: { id: string } }) => {
