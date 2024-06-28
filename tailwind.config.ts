@@ -17,6 +17,7 @@ const config = {
                 'dark-1': '#131921',
                 'dark-2': '#3b4149',
                 'dark-3': '#232f3e',
+                'dark-4': '#001529',
                 'yellow-1': '#febd69',
                 border: 'hsl(var(--border))',
                 input: 'hsl(var(--input))',

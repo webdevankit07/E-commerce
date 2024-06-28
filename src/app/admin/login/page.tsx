@@ -1,5 +1,5 @@
 const AdminLogin = () => {
-    return <div>AdminLogin</div>;
+    return <div>Admin Login</div>;
 };
 
 export default AdminLogin;
