@@ -31,9 +31,9 @@ const HeaderBottom = () => {
     }, []);
 
     return (
-        <div className='bg-dark-3'>
+        <div className='bg-dark-3 '>
             <Container>
-                <div className='flex items-center py-3 gap-5'>
+                <div className={`flex items-center py-3 gap-5`}>
                     <div className='relative'>
                         <div
                             className='flex items-center gap-5 cursor-pointer'
@@ -51,7 +51,7 @@ const HeaderBottom = () => {
                             />
                         </div>
                         <div
-                            className={`absolute px-2 py-2 z-[999999]  rounded-sm text-slate-600 bg-dark-1 drop-shadow-xl left-4 top-10 transition duration-200 ease-in-out ${
+                            className={`absolute px-2 py-2 z-[999999] rounded-sm text-slate-600 bg-dark-1 drop-shadow-xl left-4 top-10 transition duration-200 ease-in-out ${
                                 open ? 'scale-1 opacity-100' : 'scale-0 opacity-0'
                             }`}
                             ref={dropdownMenu}
@@ -80,7 +80,7 @@ const ListItem = ({ name, url, setOpen }: ListItemProps) => {
         <li>
             <Link
                 href={url}
-                className='inline-block w-full px-5 py-2 mb-2 border-b border-dark-2 text-white text-nowrap hover:bg-slate-700'
+                className='inline-block w-full px-5 py-2 mb-2 border-b border-dark-2 text-white text-nowrap hover:bg-dark-2 rounded'
                 onClick={() => setOpen(false)}
             >
                 {name}

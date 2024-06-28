@@ -5,8 +5,10 @@ import ReactStars from 'react-stars';
 import { Progress } from '../ui/progress';
 import { Button } from '../ui/button';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 const SpecialProduct = () => {
+    const router = useRouter();
     const [imgUrl, setImgUrl] = useState<string>('/images/headphones.webp');
 
     return (
@@ -15,7 +17,7 @@ const SpecialProduct = () => {
                 <div className='flex items-center gap-5'>
                     <div className='flex flex-col gap-5'>
                         <div className='w-[150px] h-[170px]'>
-                            <Link href={'/'}>
+                            <Link href={'/products/asdbahsbdj'}>
                                 <Image
                                     src={imgUrl}
                                     width={250}
@@ -54,7 +56,10 @@ const SpecialProduct = () => {
                     </div>
                     <div className='flex flex-col gap-1'>
                         <h6 className='text-[#bf4800] text-[13px] font-medium'>Headphone</h6>
-                        <p className='line-clamp-2 font-semibold text-sm text-slate-900'>
+                        <p
+                            className='line-clamp-2 font-semibold text-sm text-slate-900 cursor-pointer'
+                            onClick={() => router.push('/products/asdbahsbdj')}
+                        >
                             Kids Headphones bulk 10 pack multi colored for students
                         </p>
                         <ReactStars

@@ -39,18 +39,17 @@ const ProductCard = ({ grid }: ProductCardprops) => {
                         />
                     </div>
                 </Link>
-                <div
-                    className={`group/heart text-right absolute right-1.5 top-0 text-lg ${
-                        grid === 1 && 'right-[8.5px]'
-                    }`}
+                <Link
+                    href='/wishlist'
+                    className={`group/heart text-right absolute right-1.5 top-0 text-lg ${grid === 1 && 'right-2.5'}`}
                 >
-                    <Link href={'/'} className='group-hover/heart:hidden'>
+                    <div className='group-hover/heart:hidden'>
                         <GoHeart />
-                    </Link>
-                    <Link href={'/'} className='hidden group-hover/heart:block text-red-500'>
+                    </div>
+                    <div className='hidden group-hover/heart:block text-red-500'>
                         <GoHeartFill />
-                    </Link>
-                </div>
+                    </div>
+                </Link>
                 <div
                     className={`absolute flex flex-col gap-1 top-6 text-slate-800 group-hover:right-1 -right-10 transition-all duration-400 *:drop-shadow-md ${
                         grid === 1 && 'group-hover:right-2'

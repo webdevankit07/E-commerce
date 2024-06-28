@@ -9,9 +9,9 @@ const CompareProductCard = () => {
     const handleRating = () => {};
 
     return (
-        <div className={`drop-shadow rounded-md p-4 bg-white w-[250px] overflow-hidden`}>
-            <div className={`group  justify-center items-center relative`}>
-                <Link href={'/'}>
+        <div className={`drop-shadow rounded-md p-4 bg-white overflow-hidden`}>
+            <div className={`group justify-center items-center relative`}>
+                <Link href={'/products/asdbahsbdj'}>
                     <div className={`h-[150px] w-auto`}>
                         <Image
                             src={'/images/headphones.webp'}

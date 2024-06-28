@@ -21,7 +21,7 @@ const SignUp = () => {
         <div className='pb-10 bg-slate-100 min-h-screen'>
             <Container>
                 <BreadCrumb BreadCrumbs={[{ location: 'sign-up', name: 'Sign-Up', lastElement: true }]} />
-                <div className='flex justify-center items-center w-full mt-40'>
+                <div className='flex justify-center items-center w-full mt-28'>
                     <div className='bg-white py-5 px-10 rounded-md drop-shadow-md min-w-[500px] pb-10'>
                         <h2 className='text-center font-semibold text-slate-700 mb-5'>Create an Account</h2>
                         <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
@@ -30,7 +30,7 @@ const SignUp = () => {
                                     <Input
                                         type='text'
                                         name='firstname'
-                                        className='bg-gray-100 w-full'
+                                        className='bg-gray-100 w-full py-5'
                                         placeholder='First name'
                                         autoComplete='off'
                                     />
@@ -40,7 +40,7 @@ const SignUp = () => {
                                     <Input
                                         type='text'
                                         name='lastname'
-                                        className='bg-gray-100 w-full'
+                                        className='bg-gray-100 w-full py-5'
                                         placeholder='Last name'
                                         autoComplete='off'
                                     />
@@ -50,7 +50,7 @@ const SignUp = () => {
                                     <Input
                                         type='text'
                                         name='username'
-                                        className='bg-gray-100 w-full'
+                                        className='bg-gray-100 w-full py-5'
                                         placeholder='Username'
                                         autoComplete='off'
                                     />
@@ -60,7 +60,7 @@ const SignUp = () => {
                                     <Input
                                         type='email'
                                         name='email'
-                                        className='bg-gray-100 w-full'
+                                        className='bg-gray-100 w-full py-5'
                                         placeholder='Email'
                                         autoComplete='off'
                                     />
@@ -70,7 +70,7 @@ const SignUp = () => {
                                     <Input
                                         type='number'
                                         name='mobile'
-                                        className='bg-gray-100 w-full'
+                                        className='bg-gray-100 w-full py-5'
                                         placeholder='Mobile'
                                         autoComplete='off'
                                     />
@@ -81,7 +81,7 @@ const SignUp = () => {
                                     <Input
                                         type={showPassword ? 'text' : 'password'}
                                         name='password'
-                                        className='bg-gray-100 w-full'
+                                        className='bg-gray-100 w-full py-5'
                                         placeholder='Password'
                                         autoComplete='off'
                                     />
@@ -97,7 +97,7 @@ const SignUp = () => {
                                     <Input
                                         type='password'
                                         name='confirm password'
-                                        className='bg-gray-100 w-full'
+                                        className='bg-gray-100 w-full py-5'
                                         placeholder='Confirm Password'
                                         autoComplete='off'
                                     />
@@ -117,14 +117,14 @@ const SignUp = () => {
                                 type='submit'
                                 className='bg-yellow-1 text-slate-800 hover:bg-yellow-500 active:bg-yellow-1'
                             >
-                                Create
+                                Create account
                             </Button>
                             <Button
                                 type='button'
                                 className='bg-yellow-1 text-slate-800 hover:bg-yellow-500 active:bg-yellow-1'
                                 onClick={() => router.push('/sign-in')}
                             >
-                                Log in with an account
+                                Login with an account
                             </Button>
                         </form>
                     </div>

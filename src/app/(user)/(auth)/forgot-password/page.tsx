@@ -30,7 +30,7 @@ const ForgotPassword = () => {
                             <Input
                                 type='email'
                                 name='identifier'
-                                className='bg-gray-100 w-full'
+                                className='bg-gray-100 w-full py-5'
                                 placeholder='Enter your Email'
                                 autoComplete='off'
                             />

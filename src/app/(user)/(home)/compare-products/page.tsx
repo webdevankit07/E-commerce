@@ -15,7 +15,7 @@ const CompareProducts = () => {
                 <BreadCrumb
                     BreadCrumbs={[{ location: '/compare-products', name: 'Compare-Products', lastElement: true }]}
                 />
-                <div className='flex items-center gap-5 flex-wrap'>
+                <div className='grid grid-cols-5 gap-3 flex-wrap'>
                     <CompareProductCard />
                     <CompareProductCard />
                     <CompareProductCard />

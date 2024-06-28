@@ -8,7 +8,9 @@ const Whishlist = () => {
         <div className='bg-slate-100 pb-10'>
             <Container>
                 <BreadCrumb BreadCrumbs={[{ location: '/wishlist', name: 'WishList', lastElement: true }]} />
-                <div className='flex gap-5'>
+                <div className='grid grid-cols-6 gap-3'>
+                    <WishlistProduct />
+                    <WishlistProduct />
                     <WishlistProduct />
                     <WishlistProduct />
                     <WishlistProduct />

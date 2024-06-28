@@ -25,14 +25,14 @@ const SignIn = () => {
                             <Input
                                 type='email'
                                 name='identifier'
-                                className='bg-gray-100 w-full'
+                                className='bg-gray-100 w-full py-5'
                                 placeholder='Enter your Email or Username'
                                 autoComplete='off'
                             />
                             <Input
                                 type='text'
                                 name='password'
-                                className='bg-gray-100 w-full'
+                                className='bg-gray-100 w-full py-5'
                                 placeholder='Enter your Password'
                                 autoComplete='off'
                             />

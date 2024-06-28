@@ -28,7 +28,7 @@ const ResetPassword = () => {
                                 <Input
                                     type={showPassword ? 'text' : 'password'}
                                     name='password'
-                                    className='bg-gray-100 w-full'
+                                    className='bg-gray-100 w-full py-5'
                                     placeholder='Password'
                                     autoComplete='off'
                                 />
@@ -44,7 +44,7 @@ const ResetPassword = () => {
                                 <Input
                                     type='password'
                                     name='confirm password'
-                                    className='bg-gray-100 w-full'
+                                    className='bg-gray-100 w-full py-5'
                                     placeholder='Confirm Password'
                                     autoComplete='off'
                                 />

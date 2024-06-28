@@ -10,7 +10,7 @@ const WishlistProduct = () => {
     const handleRating = () => {};
 
     return (
-        <div className={`drop-shadow rounded-md p-4 bg-white max-w-[250px]`}>
+        <div className={`drop-shadow rounded-md p-4 bg-white`}>
             <div className={`group  justify-center items-center relative  overflow-hidden`}>
                 <Link href={'/'}>
                     <div className={`min-h-[200px] w-auto`}>
@@ -30,13 +30,10 @@ const WishlistProduct = () => {
                         />
                     </div>
                 </Link>
-                <div className={`group/heart text-right absolute right-1.5 top-0 text-lg`}>
-                    <Link href={'/'} className='group-hover/heart:hidden'>
-                        <GoHeart />
-                    </Link>
-                    <Link href={'/'} className='hidden group-hover/heart:block text-red-500'>
+                <div className={`text-right absolute right-1.5 top-0 text-lg cursor-pointer`}>
+                    <div className='text-red-500'>
                         <GoHeartFill />
-                    </Link>
+                    </div>
                 </div>
                 <div
                     className={`absolute flex flex-col gap-1 top-6 text-slate-800 group-hover:right-1 -right-10 transition-all duration-400 *:drop-shadow-md`}
