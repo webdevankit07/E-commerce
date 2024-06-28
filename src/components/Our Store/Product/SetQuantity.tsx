@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 
-const SetQuantity = () => {
-    const [quantity, setQuantity] = useState(1);
-
+interface SetQuantityProps {
+    quantity: number;
+    setQuantity: Dispatch<SetStateAction<number>>;
+}
+const SetQuantity = ({ quantity, setQuantity }: SetQuantityProps) => {
     const handleQtyIncrease = () => {
         setQuantity(quantity + 1);
     };

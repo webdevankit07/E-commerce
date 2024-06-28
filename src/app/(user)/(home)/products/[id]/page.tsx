@@ -15,8 +15,10 @@ import { FaCodeCompare } from 'react-icons/fa6';
 import { PiShareNetworkFill } from 'react-icons/pi';
 import { usePathname } from 'next/navigation';
 import { baseURL } from '@/config';
+import { useState } from 'react';
 
 const Productdetails = ({ params }: { params: { id: string } }) => {
+    const [quantity, setQuantity] = useState(1);
     const pathname = usePathname();
 
     return (
@@ -32,7 +34,7 @@ const Productdetails = ({ params }: { params: { id: string } }) => {
                     <ImageSection />
                     <div className='w-full space-y-5 py-5'>
                         <div>
-                            <p className='font-bold'> Kids Headphones bulk 10 pack multi colored for students</p>
+                            <p className='font-bold'>Kids Headphones bulk 10 pack multi colored for students</p>
                             <div className='flex items-center gap-3 font-semibold text-gray-500'>
                                 <ReactStars count={5} value={4.5} size={20} color2={'#ffd700'} edit={false} />
                                 <span className='text-sm'>(2 review)</span>
@@ -50,11 +52,21 @@ const Productdetails = ({ params }: { params: { id: string } }) => {
                             <span className='text-gray-700 font-bold'>Brand: </span>
                             <span className='text-sm'>Haviles</span>
                         </div>
-                        <div className='font-semibold text-gray-500'>
-                            <span className='text-gray-700 font-bold block'>Categories: </span>
-                            <span className='text-sm'>
-                                airpods, cameras & laptop, headphones, mini speaker, our store, portable, cameras &
-                                laptop, headphones, mini speaker, our store, portable,
+                        <div className='text-gray-500'>
+                            <span className='text-gray-700 font-bold'>Categories: </span>
+                            <span className='space-x-2 *:capitalize'>
+                                <Badge variant={'secondary'}>airpods</Badge>
+                                <Badge variant={'secondary'}>cameras & laptop</Badge>
+                                <Badge variant={'secondary'}>headphones</Badge>
+                                <Badge variant={'secondary'}>mini speaker</Badge>
+                                <Badge variant={'secondary'}>our store</Badge>
+                                <Badge variant={'secondary'}>portable</Badge>
+                                <Badge variant={'secondary'}>airpods</Badge>
+                                <Badge variant={'secondary'}>cameras & laptop</Badge>
+                                <Badge variant={'secondary'}>headphones</Badge>
+                                <Badge variant={'secondary'}>mini speaker</Badge>
+                                <Badge variant={'secondary'}>our store</Badge>
+                                <Badge variant={'secondary'}>portable</Badge>
                             </span>
                         </div>
                         <div className='flex items-center gap-3 font-semibold text-gray-500'>
@@ -93,7 +105,7 @@ const Productdetails = ({ params }: { params: { id: string } }) => {
                                 <li></li>
                             </ul>
                         </div>
-                        <SetQuantity />
+                        <SetQuantity quantity={quantity} setQuantity={setQuantity} />
                         <div className='flex gap-3'>
                             <Button variant={'outline'} className='w-40 bg-yellow-300 hover:bg-yellow-400'>
                                 <RiShoppingBag3Fill className='mr-2 text-gray-900 text-lg' />
