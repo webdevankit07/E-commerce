@@ -6,12 +6,23 @@ import {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
     PieChartOutlined,
-    TeamOutlined,
     UserOutlined,
 } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Button, Layout, Menu, theme } from 'antd';
 import { Metadata } from 'next';
+import { AiOutlineDashboard } from 'react-icons/ai';
+import { MdAddToPhotos } from 'react-icons/md';
+import { FaShoppingCart, FaRegUser, FaClipboardList } from 'react-icons/fa';
+import { useRouter } from 'next/navigation';
+import { IoList } from 'react-icons/io5';
+import { SiBrandfolder } from 'react-icons/si';
+import { TbCategoryFilled } from 'react-icons/tb';
+import { IoIosColorPalette } from 'react-icons/io';
+import { RiQuestionnaireFill } from 'react-icons/ri';
+import { ScrollArea } from '../ui/scroll-area';
+import Image from 'next/image';
+import HeaderCustom from './HeaderCustom';
 
 export const metadata: Metadata = {
     title: 'Admin Dashboard',
@@ -26,32 +37,66 @@ function getItem(label: React.ReactNode, key: React.Key, icon?: React.ReactNode,
 }
 
 const items: MenuItem[] = [
-    getItem('Option 1', '1', <PieChartOutlined />),
-    getItem('Option 2', '2', <DesktopOutlined />),
-    getItem('User', 'sub1', <UserOutlined />, [getItem('Tom', '3'), getItem('Bill', '4'), getItem('Alex', '5')]),
-    getItem('Team', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
-    getItem('Files', '9', <FileOutlined />),
+    getItem('Dasboard', 'dashboard', <AiOutlineDashboard />),
+    getItem('Customers', 'customers', <FaRegUser />),
+    getItem('Catalog', 'catalog', <FaShoppingCart />, [
+        getItem('Add Product', 'add-product', <MdAddToPhotos />),
+        getItem('Product List', 'product-list', <IoList />),
+        getItem('Brand', 'brand', <SiBrandfolder />),
+        getItem('Brand List', 'brand-list', <IoList />),
+        getItem('Category', 'category', <TbCategoryFilled />),
+        getItem('Category List', 'category-list', <IoList />),
+        getItem('Color', 'color', <IoIosColorPalette />),
+        getItem('Color List', 'color-list', <IoList />),
+    ]),
+    getItem('Orders', 'orders', <FaClipboardList />),
+    getItem('Enquiries', 'enquiries', <RiQuestionnaireFill />),
 ];
 
 const AdminLayout = ({ children }: { children: ReactNode }) => {
     const [collapsed, setCollapsed] = useState(false);
+    const router = useRouter();
     const {
         token: { colorBgContainer },
     } = theme.useToken();
 
     return (
         <Layout className='min-h-screen'>
-            <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)} className='pt-10'>
-                <div className='demo-logo-vertical' />
-                {/* <Button
-                    type='text'
-                    icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-                    onClick={() => setCollapsed(!collapsed)}
-                    className='w-52 h-16 absolute -right-10'
-                /> */}
-                <Menu theme='dark' defaultSelectedKeys={['1']} mode='inline' items={items} />
-            </Sider>
+            <ScrollArea className='h-screen'>
+                <Sider
+                    collapsible
+                    collapsed={collapsed}
+                    onCollapse={(value) => setCollapsed(value)}
+                    className='min-h-screen'
+                >
+                    <div className='font-bold text-3xl text-white py-5 text-center adminLogo'>ShopWave</div>
+                    <Menu
+                        theme='dark'
+                        defaultSelectedKeys={['dashboard']}
+                        mode='inline'
+                        items={items}
+                        onClick={(key) => router.push(`/admin/${key.key}`)}
+                        className='adminSider'
+                    />
+                </Sider>
+            </ScrollArea>
             <Layout>
+                <Header
+                    style={{ padding: 0, background: colorBgContainer }}
+                    className='flex items-center justify-between'
+                >
+                    <Button
+                        type='text'
+                        icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                        onClick={() => setCollapsed(!collapsed)}
+                        style={{
+                            fontSize: '16px',
+                            width: 64,
+                            height: 64,
+                        }}
+                    />
+                    <HeaderCustom />
+                </Header>
                 <Content className='mx-4'>{children}</Content>
                 <Footer className='text-center bg-dark-4 text-white py-3.5'>
                     ShopWave ©{new Date().getFullYear()} Created by WebDev Ankit
