@@ -29,7 +29,7 @@ const ResetPassword = () => {
                                     type={showPassword ? 'text' : 'password'}
                                     name='password'
                                     className='bg-gray-100 w-full py-5'
-                                    placeholder='Password'
+                                    placeholder='New Password'
                                     autoComplete='off'
                                 />
                                 <span className='absolute text-xs mt-1 ml-1 text-red-500'></span>

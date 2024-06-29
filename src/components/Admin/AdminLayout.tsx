@@ -43,12 +43,12 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
         <Layout className='min-h-screen'>
             <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)} className='pt-10'>
                 <div className='demo-logo-vertical' />
-                <Button
+                {/* <Button
                     type='text'
                     icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
                     onClick={() => setCollapsed(!collapsed)}
                     className='w-52 h-16 absolute -right-10'
-                />
+                /> */}
                 <Menu theme='dark' defaultSelectedKeys={['1']} mode='inline' items={items} />
             </Sider>
             <Layout>

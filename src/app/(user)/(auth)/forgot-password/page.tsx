@@ -49,7 +49,7 @@ const ForgotPassword = () => {
                             <Button
                                 type='button'
                                 className='bg-yellow-1 text-slate-800 hover:bg-yellow-500 active:bg-yellow-1'
-                                onClick={() => router.push('/sign-in')}
+                                onClick={() => router.back()}
                             >
                                 Cancel
                             </Button>

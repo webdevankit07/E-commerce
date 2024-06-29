@@ -6,9 +6,11 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { FormEvent } from 'react';
+import { FormEvent, useState } from 'react';
+import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
 
 const SignIn = () => {
+    const [showPassword, setShowPassword] = useState(false);
     const router = useRouter();
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -26,16 +28,25 @@ const SignIn = () => {
                                 type='email'
                                 name='identifier'
                                 className='bg-gray-100 w-full py-5'
-                                placeholder='Enter your Email or Username'
+                                placeholder='Email or Username'
                                 autoComplete='off'
                             />
-                            <Input
-                                type='text'
-                                name='password'
-                                className='bg-gray-100 w-full py-5'
-                                placeholder='Enter your Password'
-                                autoComplete='off'
-                            />
+                            <div className='relative'>
+                                <Input
+                                    type={showPassword ? 'text' : 'password'}
+                                    name='password'
+                                    className='bg-gray-100 w-full py-5'
+                                    placeholder='Password'
+                                    autoComplete='off'
+                                />
+                                <span className='absolute text-xs mt-1 ml-1 text-red-500'></span>
+                                <div
+                                    className='absolute top-[9px] right-3 text-xl cursor-pointer'
+                                    onClick={() => setShowPassword(!showPassword)}
+                                >
+                                    {showPassword ? <IoMdEye /> : <IoMdEyeOff />}
+                                </div>
+                            </div>
                             <div className='flex items-center justify-between p-2 text-xs font-medium'>
                                 <div>
                                     <span>You Don't have an account?</span>
