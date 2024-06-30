@@ -80,27 +80,31 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
                     />
                 </Sider>
             </ScrollArea>
-            <Layout>
-                <Header
-                    style={{ padding: 0, background: colorBgContainer }}
-                    className='flex items-center justify-between'
-                >
-                    <Button
-                        type='text'
-                        icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-                        onClick={() => setCollapsed(!collapsed)}
-                        style={{
-                            fontSize: '16px',
-                            width: 64,
-                            height: 64,
-                        }}
-                    />
-                    <HeaderCustom />
-                </Header>
-                <Content className='mx-4'>{children}</Content>
-                <Footer className='text-center bg-dark-4 text-white py-3.5'>
-                    ShopWave ©{new Date().getFullYear()} Created by WebDev Ankit
-                </Footer>
+            <Layout className='min-h-screen'>
+                <ScrollArea className='h-screen'>
+                    <div className='min-h-screen flex flex-col'>
+                        <Header
+                            style={{ padding: 0, background: colorBgContainer }}
+                            className='flex items-center justify-between'
+                        >
+                            <Button
+                                type='text'
+                                icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                                onClick={() => setCollapsed(!collapsed)}
+                                style={{
+                                    fontSize: '16px',
+                                    width: 64,
+                                    height: 64,
+                                }}
+                            />
+                            <HeaderCustom />
+                        </Header>
+                        <Content className='mx-4 flex-1'>{children}</Content>
+                        <Footer className='text-center bg-dark-4 text-white py-3.5'>
+                            ShopWave ©{new Date().getFullYear()} Created by WebDev Ankit
+                        </Footer>
+                    </div>
+                </ScrollArea>
             </Layout>
         </Layout>
     );

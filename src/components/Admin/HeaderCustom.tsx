@@ -9,7 +9,7 @@ const HeaderCustom = () => {
             <div className='flex items-center gap-4'>
                 <div className='relative'>
                     <IoMdNotifications className='text-3xl' />
-                    <span className='absolute top-0 right-0 p-2 font-bold bg-yellow-1 w-4 h-4 rounded-full leading-3 grid place-content-center'>
+                    <span className='absolute top-0 right-0 p-2 font-semibold bg-yellow-1 w-4 h-4 rounded-full leading-3 grid place-content-center'>
                         3
                     </span>
                 </div>
