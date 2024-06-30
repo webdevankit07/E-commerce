@@ -1,13 +1,6 @@
 'use client';
 import { ReactNode, useState } from 'react';
-import {
-    DesktopOutlined,
-    FileOutlined,
-    MenuFoldOutlined,
-    MenuUnfoldOutlined,
-    PieChartOutlined,
-    UserOutlined,
-} from '@ant-design/icons';
+import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Button, Layout, Menu, theme } from 'antd';
 import { Metadata } from 'next';
@@ -21,7 +14,7 @@ import { TbCategoryFilled } from 'react-icons/tb';
 import { IoIosColorPalette } from 'react-icons/io';
 import { RiQuestionnaireFill } from 'react-icons/ri';
 import { ScrollArea } from '../ui/scroll-area';
-import Image from 'next/image';
+// import Image from 'next/image';
 import HeaderCustom from './HeaderCustom';
 
 export const metadata: Metadata = {
