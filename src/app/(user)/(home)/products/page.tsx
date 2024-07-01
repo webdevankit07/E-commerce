@@ -17,7 +17,7 @@ const Store = () => {
     return (
         <div className='bg-slate-200'>
             <Container>
-                <BreadCrumb BreadCrumbs={[{ name: 'Products', location: '/store', lastElement: true }]} />
+                <BreadCrumb BreadCrumbs={[{ name: 'Products' }]} />
                 <div className='flex gap-3 pb-8'>
                     <div className='space-y-3 max-w-[250px]'>
                         <ShopByCategory />

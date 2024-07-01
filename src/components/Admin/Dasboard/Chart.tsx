@@ -4,18 +4,18 @@ const Column = dynamic(() => import('@ant-design/charts').then(({ Column }) => C
 
 const Chart = () => {
     const data = [
-        { type: 'Jan', sales: 38 },
-        { type: 'Feb', sales: 52 },
-        { type: 'Mar', sales: 61 },
-        { type: 'Apr', sales: 110 },
-        { type: 'May', sales: 48 },
-        { type: 'Jun', sales: 38 },
-        { type: 'July', sales: 80 },
-        { type: 'Aug', sales: 15 },
-        { type: 'Sept', sales: 45 },
-        { type: 'Oct', sales: 57 },
-        { type: 'Nov', sales: 76 },
-        { type: 'Dec', sales: 33 },
+        { type: 'Jan', sales: 6787 },
+        { type: 'Feb', sales: 9473 },
+        { type: 'Mar', sales: 3689 },
+        { type: 'Apr', sales: 12898 },
+        { type: 'May', sales: 8369 },
+        { type: 'Jun', sales: 3888 },
+        { type: 'July', sales: 2789 },
+        { type: 'Aug', sales: 10989 },
+        { type: 'Sept', sales: 3389 },
+        { type: 'Oct', sales: 15898 },
+        { type: 'Nov', sales: 19898 },
+        { type: 'Dec', sales: 8869 },
     ];
     const config = {
         data,
@@ -36,7 +36,12 @@ const Chart = () => {
         legend: false,
     };
 
-    return <Column {...config} className={'max-w-[90%]'} />;
+    return (
+        <div className='bg-white px-4 py-6 my-5 rounded-md shadow-md'>
+            <h3 className='mb-10 font-semibold text-3xl'>Income Statics</h3>
+            <Column {...config} />
+        </div>
+    );
 };
 
 export default Chart;

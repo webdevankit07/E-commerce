@@ -18,12 +18,7 @@ const CheckOut = () => {
                 <div className='w-full border-r-2 px-10 border-slate-300'>
                     <div className='ml-auto max-w-[700px]'>
                         <h1 className='text-2xl font-semibold'>ShopWave</h1>
-                        <BreadCrumb
-                            BreadCrumbs={[
-                                { name: 'Cart', location: '/cart' },
-                                { name: 'Information', lastElement: true },
-                            ]}
-                        />
+                        <BreadCrumb BreadCrumbs={[{ name: 'Cart', location: '/cart' }, { name: 'Information' }]} />
                         <div className='mt-3'>
                             <div>
                                 <h2 className='text-lg font-medium'>Contact Information</h2>

@@ -19,7 +19,7 @@ const ResetPassword = () => {
     return (
         <div className='pb-10 bg-slate-100 min-h-screen'>
             <Container>
-                <BreadCrumb BreadCrumbs={[{ location: 'reset-password', name: 'Reset Password', lastElement: true }]} />
+                <BreadCrumb BreadCrumbs={[{ name: 'Reset Password' }]} />
                 <div className='flex justify-center items-center w-full mt-40'>
                     <div className='bg-white py-5 px-10 rounded-md drop-shadow-md min-w-[500px] pb-10'>
                         <h2 className='text-center font-medium text-slate-600 mb-5'>Reset Password</h2>

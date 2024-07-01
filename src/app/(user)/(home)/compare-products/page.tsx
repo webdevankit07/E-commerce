@@ -12,9 +12,7 @@ const CompareProducts = () => {
     return (
         <div className='bg-slate-100 pb-10'>
             <Container>
-                <BreadCrumb
-                    BreadCrumbs={[{ location: '/compare-products', name: 'Compare-Products', lastElement: true }]}
-                />
+                <BreadCrumb BreadCrumbs={[{ name: 'Compare-Products' }]} />
                 <div className='grid grid-cols-5 gap-3 flex-wrap'>
                     <CompareProductCard />
                     <CompareProductCard />

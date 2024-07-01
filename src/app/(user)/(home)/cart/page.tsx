@@ -25,7 +25,7 @@ const Cart = () => {
     return (
         <div className='bg-slate-100 pb-10'>
             <Container>
-                <BreadCrumb BreadCrumbs={[{ name: 'Cart', lastElement: true }]} />
+                <BreadCrumb BreadCrumbs={[{ name: 'Cart' }]} />
                 <div className='bg-white p-5 rounded shadow-md mt-5'>
                     <Table>
                         <TableHeader>

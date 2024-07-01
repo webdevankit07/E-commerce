@@ -7,7 +7,7 @@ import { Metadata } from 'next';
 import { AiOutlineDashboard } from 'react-icons/ai';
 import { MdAddToPhotos } from 'react-icons/md';
 import { FaShoppingCart, FaRegUser, FaClipboardList } from 'react-icons/fa';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { IoList } from 'react-icons/io5';
 import { SiBrandfolder } from 'react-icons/si';
 import { TbCategoryFilled } from 'react-icons/tb';
@@ -15,7 +15,7 @@ import { IoIosColorPalette } from 'react-icons/io';
 import { RiQuestionnaireFill } from 'react-icons/ri';
 import { ScrollArea } from '../ui/scroll-area';
 // import Image from 'next/image';
-import HeaderCustom from './HeaderCustom';
+import HeaderCustom from './Dasboard/HeaderCustom';
 
 export const metadata: Metadata = {
     title: 'Admin Dashboard',
@@ -30,17 +30,14 @@ function getItem(label: React.ReactNode, key: React.Key, icon?: React.ReactNode,
 }
 
 const items: MenuItem[] = [
-    getItem('Dasboard', 'dashboard', <AiOutlineDashboard />),
+    getItem('Dashboard', 'dashboard', <AiOutlineDashboard />),
     getItem('Customers', 'customers', <FaRegUser />),
     getItem('Catalog', 'catalog', <FaShoppingCart />, [
         getItem('Add Product', 'add-product', <MdAddToPhotos />),
         getItem('Product List', 'product-list', <IoList />),
-        getItem('Brand', 'brand', <SiBrandfolder />),
-        getItem('Brand List', 'brand-list', <IoList />),
-        getItem('Category', 'category', <TbCategoryFilled />),
-        getItem('Category List', 'category-list', <IoList />),
-        getItem('Color', 'color', <IoIosColorPalette />),
-        getItem('Color List', 'color-list', <IoList />),
+        getItem('Brand', 'product-brand', <SiBrandfolder />),
+        getItem('Category', 'product-category', <TbCategoryFilled />),
+        getItem('Color', 'product-color', <IoIosColorPalette />),
     ]),
     getItem('Orders', 'orders', <FaClipboardList />),
     getItem('Enquiries', 'enquiries', <RiQuestionnaireFill />),
@@ -49,6 +46,9 @@ const items: MenuItem[] = [
 const AdminLayout = ({ children }: { children: ReactNode }) => {
     const [collapsed, setCollapsed] = useState(false);
     const router = useRouter();
+    const pathname = usePathname();
+    const path = pathname.split('/');
+
     const {
         token: { colorBgContainer },
     } = theme.useToken();
@@ -61,11 +61,17 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
                     collapsed={collapsed}
                     onCollapse={(value) => setCollapsed(value)}
                     className='min-h-screen'
+                    width={250}
                 >
-                    <div className='font-bold text-3xl text-white py-5 text-center adminLogo'>ShopWave</div>
+                    <div
+                        className='font-bold text-3xl text-white py-5 text-center adminLogo cursor-pointer'
+                        onClick={() => router.push('/admin/dashboard')}
+                    >
+                        ShopWave
+                    </div>
                     <Menu
                         theme='dark'
-                        defaultSelectedKeys={['dashboard']}
+                        defaultSelectedKeys={[path[2]]}
                         mode='inline'
                         items={items}
                         onClick={(key) => router.push(`/admin/${key.key}`)}
@@ -92,7 +98,9 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
                             />
                             <HeaderCustom />
                         </Header>
-                        <Content className='mx-4 flex-1'>{children}</Content>
+                        <Content className='flex-1 bg-zinc-200'>
+                            <div className='px-4'>{children}</div>
+                        </Content>
                         <Footer className='text-center bg-dark-4 text-white py-3.5'>
                             ShopWave ©{new Date().getFullYear()} Created by WebDev Ankit
                         </Footer>

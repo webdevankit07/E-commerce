@@ -23,12 +23,7 @@ const Productdetails = ({ params }: { params: { id: string } }) => {
     return (
         <div className='bg-slate-100 min-h-screen'>
             <Container className='mb-5'>
-                <BreadCrumb
-                    BreadCrumbs={[
-                        { location: '/products', name: 'Products' },
-                        { name: params.id, lastElement: true },
-                    ]}
-                />
+                <BreadCrumb BreadCrumbs={[{ location: '/products', name: 'Products' }, { name: params.id }]} />
                 <div className='flex bg-white p-5 mb-10 mt-5 rounded-md'>
                     <ImageSection />
                     <div className='w-full space-y-5 py-5'>
