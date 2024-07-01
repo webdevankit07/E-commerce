@@ -1,15 +1,12 @@
 import { NextResponse, type NextRequest } from 'next/server';
+import { ConnectDB } from './config/connectDB';
 
 export function middleware(request: NextRequest) {
+    ConnectDB();
     const path = request.nextUrl.pathname;
     const token = request.cookies.get('access_token')?.value || '';
 
     const isAuthRoutes = path === '/sign-in' || path === '/sign-up';
-    const isAdminRoute = path === '/admin/dashboard';
-
-    if (isAdminRoute && !token) {
-        return NextResponse.redirect(new URL('/admin/login', request.nextUrl));
-    }
 
     if (isAuthRoutes && token) {
         return NextResponse.redirect(new URL('/', request.nextUrl));
@@ -21,5 +18,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-    matcher: ['/sign-in', '/sign-up'],
+    matcher: ['/sign-in', '/sign-up', '/admin/dashboard', '/admin/login'],
 };

@@ -13,7 +13,9 @@ export const validateToken = async (req: NextRequest) => {
         if (!decodedAccessTokenData) throw new Error('Invalid token');
         if (!refreshToken) throw new Error('No refresh token');
 
-        const user = await User.findById(decodedAccessTokenData._id);
+        const user = await User.findById(decodedAccessTokenData._id).select(
+            'firstname lastname username email mobile role'
+        );
         if (!user) throw new Error('unauthorized request');
 
         const userId = user._id as ObjectId | string;

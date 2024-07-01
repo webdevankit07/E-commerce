@@ -19,9 +19,10 @@ export const POST = async (req: NextRequest) => {
 
             userExist.refreshToken = refreshToken;
             await userExist.save();
+            const user = await User.findById(userExist._id).select('firstname lastname username email mobile role');
 
             const response = NextResponse.json(
-                { message: 'User logged in successfully', success: true },
+                { user, message: 'User logged in successfully', success: true },
                 { status: 200 }
             );
             response.cookies.set('access_token', accessToken, {

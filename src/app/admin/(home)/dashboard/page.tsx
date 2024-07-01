@@ -1,9 +1,24 @@
+'use client';
 import { HiMiniArrowTrendingDown, HiMiniArrowTrendingUp } from 'react-icons/hi2';
 import Chart from '@/components/Admin/Dasboard/Chart';
 import DashboardTable from '@/components/Admin/Dasboard/Table';
 import BreadCrumb from '@/components/shared/Breadcrumb';
+import { useEffect } from 'react';
+import { useAppSelector } from '@/hooks/storeHooks';
+import { useRouter } from 'next/navigation';
 
 const AdminDashBoard = () => {
+    const { user } = useAppSelector((state) => state.auth);
+    const router = useRouter();
+
+    useEffect(() => {
+        if (user === null || user.role !== 'admin') {
+            router.push('/');
+        } else {
+            router.push('/admin/dashboard');
+        }
+    }, [user, router]);
+
     return (
         <div className='pb-5'>
             <BreadCrumb BreadCrumbs={[{ name: 'Admin DashBoard' }]} />

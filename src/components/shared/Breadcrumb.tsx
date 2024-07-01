@@ -18,16 +18,16 @@ const BreadCrumb = ({ BreadCrumbs }: { BreadCrumbs: BreadCrumbProps[] }) => {
                 <BreadcrumbItem>
                     <BreadcrumbLink href='/'>Home</BreadcrumbLink>
                 </BreadcrumbItem>
-                {BreadCrumbs.map((breadcrumb) => {
+                {BreadCrumbs.map((breadcrumb, index) => {
                     return (
-                        <>
+                        <div key={index} className='flex items-center gap-2.5'>
                             <BreadcrumbSeparator />
                             <BreadcrumbItem>
                                 <BreadcrumbLink href={breadcrumb.location ? breadcrumb.location : '#'}>
                                     {breadcrumb.name}
                                 </BreadcrumbLink>
                             </BreadcrumbItem>
-                        </>
+                        </div>
                     );
                 })}
             </BreadcrumbList>

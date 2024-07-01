@@ -15,10 +15,12 @@ export const POST = async (req: NextRequest) => {
             const accessToken = userExist.genaratetAccessToken();
             const refreshToken = userExist.genaratetRefreshToken();
 
-            await User.findById(userExist._id, { refreshToken }, { new: true });
+            userExist.refreshToken = refreshToken;
+            await userExist.save();
+            const user = await User.findById(userExist._id).select('firstname lastname username email mobile role');
 
             const response = NextResponse.json(
-                { message: 'User logged in successfully', success: true },
+                { user, message: 'User logged in successfully', success: true },
                 { status: 200 }
             );
             response.cookies.set('access_token', accessToken, {

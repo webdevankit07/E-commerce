@@ -4,16 +4,27 @@ import BreadCrumb from '@/components/shared/Breadcrumb';
 import Container from '@/components/shared/Container';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { useAppDispatch } from '@/hooks/storeHooks';
+import { userLogin } from '@/redux/features/auth/authSlice';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
 import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
 
 const SignIn = () => {
+    const [formData, setFormData] = useState({ identifier: '', password: '' });
     const [showPassword, setShowPassword] = useState(false);
     const router = useRouter();
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const dispatch = useAppDispatch();
+
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        try {
+            await dispatch(userLogin(formData));
+            router.push('/');
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (
@@ -30,6 +41,8 @@ const SignIn = () => {
                                 className='bg-gray-100 w-full py-5'
                                 placeholder='Email or Username'
                                 autoComplete='off'
+                                value={formData.identifier}
+                                onChange={(e) => setFormData({ ...formData, identifier: e.target.value })}
                             />
                             <div className='relative'>
                                 <Input
@@ -38,6 +51,8 @@ const SignIn = () => {
                                     className='bg-gray-100 w-full py-5'
                                     placeholder='Password'
                                     autoComplete='off'
+                                    value={formData.password}
+                                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                                 />
                                 <span className='absolute text-xs mt-1 ml-1 text-red-500'></span>
                                 <div

@@ -30,7 +30,7 @@ function getItem(label: React.ReactNode, key: React.Key, icon?: React.ReactNode,
 }
 
 const items: MenuItem[] = [
-    getItem('Dashboard', 'dashboard', <AiOutlineDashboard />),
+    getItem('Dashboard', '/', <AiOutlineDashboard />),
     getItem('Customers', 'customers', <FaRegUser />),
     getItem('Catalog', 'catalog', <FaShoppingCart />, [
         getItem('Add Product', 'add-product', <MdAddToPhotos />),
@@ -74,7 +74,7 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
                         defaultSelectedKeys={[path[2]]}
                         mode='inline'
                         items={items}
-                        onClick={(key) => router.push(`/admin/${key.key}`)}
+                        onClick={(key) => router.push(`/admin/dashboard/${key.key}`)}
                         className='adminSider'
                     />
                 </Sider>
