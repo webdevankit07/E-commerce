@@ -16,12 +16,7 @@ const AdminLogin = () => {
     return (
         <div className='pb-10 bg-slate-100 min-h-screen'>
             <Container>
-                <BreadCrumb
-                    BreadCrumbs={[
-                        { location: '/admin/dashboard', name: 'Admin' },
-                        { name: 'Login', lastElement: true },
-                    ]}
-                />
+                <BreadCrumb BreadCrumbs={[{ location: '/admin/dashboard', name: 'Admin' }, { name: 'Login' }]} />
                 <div className='flex justify-center items-center w-full mt-40'>
                     <div className='bg-white py-5 px-10 rounded-md drop-shadow-md min-w-[500px] pb-10'>
                         <h2 className='text-center font-semibold text-slate-700 mb-5'>Admin Login</h2>
