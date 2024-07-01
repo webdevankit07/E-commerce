@@ -2,7 +2,6 @@ import { NextResponse, type NextRequest } from 'next/server';
 import { ConnectDB } from './config/connectDB';
 
 export function middleware(request: NextRequest) {
-    ConnectDB();
     const path = request.nextUrl.pathname;
     const token = request.cookies.get('access_token')?.value || '';
 
