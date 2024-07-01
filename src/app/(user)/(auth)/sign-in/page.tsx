@@ -36,7 +36,7 @@ const SignIn = () => {
                         <h2 className='text-center font-semibold text-slate-700 mb-5'>Login</h2>
                         <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
                             <Input
-                                type='email'
+                                type='text'
                                 name='identifier'
                                 className='bg-gray-100 w-full py-5'
                                 placeholder='Email or Username'

@@ -10,8 +10,9 @@ export const validateToken = async (req: NextRequest) => {
         const decodedAccessTokenData: any =
             access_token && jwt.verify(access_token, process.env.ACCESS_TOKEN_SECRET as string);
 
-        if (!decodedAccessTokenData) throw new Error('Invalid token');
-        if (!refreshToken) throw new Error('No refresh token');
+        if (!access_token || !decodedAccessTokenData || !refreshToken) {
+            throw new Error('Invalid token');
+        }
 
         const user = await User.findById(decodedAccessTokenData._id).select(
             'firstname lastname username email mobile role'

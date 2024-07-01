@@ -1,12 +1,18 @@
-import type { Metadata } from 'next';
-import { Roboto } from 'next/font/google';
-
-const roboto = Roboto({ subsets: ['latin'], weight: ['100', '300', '400', '500', '700', '900'] });
+import AdminLayout from '@/components/Admin/AdminLayout';
+import ValidateAdmin from '@/components/Admin/ValidateAdmin';
+import { Metadata } from 'next';
+import { ReactNode } from 'react';
 
 export const metadata: Metadata = {
-    title: 'ShopWave | Admin Pannel',
+    title: 'Admin Dashboard',
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-    return <main className={roboto.className}>{children}</main>;
-}
+const layout = ({ children }: { children: ReactNode }) => {
+    return (
+        <ValidateAdmin>
+            <AdminLayout>{children}</AdminLayout>
+        </ValidateAdmin>
+    );
+};
+
+export default layout;

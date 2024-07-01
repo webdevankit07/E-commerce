@@ -66,12 +66,12 @@ UserSchema.methods.isPasswordCorrect = function (password: string) {
 };
 
 UserSchema.methods.genaratetAccessToken = function () {
-    const cookieData = { _id: this._id, email: this.email, username: this.username };
+    const cookieData = { _id: this._id, email: this.email, username: this.username, role: this.role };
     return jwt.sign(cookieData, accessTokenSecret!, { expiresIn: '1d' });
 };
 
 UserSchema.methods.genaratetRefreshToken = function () {
-    const cookieData = { _id: this._id, email: this.email, username: this.username };
+    const cookieData = { _id: this._id, email: this.email, username: this.username, role: this.role };
     return jwt.sign(cookieData, refreshTokenSecret!, { expiresIn: '10d' });
 };
 
