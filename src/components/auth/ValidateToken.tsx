@@ -1,5 +1,5 @@
 'use client';
-import { Axios, handleAxiosError } from '@/config/axios';
+import { Axios } from '@/config/axios';
 import { useAppDispatch } from '@/hooks/storeHooks';
 import { setCurrentUser } from '@/redux/features/auth/authSlice';
 import { ReactNode, useEffect } from 'react';
@@ -7,19 +7,16 @@ import { ReactNode, useEffect } from 'react';
 const ValidateToken = ({ children }: { children: ReactNode }) => {
     const dispatch = useAppDispatch();
 
-    const validateToken = async () => {
-        try {
-            const { data } = await Axios.get('/auth/validateToken');
-            dispatch(setCurrentUser(data.user));
-        } catch (error) {
-            const err = await handleAxiosError(error);
-            dispatch(setCurrentUser(null));
-        }
-    };
-
     useEffect(() => {
-        validateToken();
-    }, []);
+        (async () => {
+            try {
+                const { data } = await Axios.get('/auth/validateToken');
+                dispatch(setCurrentUser(data.user));
+            } catch (error) {
+                dispatch(setCurrentUser(null));
+            }
+        })();
+    }, [dispatch]);
 
     return <main>{children}</main>;
 };
