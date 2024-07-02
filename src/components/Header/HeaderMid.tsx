@@ -27,6 +27,7 @@ const HeaderMid = () => {
             await dispatch(userLogout(''));
             toast.success('Logged out successfully');
             router.push('/');
+            router.refresh();
         } catch (error) {
             toast.error('Something went wrong');
             console.log(error);

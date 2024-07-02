@@ -32,6 +32,7 @@ const SignUp = () => {
             await dispatch(userRegister(formData));
             toast.success('User Registered');
             router.push('/');
+            router.refresh();
         } catch (error) {
             const err = await handleAxiosError(error);
             toast.error(err);

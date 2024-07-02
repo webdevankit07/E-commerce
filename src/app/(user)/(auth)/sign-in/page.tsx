@@ -25,6 +25,7 @@ const SignIn = () => {
             await dispatch(userLogin(formData));
             toast.success('Login successful');
             router.push('/');
+            router.refresh();
         } catch (error) {
             const err = await handleAxiosError(error);
             toast.error(err);
