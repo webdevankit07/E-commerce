@@ -1,6 +1,18 @@
-import { login, logout } from '@/services/auth';
-import { AuthInitialStateType, LoginData, UserResType } from '@/types';
+import { login, logout, register } from '@/services/auth';
+import { AuthInitialStateType, LoginData, SignUpFormData, UserResType } from '@/types';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+
+export const userRegister = createAsyncThunk(
+    'auth/user-register',
+    async (userData: SignUpFormData, { rejectWithValue }) => {
+        try {
+            const res = await register(userData);
+            return res;
+        } catch (error) {
+            rejectWithValue(error);
+        }
+    }
+);
 
 export const userLogin = createAsyncThunk('auth/user-login', async (userData: LoginData, { rejectWithValue }) => {
     try {
@@ -38,8 +50,24 @@ const authSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(userLogin.pending, (state) => {
+            .addCase(userRegister.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(userRegister.fulfilled, (state, { payload }) => {
                 state.isLoading = false;
+                state.isSuccess = true;
+                if (typeof payload !== 'string' && payload !== undefined) {
+                    state.user = payload;
+                }
+            })
+            .addCase(userRegister.rejected, (state) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.isSuccess = false;
+                state.user = null;
+            })
+            .addCase(userLogin.pending, (state) => {
+                state.isLoading = true;
             })
             .addCase(userLogin.fulfilled, (state, { payload }) => {
                 state.isLoading = false;
@@ -55,7 +83,7 @@ const authSlice = createSlice({
                 state.user = null;
             })
             .addCase(userLogout.pending, (state) => {
-                state.isLoading = false;
+                state.isLoading = true;
             })
             .addCase(userLogout.fulfilled, (state) => {
                 state.isLoading = false;

@@ -25,12 +25,19 @@ export const POST = async (request: NextRequest) => {
             return NextResponse.json({ message: 'mobile number already exist', success: false }, { status: 400 });
         }
 
-        const newUser = await User.create({ firstname, lastname, username, email, mobile, password });
+        await User.create({ firstname, lastname, username, email, mobile, password });
+        const user = await User.findOne({ email }).select('firstname lastname username email mobile role');
+        if (!user) {
+            return NextResponse.json({ message: 'User not registered', success: false }, { status: 400 });
+        }
 
-        const accessToken = newUser.genaratetAccessToken();
-        const refreshToken = newUser.genaratetRefreshToken();
+        const accessToken = user.genaratetAccessToken();
+        const refreshToken = user.genaratetRefreshToken();
 
-        const response = NextResponse.json({ message: 'User registered successfully', success: true }, { status: 201 });
+        const response = NextResponse.json(
+            { user, message: 'User registered successfully', success: true },
+            { status: 201 }
+        );
         response.cookies.set('access_token', accessToken, {
             httpOnly: true,
             secure: true,

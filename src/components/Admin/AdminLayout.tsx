@@ -18,6 +18,7 @@ import { ScrollArea } from '../ui/scroll-area';
 import HeaderCustom from './Dasboard/HeaderCustom';
 import { useAppSelector } from '@/hooks/storeHooks';
 import Loading from '../shared/Loading';
+import toast from 'react-hot-toast';
 
 export const metadata: Metadata = {
     title: 'Admin Dashboard',
@@ -57,7 +58,9 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
     useEffect(() => {
         if (user?.role !== 'admin') {
             router.push('/');
+            toast.error('You are not Admin');
         } else {
+            toast.success('Welcom to Admin Dashboard');
             router.push('/admin/dashboard');
         }
     }, [user, router]);

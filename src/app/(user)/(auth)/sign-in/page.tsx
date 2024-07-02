@@ -4,6 +4,7 @@ import BreadCrumb from '@/components/shared/Breadcrumb';
 import Container from '@/components/shared/Container';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { handleAxiosError } from '@/config/axios';
 import { useAppDispatch } from '@/hooks/storeHooks';
 import { userLogin } from '@/redux/features/auth/authSlice';
 import Link from 'next/link';
@@ -25,7 +26,8 @@ const SignIn = () => {
             toast.success('Login successful');
             router.push('/');
         } catch (error) {
-            toast.error('Somthing went wrong');
+            const err = await handleAxiosError(error);
+            toast.error(err);
         }
     };
 

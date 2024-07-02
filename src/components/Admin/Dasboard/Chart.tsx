@@ -39,7 +39,7 @@ const Chart = () => {
     return (
         <div className='bg-white px-4 py-6 my-5 rounded-md shadow-md'>
             <h3 className='mb-10 font-semibold text-3xl'>Income Statics</h3>
-            <div className='max-w-[1500px] m-auto'>
+            <div className='xl:max-w-[1300px] 2xl:max-w-[1600px] m-auto'>
                 <Column {...config} />
             </div>
         </div>

@@ -18,7 +18,10 @@ export type ApiResposeType = {
     success: boolean;
 };
 
-// AuthSlice
+//!
+//!
+//!
+//! ********************  AuthSlice ********************* //
 export type UserResType = {
     _id: string;
     firstname: string;
@@ -46,4 +49,24 @@ export type LoginResType = {
     user: UserResType;
     message: string;
     success: boolean;
+};
+
+export type SignUpResType = {
+    user: UserResType;
+    message: string;
+    success: boolean;
+};
+
+//!
+//!
+//!
+//! ********************  SignUp Component Types ********************* //
+export type SignUpFormData = {
+    firstname: string;
+    lastname: string;
+    username: string;
+    email: string;
+    mobile: string;
+    password: string;
+    confirmPassword: string;
 };

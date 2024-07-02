@@ -12,6 +12,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks/storeHooks';
 import { userLogout } from '@/redux/features/auth/authSlice';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
+import { handleAxiosError } from '@/config/axios';
 
 const HeaderCustom = () => {
     const { user } = useAppSelector((state) => state.auth);
@@ -22,8 +23,8 @@ const HeaderCustom = () => {
             await dispatch(userLogout(''));
             toast.success('Logged out successfully');
         } catch (error) {
-            toast.error('Something went wrong');
-            console.log(error);
+            const err = await handleAxiosError(error);
+            toast.error(err);
         }
     };
 

@@ -15,15 +15,18 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { userLogout } from '@/redux/features/auth/authSlice';
 import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 const HeaderMid = () => {
     const { user } = useAppSelector((state) => state.auth);
     const dispatch = useAppDispatch();
+    const router = useRouter();
 
     const handleSignOut = async () => {
         try {
             await dispatch(userLogout(''));
             toast.success('Logged out successfully');
+            router.push('/');
         } catch (error) {
             toast.error('Something went wrong');
             console.log(error);
