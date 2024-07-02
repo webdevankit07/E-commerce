@@ -19,7 +19,7 @@ const Color = () => {
                 />
                 <Button className='py-5 bg-green-600 rounded-sm hover:bg-green-700'>Add Color</Button>
             </div>
-            <Table title='Product Colors' />
+            {/* <Table title='Product Colors' /> */}
         </div>
     );
 };

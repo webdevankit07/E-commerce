@@ -5,7 +5,7 @@ const Enquiries = () => {
     return (
         <div>
             <BreadCrumb BreadCrumbs={[{ name: 'Dashboard', location: '/admin/dashboard' }, { name: 'Enquiries' }]} />
-            <Table title='Enquiries' />
+            {/* <Table title='Enquiries' /> */}
         </div>
     );
 };

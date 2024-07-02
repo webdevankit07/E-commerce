@@ -19,7 +19,7 @@ const Brand = () => {
                 />
                 <Button className='py-5 bg-green-600 rounded-sm hover:bg-green-700'>Add Brand</Button>
             </div>
-            <Table title='Product Brands' />
+            {/* <Table title='Product Brands' /> */}
         </div>
     );
 };

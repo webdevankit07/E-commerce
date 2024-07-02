@@ -19,7 +19,7 @@ const Category = () => {
                 />
                 <Button className='py-5 bg-green-600 rounded-sm hover:bg-green-700'>Add Category</Button>
             </div>
-            <Table title='Product Categories' />
+            {/* <Table title='Product Categories' />por */}
         </div>
     );
 };
