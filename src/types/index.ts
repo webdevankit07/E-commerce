@@ -13,6 +13,11 @@ export type CategoryType = {
     imgUrl: string;
 };
 
+export type ApiResposeType = {
+    message: string;
+    success: boolean;
+};
+
 // AuthSlice
 export type UserResType = {
     _id: string;

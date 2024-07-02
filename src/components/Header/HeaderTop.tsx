@@ -5,7 +5,7 @@ const HeaderTop = () => {
     return (
         <div className='py-3 border-b border-b-dark-2'>
             <Container>
-                <div className='flex justify-between'>
+                <div className='flex justify-between text-sm'>
                     <p>Free shiping Over $100 & Free Returns</p>
                     <div className='flex gap-5'>
                         <p>

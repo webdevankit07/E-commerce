@@ -1,20 +1,42 @@
+'use client';
 import Container from '../shared/Container';
 import Link from 'next/link';
 import { BsHeart, BsSearch } from 'react-icons/bs';
 import { TfiReload } from 'react-icons/tfi';
-import { FaRegUser } from 'react-icons/fa';
+import { FaRegUser, FaRegUserCircle } from 'react-icons/fa';
 import { GiShoppingCart } from 'react-icons/gi';
+import { useAppDispatch, useAppSelector } from '@/hooks/storeHooks';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { logout } from '@/services/auth';
+import { setCurrentUser, userLogout } from '@/redux/features/auth/authSlice';
 
 const HeaderMid = () => {
+    const { user } = useAppSelector((state) => state.auth);
+    const dispatch = useAppDispatch();
+
+    const handleSignOut = async () => {
+        try {
+            await dispatch(userLogout(''));
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     return (
         <div className='py-3'>
             <Container>
-                <div className='flex justify-between items-center'>
-                    <div className='flex items-center justify-between gap-28'>
-                        <h2 className='text-3xl font-semibold'>
+                <div className='flex justify-between gap-10 items-center'>
+                    <div className='flex items-center justify-between gap-16 w-full'>
+                        <h2 className='text-2xl font-semibold'>
                             <Link href={'/'}>ShopWave</Link>
                         </h2>
-                        <div className='flex justify-center items-center rounded-sm overflow-hidden w-[500px]'>
+                        <div className='flex justify-center items-center rounded-sm overflow-hidden w-full'>
                             <input
                                 type='text'
                                 className='py-2 px-3 w-full focus:outline-none text-black'
@@ -25,25 +47,50 @@ const HeaderMid = () => {
                             </span>
                         </div>
                     </div>
-                    <div className='flex justify-between items-center gap-10'>
+                    <div className='flex justify-between items-center gap-8'>
                         <Link href={'/compare-products'} className='flex items-center gap-3'>
-                            <TfiReload className='text-3xl' />
-                            <p className='text-sm'>
+                            <TfiReload className='text-2xl' />
+                            <p className='text-xs'>
                                 Compare <br /> Products
                             </p>
                         </Link>
                         <Link href={'/wishlist'} className='flex items-center gap-3'>
-                            <BsHeart className='text-3xl' />
-                            <p className='text-sm'>
+                            <BsHeart className='text-2xl' />
+                            <p className='text-xs'>
                                 Favourite <br /> Wishlist
                             </p>
                         </Link>
-                        <Link href={'/sign-in'} className='flex items-center gap-3'>
-                            <FaRegUser className='text-3xl' />
-                            <p className='text-sm'>
-                                Log in <br /> My Account
-                            </p>
-                        </Link>
+                        <div>
+                            {user ? (
+                                <div className='flex items-center gap-3'>
+                                    <DropdownMenu>
+                                        <DropdownMenuTrigger className='flex items-center gap-3 text-start'>
+                                            <FaRegUserCircle className='text-3xl' />
+                                            <p className='text-xs'>
+                                                {`${user.firstname} ${user.lastname}`} <br /> {user.email}
+                                            </p>
+                                        </DropdownMenuTrigger>
+                                        <DropdownMenuContent className='min-w-[150px] mt-3 *:cursor-pointer'>
+                                            <DropdownMenuItem>View Profile</DropdownMenuItem>
+                                            {user.role === 'admin' && (
+                                                <DropdownMenuItem>
+                                                    <Link href={'/admin/dashboard'}>Dashboard</Link>
+                                                </DropdownMenuItem>
+                                            )}
+                                            <DropdownMenuSeparator />
+                                            <DropdownMenuItem onClick={handleSignOut}>Sign Out</DropdownMenuItem>
+                                        </DropdownMenuContent>
+                                    </DropdownMenu>
+                                </div>
+                            ) : (
+                                <Link href={'/sign-in'} className='flex items-center gap-3'>
+                                    <FaRegUser className='text-2xl' />
+                                    <p className='text-xs text-nowrap'>
+                                        Log in <br /> My Account
+                                    </p>
+                                </Link>
+                            )}
+                        </div>
                         <Link href={'/cart'} className='flex items-center gap-3'>
                             <GiShoppingCart className='text-4xl text-yellow-1' />
                             <div className='text-sm space-y-1'>

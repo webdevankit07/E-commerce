@@ -1,11 +1,19 @@
-import { handleAxiosError } from '@/config/axios';
-import { login } from '@/services/auth';
+import { login, logout } from '@/services/auth';
 import { AuthInitialStateType, LoginData, UserResType } from '@/types';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 export const userLogin = createAsyncThunk('auth/user-login', async (userData: LoginData, { rejectWithValue }) => {
     try {
         const res = await login(userData);
+        return res;
+    } catch (error) {
+        rejectWithValue(error);
+    }
+});
+
+export const userLogout = createAsyncThunk('auth/user-logout', async (arg: string, { rejectWithValue }) => {
+    try {
+        const res = await logout();
         return res;
     } catch (error) {
         rejectWithValue(error);
@@ -41,6 +49,20 @@ const authSlice = createSlice({
                 }
             })
             .addCase(userLogin.rejected, (state) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.isSuccess = false;
+                state.user = null;
+            })
+            .addCase(userLogout.pending, (state) => {
+                state.isLoading = false;
+            })
+            .addCase(userLogout.fulfilled, (state) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.user = null;
+            })
+            .addCase(userLogout.rejected, (state) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.isSuccess = false;

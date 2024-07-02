@@ -57,16 +57,14 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
     } = theme.useToken();
 
     useEffect(() => {
-        if (user === null || user.role !== 'admin') {
+        if (user?.role !== 'admin') {
             router.push('/');
         } else {
             router.push('/admin/dashboard');
         }
     }, [user, router]);
 
-    if (user === null || user.role !== 'admin') {
-        return <Loading />;
-    } else {
+    if (user?.role === 'admin') {
         return (
             <Layout className='min-h-screen'>
                 <ScrollArea className='h-screen'>
@@ -123,6 +121,8 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
                 </Layout>
             </Layout>
         );
+    } else {
+        return <Loading />;
     }
 };
 
