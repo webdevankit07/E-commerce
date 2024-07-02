@@ -11,8 +11,6 @@ const Loading = () => {
                     color='#6f6c6c'
                     secondaryColor='#858585'
                     ariaLabel='oval-loading'
-                    wrapperStyle={{}}
-                    wrapperClass=''
                     strokeWidth={3}
                 />
                 <div className='text-center font-medium text-xl text-gray-600 mt-5'>Loading...</div>

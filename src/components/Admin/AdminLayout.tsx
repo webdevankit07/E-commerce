@@ -1,5 +1,5 @@
 'use client';
-import { ReactNode, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Button, Layout, Menu, theme } from 'antd';
@@ -16,6 +16,8 @@ import { RiQuestionnaireFill } from 'react-icons/ri';
 import { ScrollArea } from '../ui/scroll-area';
 // import Image from 'next/image';
 import HeaderCustom from './Dasboard/HeaderCustom';
+import { useAppSelector } from '@/hooks/storeHooks';
+import Loading from '../shared/Loading';
 
 export const metadata: Metadata = {
     title: 'Admin Dashboard',
@@ -44,6 +46,7 @@ const items: MenuItem[] = [
 ];
 
 const AdminLayout = ({ children }: { children: ReactNode }) => {
+    const { user } = useAppSelector((state) => state.auth);
     const [collapsed, setCollapsed] = useState(false);
     const router = useRouter();
     const pathname = usePathname();
@@ -53,62 +56,74 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
         token: { colorBgContainer },
     } = theme.useToken();
 
-    return (
-        <Layout className='min-h-screen'>
-            <ScrollArea className='h-screen'>
-                <Sider
-                    collapsible
-                    collapsed={collapsed}
-                    onCollapse={(value) => setCollapsed(value)}
-                    className='min-h-screen'
-                    width={250}
-                >
-                    <div
-                        className='font-bold text-3xl text-white py-5 text-center adminLogo cursor-pointer'
-                        onClick={() => router.push('/admin/dashboard')}
-                    >
-                        ShopWave
-                    </div>
-                    <Menu
-                        theme='dark'
-                        defaultSelectedKeys={[path[2]]}
-                        mode='inline'
-                        items={items}
-                        onClick={(key) => router.push(`/admin/dashboard/${key.key}`)}
-                        className='adminSider'
-                    />
-                </Sider>
-            </ScrollArea>
+    useEffect(() => {
+        if (user === null || user.role !== 'admin') {
+            router.push('/');
+        } else {
+            router.push('/admin/dashboard');
+        }
+    }, [user, router]);
+
+    if (user === null || user.role !== 'admin') {
+        return <Loading />;
+    } else {
+        return (
             <Layout className='min-h-screen'>
                 <ScrollArea className='h-screen'>
-                    <div className='min-h-screen flex flex-col'>
-                        <Header
-                            style={{ padding: 0, background: colorBgContainer }}
-                            className='flex items-center justify-between'
+                    <Sider
+                        collapsible
+                        collapsed={collapsed}
+                        onCollapse={(value) => setCollapsed(value)}
+                        className='min-h-screen'
+                        width={250}
+                    >
+                        <div
+                            className='font-bold text-3xl text-white py-5 text-center adminLogo cursor-pointer'
+                            onClick={() => router.push('/admin/dashboard')}
                         >
-                            <Button
-                                type='text'
-                                icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-                                onClick={() => setCollapsed(!collapsed)}
-                                style={{
-                                    fontSize: '16px',
-                                    width: 64,
-                                    height: 64,
-                                }}
-                            />
-                            <HeaderCustom />
-                        </Header>
-                        <Content className='flex-1 bg-zinc-200'>
-                            <div className='px-4'>{children}</div>
-                        </Content>
-                        <Footer className='text-center bg-dark-4 text-white py-3.5'>
-                            ShopWave ©{new Date().getFullYear()} Created by WebDev Ankit
-                        </Footer>
-                    </div>
+                            ShopWave
+                        </div>
+                        <Menu
+                            theme='dark'
+                            defaultSelectedKeys={[path[2]]}
+                            mode='inline'
+                            items={items}
+                            onClick={(key) => router.push(`/admin/dashboard/${key.key}`)}
+                            className='adminSider'
+                        />
+                    </Sider>
                 </ScrollArea>
+                <Layout className='min-h-screen'>
+                    <ScrollArea className='h-screen'>
+                        <div className='min-h-screen flex flex-col'>
+                            <Header
+                                style={{ padding: 0, background: colorBgContainer }}
+                                className='flex items-center justify-between'
+                            >
+                                <Button
+                                    type='text'
+                                    icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                                    onClick={() => setCollapsed(!collapsed)}
+                                    style={{
+                                        fontSize: '16px',
+                                        width: 64,
+                                        height: 64,
+                                    }}
+                                />
+                                <HeaderCustom />
+                            </Header>
+                            <Content className='flex-1 bg-zinc-200'>
+                                <div className='px-4'>{children}</div>
+                            </Content>
+                            <Footer className='text-center bg-dark-4 text-white py-3.5'>
+                                ShopWave ©{new Date().getFullYear()} Created by WebDev Ankit
+                            </Footer>
+                        </div>
+                    </ScrollArea>
+                </Layout>
             </Layout>
-        </Layout>
-    );
+        );
+    }
 };
 
 export default AdminLayout;
