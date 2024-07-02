@@ -56,7 +56,9 @@ const AdminDashBoard = () => {
                     </div>
                 </div>
             </div>
-            <Chart />
+            <div className='max-w-[250]'>
+                <Chart />
+            </div>
             <DashboardTable />
         </div>
     );

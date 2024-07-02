@@ -13,8 +13,8 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { logout } from '@/services/auth';
-import { setCurrentUser, userLogout } from '@/redux/features/auth/authSlice';
+import { userLogout } from '@/redux/features/auth/authSlice';
+import toast from 'react-hot-toast';
 
 const HeaderMid = () => {
     const { user } = useAppSelector((state) => state.auth);
@@ -23,7 +23,9 @@ const HeaderMid = () => {
     const handleSignOut = async () => {
         try {
             await dispatch(userLogout(''));
+            toast.success('Logged out successfully');
         } catch (error) {
+            toast.error('Something went wrong');
             console.log(error);
         }
     };
@@ -74,7 +76,7 @@ const HeaderMid = () => {
                                             <DropdownMenuItem>View Profile</DropdownMenuItem>
                                             {user.role === 'admin' && (
                                                 <DropdownMenuItem>
-                                                    <Link href={'/admin/dashboard'}>Dashboard</Link>
+                                                    <Link href={'/admin/dashboard/'}>Dashboard</Link>
                                                 </DropdownMenuItem>
                                             )}
                                             <DropdownMenuSeparator />

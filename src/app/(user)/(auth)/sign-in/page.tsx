@@ -9,6 +9,7 @@ import { userLogin } from '@/redux/features/auth/authSlice';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
+import toast from 'react-hot-toast';
 import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
 
 const SignIn = () => {
@@ -21,9 +22,10 @@ const SignIn = () => {
         e.preventDefault();
         try {
             await dispatch(userLogin(formData));
+            toast.success('Login successful');
             router.push('/');
         } catch (error) {
-            console.log(error);
+            toast.error('Somthing went wrong');
         }
     };
 

@@ -49,8 +49,6 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
     const { user } = useAppSelector((state) => state.auth);
     const [collapsed, setCollapsed] = useState(false);
     const router = useRouter();
-    const pathname = usePathname();
-    const path = pathname.split('/');
 
     const {
         token: { colorBgContainer },
@@ -83,7 +81,7 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
                         </div>
                         <Menu
                             theme='dark'
-                            defaultSelectedKeys={[path[2]]}
+                            defaultSelectedKeys={['/']}
                             mode='inline'
                             items={items}
                             onClick={(key) => router.push(`/admin/dashboard/${key.key}`)}
