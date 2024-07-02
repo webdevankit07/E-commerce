@@ -5,15 +5,17 @@ import Container from '@/components/shared/Container';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { handleAxiosError } from '@/config/axios';
-import { useAppDispatch } from '@/hooks/storeHooks';
+import { useAppDispatch, useAppSelector } from '@/hooks/storeHooks';
 import { userLogin } from '@/redux/features/auth/authSlice';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
 import toast from 'react-hot-toast';
 import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
+import { Oval } from 'react-loader-spinner';
 
 const SignIn = () => {
+    const { isLoading } = useAppSelector((state) => state.auth);
     const [formData, setFormData] = useState({ identifier: '', password: '' });
     const [showPassword, setShowPassword] = useState(false);
     const router = useRouter();
@@ -82,7 +84,18 @@ const SignIn = () => {
                                 type='submit'
                                 className='bg-yellow-1 text-slate-800 hover:bg-yellow-500 active:bg-yellow-1'
                             >
-                                Login
+                                {isLoading ? (
+                                    <Oval
+                                        visible={true}
+                                        width={20}
+                                        color='#616161'
+                                        secondaryColor='#666666'
+                                        ariaLabel='oval-loading'
+                                        strokeWidth={3}
+                                    />
+                                ) : (
+                                    'Login'
+                                )}
                             </Button>
                             <Button
                                 type='button'

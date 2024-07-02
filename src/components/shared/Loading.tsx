@@ -1,20 +1,25 @@
-import { Oval } from 'react-loader-spinner';
+'use client';
+import { CirclesWithBar } from 'react-loader-spinner';
 
-const Loading = () => {
+interface LoadingProps {
+    className?: string;
+    color?: string;
+    height?: number;
+}
+
+const Loading = ({ className, color = '#494949', height = 70 }: LoadingProps) => {
     return (
-        <div className='w-full h-screen grid place-content-center'>
-            <div>
-                <Oval
-                    visible={true}
-                    height='80'
-                    width='80'
-                    color='#6f6c6c'
-                    secondaryColor='#858585'
-                    ariaLabel='oval-loading'
-                    strokeWidth={3}
-                />
-                <div className='text-center font-medium text-xl text-gray-600 mt-5'>Loading...</div>
-            </div>
+        <div className={`flex items-center justify-center min-h-[${height}vh] ${className}`}>
+            <CirclesWithBar
+                visible={true}
+                height='80'
+                width='80'
+                color={color}
+                outerCircleColor={color}
+                innerCircleColor={color}
+                barColor={color}
+                ariaLabel='oval-loading'
+            />
         </div>
     );
 };

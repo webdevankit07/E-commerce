@@ -12,11 +12,13 @@ import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { SignUpFormData } from '@/types';
 import toast from 'react-hot-toast';
-import { useAppDispatch } from '@/hooks/storeHooks';
+import { useAppDispatch, useAppSelector } from '@/hooks/storeHooks';
 import { userRegister } from '@/redux/features/auth/authSlice';
 import { handleAxiosError } from '@/config/axios';
+import { Oval } from 'react-loader-spinner';
 
 const SignUp = () => {
+    const { isLoading } = useAppSelector((state) => state.auth);
     const [showPassword, setShowPassword] = useState(false);
     const router = useRouter();
     const dispatch = useAppDispatch();
@@ -209,7 +211,18 @@ const SignUp = () => {
                                 type='submit'
                                 className='bg-yellow-1 text-slate-800 hover:bg-yellow-500 active:bg-yellow-1'
                             >
-                                Create account
+                                {isLoading ? (
+                                    <Oval
+                                        visible={true}
+                                        width={20}
+                                        color='#616161'
+                                        secondaryColor='#666666'
+                                        ariaLabel='oval-loading'
+                                        strokeWidth={3}
+                                    />
+                                ) : (
+                                    'Create account'
+                                )}
                             </Button>
                             <Button
                                 type='button'

@@ -22,7 +22,7 @@ const HeaderCustom = () => {
 
     const handleSignOut = async () => {
         try {
-            await dispatch(userLogout(''));
+            await dispatch(userLogout());
             toast.success('Logged out successfully');
             router.refresh();
         } catch (error) {

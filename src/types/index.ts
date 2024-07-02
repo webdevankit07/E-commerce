@@ -21,6 +21,20 @@ export type ApiResposeType = {
 //!
 //!
 //!
+//! ********************  SignUp Component Types ********************* //
+export type SignUpFormData = {
+    firstname: string;
+    lastname: string;
+    username: string;
+    email: string;
+    mobile: string;
+    password: string;
+    confirmPassword: string;
+};
+
+//!
+//!
+//!
 //! ********************  AuthSlice ********************* //
 export type UserResType = {
     _id: string;
@@ -60,13 +74,11 @@ export type SignUpResType = {
 //!
 //!
 //!
-//! ********************  SignUp Component Types ********************* //
-export type SignUpFormData = {
-    firstname: string;
-    lastname: string;
-    username: string;
-    email: string;
-    mobile: string;
-    password: string;
-    confirmPassword: string;
+//! ********************  CustomerSlice ********************* //
+export type CustomerInitialStateType = {
+    customers: UserResType[] | [];
+    isError: boolean;
+    isLoading: boolean;
+    isSuccess: boolean;
+    message: string | unknown;
 };
