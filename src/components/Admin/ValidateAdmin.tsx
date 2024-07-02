@@ -2,6 +2,7 @@
 import { ReactNode, useEffect } from 'react';
 import { useAppSelector } from '@/hooks/storeHooks';
 import { useRouter } from 'next/navigation';
+import Loading from '../shared/Loading';
 
 const ValidateAdmin = ({ children }: { children: ReactNode }) => {
     const { user } = useAppSelector((state) => state.auth);
@@ -16,7 +17,7 @@ const ValidateAdmin = ({ children }: { children: ReactNode }) => {
     }, [user, router]);
 
     if (user === null || user.role !== 'admin') {
-        return <main>Loading...</main>;
+        return <Loading />;
     } else {
         return <main>{children}</main>;
     }
