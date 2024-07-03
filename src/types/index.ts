@@ -1,4 +1,45 @@
 import { IconType } from 'react-icons/lib';
+//!
+//!
+//!
+//! ********************  ProductTypes -- START ********************* //
+export type ColorType = {
+    name: string;
+};
+export type RatingType = {
+    _id: string;
+    star: number;
+    comment: string;
+    postedby: UserResType;
+};
+export type ImageType = { public_id: string; url: string; optimizeUrl: string };
+
+export type ProductType = {
+    _id: string;
+    title: string;
+    slug: string;
+    description: string;
+    price: number;
+    category: string;
+    brand: string;
+    quantity: number;
+    sold: number;
+    colors: ColorType[];
+    color: ColorType[];
+    images: ImageType[];
+    ratings: RatingType[];
+    totalRating: number;
+};
+
+export type ProductResType = {
+    products: ProductType[];
+    pageNo: number;
+    itemRange: string;
+    nbHits: number;
+    totalProducts: number;
+};
+
+//! ********************  ProductTypest Types -- END********************* //
 
 export type ServiceType = {
     Icon: IconType;
@@ -77,6 +118,18 @@ export type SignUpResType = {
 //! ********************  CustomerSlice ********************* //
 export type CustomerInitialStateType = {
     customers: UserResType[] | [];
+    isError: boolean;
+    isLoading: boolean;
+    isSuccess: boolean;
+    message: string | unknown;
+};
+
+//!
+//!
+//!
+//! ********************  ProductSlice ********************* //
+export type ProductSliceInitialStateType = {
+    products: ProductType[] | [];
     isError: boolean;
     isLoading: boolean;
     isSuccess: boolean;

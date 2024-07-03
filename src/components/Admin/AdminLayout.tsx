@@ -47,7 +47,7 @@ const items: MenuItem[] = [
 ];
 
 const AdminLayout = ({ children }: { children: ReactNode }) => {
-    const { user } = useAppSelector((state) => state.auth);
+    const { user, isLoading } = useAppSelector((state) => state.auth);
     const [collapsed, setCollapsed] = useState(false);
     const router = useRouter();
 
@@ -56,14 +56,14 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
     } = theme.useToken();
 
     useEffect(() => {
-        if (user?.role !== 'admin') {
+        if (!isLoading && !user === null && user?.role !== 'admin') {
             router.push('/');
             toast.error('You are not Admin');
-        } else {
+        } else if (user?.role === 'admin') {
             toast.success('Welcom to Admin Dashboard');
             router.push('/admin/dashboard');
         }
-    }, [user, router]);
+    }, [user, router, isLoading]);
 
     if (user?.role === 'admin') {
         return (

@@ -29,7 +29,6 @@ const customerSlice = createSlice({
                 state.isLoading = true;
             })
             .addCase(getAllusers.fulfilled, (state, { payload }) => {
-                console.log(payload);
                 state.customers = payload;
                 state.isLoading = false;
                 state.isSuccess = true;

@@ -2,7 +2,7 @@ import { Schema, model, Document, ObjectId, models, Model } from 'mongoose';
 
 export type ImageType = { public_id: string; url: string; optimizeUrl: string };
 type RatingType = { star: number; comment: string; postedby: ObjectId };
-type ColourType = 'Black' | 'Brown' | 'Red' | 'White';
+type ColourType = string;
 
 export interface ProductSchemaType extends Document {
     title: string;
@@ -31,7 +31,7 @@ const ProductSchema: Schema<ProductSchemaType> = new Schema(
         quantity: { type: Number, required: true },
         sold: { type: Number, default: 0 },
         images: [{ public_id: String, url: String, optimizeUrl: String }],
-        colors: [{ type: String, enum: ['Black', 'Brown', 'Red', 'White'] }],
+        colors: [{ type: String }],
         tags: String,
         ratings: [{ star: Number, comment: String, postedby: { type: Schema.Types.ObjectId, ref: 'User' } }],
         totalRating: { type: Number, default: 0 },

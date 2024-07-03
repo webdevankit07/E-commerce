@@ -4,12 +4,11 @@ import { CirclesWithBar } from 'react-loader-spinner';
 interface LoadingProps {
     className?: string;
     color?: string;
-    height?: number;
 }
 
-const Loading = ({ className, color = '#494949', height = 70 }: LoadingProps) => {
+const Loading = ({ className, color = '#494949' }: LoadingProps) => {
     return (
-        <div className={`flex items-center justify-center min-h-[${height}vh] ${className}`}>
+        <div className={`flex items-center justify-center min-h-[80vh] ${className}`}>
             <CirclesWithBar
                 visible={true}
                 height='80'
