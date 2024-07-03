@@ -1,9 +1,37 @@
+'use client';
 import Table from '@/components/Admin/Table';
 import BreadCrumb from '@/components/shared/Breadcrumb';
+import Loading from '@/components/shared/Loading';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { useAppDispatch, useAppSelector } from '@/hooks/storeHooks';
+import { getAllCategories } from '@/redux/features/categories/categorySlice';
+import { useEffect } from 'react';
+import { FiEdit } from 'react-icons/fi';
+import { MdDeleteSweep } from 'react-icons/md';
 
 const Category = () => {
+    const { categories, isLoading } = useAppSelector((state) => state.category);
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        if (!categories || categories.length === 0) {
+            dispatch(getAllCategories());
+        }
+    }, [dispatch, categories]);
+
+    const columns = [
+        { title: 'SI.No.', dataIndex: 'key' },
+        { title: 'Name', dataIndex: 'name', sorter: (a: any, b: any) => a.name.localeCompare(b.name) },
+        { title: 'Actions', dataIndex: 'actions' },
+    ];
+
+    const dataSource = categories.map((category, index) => ({
+        key: ++index,
+        name: category.title,
+        actions: <Action categoryId={category._id} />,
+    }));
+
     return (
         <div className='pb-10'>
             <BreadCrumb
@@ -19,7 +47,30 @@ const Category = () => {
                 />
                 <Button className='py-5 bg-green-600 rounded-sm hover:bg-green-700'>Add Category</Button>
             </div>
-            {/* <Table title='Product Categories' />por */}
+            {isLoading ? <Loading /> : <Table title='Categories' columns={columns} dataSource={dataSource} />}
+        </div>
+    );
+};
+
+const Action = ({ categoryId }: { categoryId: string }) => {
+    return (
+        <div className='flex gap-4'>
+            <Button
+                variant={'outline'}
+                size={'sm'}
+                className='flex items-center gap-1.5 bg-green-600/[.2] text-green-800 border-green-800 px-5 py-1 font-semibold'
+            >
+                <FiEdit />
+                Edit
+            </Button>
+            <Button
+                variant={'outline'}
+                size={'sm'}
+                className='flex items-center gap-1.5 bg-red-600/[.2] text-red-800 border-red-800 px-5 py-1 font-semibold'
+            >
+                <MdDeleteSweep />
+                Delete
+            </Button>
         </div>
     );
 };

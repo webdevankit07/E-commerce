@@ -15,7 +15,7 @@ export const GET = async (req: NextRequest) => {
         const orders = await Order.find()
             .select('-__v')
             .populate('products.product', 'title price images')
-            .populate('orderby', 'username email mobile role');
+            .populate('orderby', 'firstname lastname username email mobile role');
         if (!orders) {
             return NextResponse.json({ message: 'You have no orders', success: false }, { status: 200 });
         }

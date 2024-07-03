@@ -14,8 +14,10 @@ const ProductList = () => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(getAllProducts());
-    }, [dispatch]);
+        if (!products || products.length === 0) {
+            dispatch(getAllProducts());
+        }
+    }, [dispatch, products]);
 
     const columns = [
         { title: 'SI.No.', dataIndex: 'key' },

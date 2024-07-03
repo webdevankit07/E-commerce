@@ -12,9 +12,9 @@ export const GET = async (req: NextRequest) => {
             return NextResponse.json({ message: 'You are not Admin', success: false }, { status: 400 });
         }
 
-        const enquries = await Enquiry.find().select('-__v');
+        const enquiries = await Enquiry.find().select('-__v');
 
-        return NextResponse.json({ enquries, message: 'success', success: true }, { status: 200 });
+        return NextResponse.json({ enquiries, message: 'success', success: true }, { status: 200 });
     } catch (error: any) {
         console.log('Error while access the enquires', error.message);
         return NextResponse.json({ message: error.message, success: false }, { status: 500 });

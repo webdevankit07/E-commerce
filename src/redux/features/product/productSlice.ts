@@ -2,7 +2,7 @@ import { getProducts } from '@/services/products';
 import { ProductSliceInitialStateType } from '@/types';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-export const getAllProducts = createAsyncThunk('customer/getAllUsers', async (_, { rejectWithValue }) => {
+export const getAllProducts = createAsyncThunk('products/getAllProducts', async (_, { rejectWithValue }) => {
     try {
         const products = await getProducts();
         return products;

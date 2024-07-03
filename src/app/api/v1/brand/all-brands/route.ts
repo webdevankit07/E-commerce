@@ -7,7 +7,7 @@ export const GET = async (req: NextRequest) => {
     await ConnectDB();
 
     try {
-        const brands = await Brand.find().select('-__v');
+        const brands = await Brand.find().select('_id name');
         if (!brands) {
             return NextResponse.json({ message: 'no brand name exists', success: false }, { status: 400 });
         }

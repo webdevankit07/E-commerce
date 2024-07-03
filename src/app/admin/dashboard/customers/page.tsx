@@ -12,8 +12,10 @@ const Customers = () => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(getAllusers());
-    }, [dispatch]);
+        if (!customers || customers.length === 0) {
+            dispatch(getAllusers());
+        }
+    }, [dispatch, customers]);
 
     const columns = [
         { title: 'SI.No.', dataIndex: 'key' },
@@ -46,11 +48,11 @@ const RoleBadge = ({ role }: { role: 'admin' | 'user' }) => {
         <div className='w-full text-center'>
             <Badge
                 variant={'outline'}
-                className={`bg-red-500/[.3] border-red-500 text-red-700 ${
+                className={`bg-red-500/[.3] border-red-500 text-red-700 capitalize ${
                     role === 'admin' && 'bg-green-500/[.3] border-green-800 text-green-800'
                 }`}
             >
-                {role.toUpperCase()}
+                {role}
             </Badge>
         </div>
     );

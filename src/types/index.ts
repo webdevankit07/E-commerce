@@ -1,9 +1,7 @@
 import { IconType } from 'react-icons/lib';
-//!
-//!
-//!
 //! ********************  ProductTypes -- START ********************* //
 export type ColorType = {
+    _id: string;
     name: string;
 };
 export type RatingType = {
@@ -38,7 +36,6 @@ export type ProductResType = {
     nbHits: number;
     totalProducts: number;
 };
-
 //! ********************  ProductTypest Types -- END********************* //
 
 export type ServiceType = {
@@ -130,6 +127,136 @@ export type CustomerInitialStateType = {
 //! ********************  ProductSlice ********************* //
 export type ProductSliceInitialStateType = {
     products: ProductType[] | [];
+    isError: boolean;
+    isLoading: boolean;
+    isSuccess: boolean;
+    message: string | unknown;
+};
+
+//!
+//!
+//!
+//! ********************  BrandSlice ********************* //
+export type BrandType = {
+    _id: string;
+    name: string;
+};
+export type BrandResType = {
+    brands: BrandType[];
+};
+export type BrandInitialStateType = {
+    brands: BrandType[] | [];
+    isError: boolean;
+    isLoading: boolean;
+    isSuccess: boolean;
+    message: string | unknown;
+};
+
+//!
+//!
+//!
+//! ********************  ColorSlice ********************* //
+export type ColorResType = {
+    colors: ColorType[];
+};
+export type ColorInitialStateType = {
+    colors: ColorType[] | [];
+    isError: boolean;
+    isLoading: boolean;
+    isSuccess: boolean;
+    message: string | unknown;
+};
+
+//!
+//!
+//!
+//! ********************  CategorySlice ********************* //
+export type ProductCategoryType = {
+    _id: string;
+    title: string;
+};
+export type ProductCategoryResType = {
+    categories: ProductCategoryType[];
+};
+export type CategoryInitialStateType = {
+    categories: ProductCategoryType[] | [];
+    isError: boolean;
+    isLoading: boolean;
+    isSuccess: boolean;
+    message: string | unknown;
+};
+
+//!
+//!
+//!
+//! ********************  CategorySlice ********************* //
+export type EnquiryType = {
+    _id: string;
+    name: string;
+    email: string;
+    mobile: string;
+    comment: string;
+    status: string;
+    createdAt: Date;
+};
+export type EnquiryResType = {
+    enquiries: EnquiryType[];
+};
+export type EnquiryInitialStateType = {
+    enquiries: EnquiryType[] | [];
+    isError: boolean;
+    isLoading: boolean;
+    isSuccess: boolean;
+    message: string | unknown;
+};
+
+//!
+//!
+//!
+//! ********************  OrderSlice ********************* //
+export type OrderProductType = {
+    _id: string;
+    product: {
+        _id: string;
+        title: string;
+        price: number;
+        images: ImageType[];
+    };
+    count: number;
+    color: string;
+};
+export type PaymentIntentType = {
+    id: string;
+    method: string;
+    amount: number;
+    status: string;
+    created: number;
+    currency: string;
+};
+export type OrderUserType = {
+    _id: string;
+    firstname: string;
+    lastname: string;
+    username: string;
+    email: string;
+    mobile: string;
+    role: string;
+};
+export type OrderType = {
+    _id: string;
+    products: OrderProductType[];
+    paymentIntent: PaymentIntentType;
+    orderStatus: string;
+    orderby: OrderUserType;
+    createdAt: Date;
+};
+export type OrderResType = {
+    orders: OrderType[];
+    message: string;
+    success: boolean;
+};
+export type OderInitialStateType = {
+    orders: OrderType[] | [];
     isError: boolean;
     isLoading: boolean;
     isSuccess: boolean;
