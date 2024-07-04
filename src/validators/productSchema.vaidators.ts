@@ -7,7 +7,7 @@ const category = z.string({ required_error: 'category is required' });
 const brand = z.string({ required_error: 'brand is required' });
 const quantity = z.number({ required_error: 'quantity is required' });
 const colors = z.array(z.string({ required_error: 'title is required' })).optional();
-const tags = z.array(z.string().optional());
+const tags = z.array(z.string()).optional();
 
 export const CreateProductValidator = z.object({
     title,

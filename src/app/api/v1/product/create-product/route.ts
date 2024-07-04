@@ -20,9 +20,10 @@ export const POST = async (req: NextRequest) => {
             return NextResponse.json({ message: 'slug name already exist', success: false }, { status: 409 });
 
         const slug = slugify(body.title);
-        await Product.create({ ...body, slug });
+        console.log(body);
+        const product = await Product.create({ ...body, slug });
 
-        return NextResponse.json({ success: true, message: 'Product created' }, { status: 201 });
+        return NextResponse.json({ product, success: true, message: 'Product created' }, { status: 201 });
     } catch (error: any) {
         console.log('Error while creating product', error.message);
         return NextResponse.json({ message: error.message, success: false }, { status: 500 });

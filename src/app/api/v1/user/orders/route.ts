@@ -1,6 +1,7 @@
 import { ConnectDB } from '@/config/connectDB';
 import { validateToken } from '@/helpers/validateToken';
 import Order from '@/models/order.model';
+import Product from '@/models/product.model';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const GET = async (req: NextRequest) => {
@@ -8,6 +9,7 @@ export const GET = async (req: NextRequest) => {
 
     try {
         const { isAdmin } = await validateToken(req);
+        await Product.find();
         if (!isAdmin) {
             return NextResponse.json({ message: 'You are not Admin' }, { status: 400 });
         }

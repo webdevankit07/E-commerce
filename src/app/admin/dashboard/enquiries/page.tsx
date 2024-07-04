@@ -16,6 +16,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select';
+import ShowDate from '@/components/shared/ShowDate';
 
 const Enquiry = () => {
     const { enquiries, isLoading } = useAppSelector((state) => state.enquiry);
@@ -49,7 +50,7 @@ const Enquiry = () => {
         mobile: enquiry.mobile,
         comment: enquiry.comment,
         status: <Status status={enquiry.status} onChange={handleStateChange} />,
-        date: enquiry.createdAt,
+        date: <ShowDate timestamp={enquiry.createdAt} />,
         actions: <Action enquiryId={enquiry._id} />,
     }));
 

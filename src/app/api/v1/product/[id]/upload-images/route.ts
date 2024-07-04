@@ -10,7 +10,7 @@ export const PUT = async (req: NextRequest, { params }: { params: { id: string }
     try {
         const { id: productId } = params;
         const formData = await req.formData();
-        const images = formData.getAll('images') as unknown as File[];
+        const images = formData.getAll('imageFiles') as unknown as File[];
 
         const { isAdmin } = await validateToken(req);
         if (!isAdmin) {
@@ -28,10 +28,9 @@ export const PUT = async (req: NextRequest, { params }: { params: { id: string }
             productId,
             { $push: { images: imageUrls } },
             { new: true }
-        );
+        ).select('-createdAt -updatedAt -__v');
 
         return NextResponse.json({ product: updatedProduct, message: 'success', success: false }, { status: 200 });
-        // return NextResponse.json({ product: updatedProduct, message: 'success', success: false }, { status: 200 });
     } catch (error: any) {
         console.log('Error while uploading product images', error.message);
         return NextResponse.json({ message: error.message, success: false }, { status: 500 });

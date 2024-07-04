@@ -262,3 +262,30 @@ export type OderInitialStateType = {
     isSuccess: boolean;
     message: string | unknown;
 };
+
+export type CreateProductData = {
+    title: string;
+    description: string;
+    price: number;
+    quantity: number;
+    images: File[];
+    category: string;
+    brand: string;
+    colors: string | string[];
+};
+
+export type CreateProductInfo = {
+    title: string;
+    description: string;
+    price: number;
+    quantity: number;
+    category: string;
+    brand: string;
+    colors: string | string[];
+};
+
+export type CreateProductResType = {
+    product: ProductType;
+    success: boolean;
+    message: string;
+};
