@@ -129,8 +129,43 @@ export type ProductSliceInitialStateType = {
     products: ProductType[] | [];
     isError: boolean;
     isLoading: boolean;
+    isProductEditing: boolean;
+    isProductDeleting: boolean;
     isSuccess: boolean;
     message: string | unknown;
+};
+
+export type CreateProductData = {
+    title: string;
+    description: string;
+    price: number;
+    quantity: number;
+    images: File[];
+    category: string;
+    brand: string;
+    colors: string | string[];
+};
+
+export type CreateProductInfo = {
+    title: string;
+    description: string;
+    price: number;
+    quantity: number;
+    category: string;
+    brand: string;
+    colors: string | string[];
+};
+
+export type CreateProductResType = {
+    product: ProductType;
+    success: boolean;
+    message: string;
+};
+
+export type DeleteProductResType = {
+    productId: string;
+    success: boolean;
+    message: string;
 };
 
 //!
@@ -261,31 +296,4 @@ export type OderInitialStateType = {
     isLoading: boolean;
     isSuccess: boolean;
     message: string | unknown;
-};
-
-export type CreateProductData = {
-    title: string;
-    description: string;
-    price: number;
-    quantity: number;
-    images: File[];
-    category: string;
-    brand: string;
-    colors: string | string[];
-};
-
-export type CreateProductInfo = {
-    title: string;
-    description: string;
-    price: number;
-    quantity: number;
-    category: string;
-    brand: string;
-    colors: string | string[];
-};
-
-export type CreateProductResType = {
-    product: ProductType;
-    success: boolean;
-    message: string;
 };

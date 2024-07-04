@@ -11,9 +11,12 @@ export const DELETE = async (req: NextRequest, { params }: { params: { id: strin
         const { isAdmin } = await validateToken(req);
         if (!isAdmin) return NextResponse.json({ message: 'unauthorize access', success: false }, { status: 401 });
 
-        await Product.findByIdAndDelete(id);
+        const product = await Product.findByIdAndDelete(id).select('_id');
 
-        return NextResponse.json({ message: 'Product deleted', success: true }, { status: 200 });
+        return NextResponse.json(
+            { productId: product?._id, message: 'Product deleted', success: true },
+            { status: 200 }
+        );
     } catch (error: any) {
         console.log('Error while deleting product', error.message);
         return NextResponse.json({ message: error.message, success: false }, { status: 500 });

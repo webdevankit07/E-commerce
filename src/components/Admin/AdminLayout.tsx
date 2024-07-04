@@ -16,9 +16,16 @@ import { RiQuestionnaireFill } from 'react-icons/ri';
 import { ScrollArea } from '../ui/scroll-area';
 // import Image from 'next/image';
 import HeaderCustom from './Dasboard/HeaderCustom';
-import { useAppSelector } from '@/hooks/storeHooks';
+import { useAppDispatch, useAppSelector } from '@/hooks/storeHooks';
 import Loading from '../shared/Loading';
 import toast from 'react-hot-toast';
+import { getAllOrders } from '@/redux/features/order/orderSlice';
+import { getAllBrands } from '@/redux/features/brand/brandSlice';
+import { getAllCategories } from '@/redux/features/categories/categorySlice';
+import { getAllColors } from '@/redux/features/color/colorSlice';
+import { getAllusers } from '@/redux/features/customer/customerSlice';
+import { getAllProducts } from '@/redux/features/product/productSlice';
+import { getAllEnquiries } from '@/redux/features/enquiry/enquirySlice';
 
 export const metadata: Metadata = {
     title: 'Admin Dashboard',
@@ -50,10 +57,23 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
     const { user, isLoading } = useAppSelector((state) => state.auth);
     const [collapsed, setCollapsed] = useState(false);
     const router = useRouter();
+    const dispatch = useAppDispatch();
 
     const {
         token: { colorBgContainer },
     } = theme.useToken();
+
+    useEffect(() => {
+        (async () => {
+            await dispatch(getAllusers());
+            await dispatch(getAllProducts());
+            await dispatch(getAllCategories());
+            await dispatch(getAllBrands());
+            await dispatch(getAllColors());
+            await dispatch(getAllOrders());
+            await dispatch(getAllEnquiries());
+        })();
+    }, [dispatch]);
 
     useEffect(() => {
         if (!isLoading && !user === null && user?.role !== 'admin') {

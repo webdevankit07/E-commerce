@@ -1,5 +1,5 @@
 import { Axios, handleAxiosError } from '@/config/axios';
-import { CreateProductInfo, CreateProductResType, ProductResType } from '@/types';
+import { CreateProductInfo, CreateProductResType, DeleteProductResType, ProductResType } from '@/types';
 
 export const getProducts = async () => {
     try {
@@ -19,6 +19,16 @@ export const CreateProduct = async (productInfo: CreateProductInfo, imageFiles: 
             imageFiles
         );
         return resData.product;
+    } catch (error) {
+        const err = await handleAxiosError(error);
+        throw new Error(err);
+    }
+};
+
+export const DeleteProduct = async (productId: string) => {
+    try {
+        const { data } = await Axios.delete<DeleteProductResType>(`/product/delete-product/${productId}`);
+        return data.productId;
     } catch (error) {
         const err = await handleAxiosError(error);
         throw new Error(err);

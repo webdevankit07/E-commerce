@@ -1,4 +1,4 @@
-import { CreateProduct, getProducts } from '@/services/products';
+import { CreateProduct, DeleteProduct, getProducts } from '@/services/products';
 import { CreateProductInfo, ProductSliceInitialStateType } from '@/types';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
@@ -26,9 +26,20 @@ export const createProduct = createAsyncThunk(
     }
 );
 
+export const deleteProduct = createAsyncThunk('products/delete-product', async (id: string, { rejectWithValue }) => {
+    try {
+        const productId = await DeleteProduct(id);
+        return productId;
+    } catch (error) {
+        return rejectWithValue(error);
+    }
+});
+
 const initialState: ProductSliceInitialStateType = {
     products: [],
     isLoading: false,
+    isProductEditing: false,
+    isProductDeleting: false,
     isSuccess: false,
     isError: false,
     message: '',
@@ -67,6 +78,22 @@ const productsSlice = createSlice({
             })
             .addCase(createProduct.rejected, (state, { error }) => {
                 state.isLoading = false;
+                state.isError = true;
+                state.isSuccess = false;
+                state.message = error;
+            })
+            .addCase(deleteProduct.pending, (state) => {
+                state.isProductDeleting = true;
+            })
+            .addCase(deleteProduct.fulfilled, (state, { payload }) => {
+                const products = state.products.filter((product) => product._id !== payload);
+                state.products = products;
+                state.isProductDeleting = false;
+                state.isError = false;
+                state.isSuccess = true;
+            })
+            .addCase(deleteProduct.rejected, (state, { error }) => {
+                state.isProductDeleting = false;
                 state.isError = true;
                 state.isSuccess = false;
                 state.message = error;

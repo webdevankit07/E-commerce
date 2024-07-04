@@ -12,6 +12,7 @@ import { CreateProductData } from '@/types';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import { Oval } from 'react-loader-spinner';
 
 export interface SelectDataType {
     category: string;
@@ -27,6 +28,7 @@ const AddProduct = () => {
     const [selectData, setSelectData] = useState<SelectDataType>({ category: '', brand: '', colors: [] });
     const [selectDataErrors, setSelectDataErrors] = useState({ category: '', brand: '', colors: '' });
     const dispatch = useAppDispatch();
+    const loading = true;
 
     const {
         register,
@@ -186,15 +188,25 @@ const AddProduct = () => {
                                 {errors.images?.message}
                             </span>
                         </div>
-                        <div>
-                            <Button
-                                type='submit'
-                                className='bg-green-700 hover:bg-green-800 inline-block mt-5'
-                                onClick={handleSubmit(handleFormSubmit)}
-                            >
-                                {isLoading ? 'Creating..' : 'Add Product'}
-                            </Button>
-                        </div>
+                        <Button
+                            type='submit'
+                            className='bg-green-700 text-center hover:bg-green-800 mt-5 min-w-[100px]'
+                            onClick={handleSubmit(handleFormSubmit)}
+                        >
+                            {isLoading ? (
+                                <Oval
+                                    visible={true}
+                                    width={20}
+                                    height={20}
+                                    color='#ececec'
+                                    secondaryColor='#c4c4c4'
+                                    ariaLabel='oval-loading'
+                                    strokeWidth={3}
+                                />
+                            ) : (
+                                'Add Product'
+                            )}
+                        </Button>
                     </form>
                 </div>
             </div>

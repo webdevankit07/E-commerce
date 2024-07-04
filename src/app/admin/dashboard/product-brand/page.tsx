@@ -1,4 +1,5 @@
 'use client';
+import Actions from '@/components/Admin/Acion';
 import Table from '@/components/Admin/Table';
 import BreadCrumb from '@/components/shared/Breadcrumb';
 import Loading from '@/components/shared/Loading';
@@ -7,18 +8,20 @@ import { Input } from '@/components/ui/input';
 import { useAppDispatch, useAppSelector } from '@/hooks/storeHooks';
 import { getAllBrands } from '@/redux/features/brand/brandSlice';
 import { useEffect } from 'react';
-import { FiEdit } from 'react-icons/fi';
-import { MdDeleteSweep } from 'react-icons/md';
 
 const Brand = () => {
     const { brands, isLoading } = useAppSelector((state) => state.brand);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        if (!brands || brands.length === 0) {
+        if (!brands) {
             dispatch(getAllBrands());
         }
     }, [dispatch, brands]);
+
+    const handleDelete = (brandId: string) => {
+        console.log(brandId);
+    };
 
     const columns = [
         { title: 'SI.No.', dataIndex: 'key' },
@@ -29,7 +32,7 @@ const Brand = () => {
     const dataSource = brands.map((brand, index) => ({
         key: ++index,
         name: brand.name,
-        actions: <Action brandId={brand._id} />,
+        actions: <Actions Id={brand._id} handleDelete={handleDelete} />,
     }));
 
     return (
@@ -48,29 +51,6 @@ const Brand = () => {
                 <Button className='py-5 bg-green-600 rounded-sm hover:bg-green-700'>Add Brand</Button>
             </div>
             {isLoading ? <Loading /> : <Table title='Brands' columns={columns} dataSource={dataSource} />}
-        </div>
-    );
-};
-
-const Action = ({ brandId }: { brandId: string }) => {
-    return (
-        <div className='flex gap-4'>
-            <Button
-                variant={'outline'}
-                size={'sm'}
-                className='flex items-center gap-1.5 bg-green-600/[.2] text-green-800 border-green-800 px-5 py-1 font-semibold'
-            >
-                <FiEdit />
-                Edit
-            </Button>
-            <Button
-                variant={'outline'}
-                size={'sm'}
-                className='flex items-center gap-1.5 bg-red-600/[.2] text-red-800 border-red-800 px-5 py-1 font-semibold'
-            >
-                <MdDeleteSweep />
-                Delete
-            </Button>
         </div>
     );
 };

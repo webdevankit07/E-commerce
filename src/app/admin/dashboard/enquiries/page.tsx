@@ -17,16 +17,21 @@ import {
     SelectValue,
 } from '@/components/ui/select';
 import ShowDate from '@/components/shared/ShowDate';
+import Actions from '@/components/Admin/Acion';
 
 const Enquiry = () => {
     const { enquiries, isLoading } = useAppSelector((state) => state.enquiry);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        if (!enquiries || enquiries.length === 0) {
+        if (!enquiries) {
             dispatch(getAllEnquiries());
         }
     }, [dispatch, enquiries]);
+
+    const handleDelete = (enqityId: string) => {
+        console.log(enqityId);
+    };
 
     const columns = [
         { title: 'SI.No.', dataIndex: 'key' },
@@ -51,7 +56,7 @@ const Enquiry = () => {
         comment: enquiry.comment,
         status: <Status status={enquiry.status} onChange={handleStateChange} />,
         date: <ShowDate timestamp={enquiry.createdAt} />,
-        actions: <Action enquiryId={enquiry._id} />,
+        actions: <Actions Id={enquiry._id} handleDelete={handleDelete} />,
     }));
 
     return (
@@ -77,21 +82,6 @@ const Status = ({ status, onChange }: { status: string; onChange: (value: string
                 </SelectGroup>
             </SelectContent>
         </Select>
-    );
-};
-
-const Action = ({ enquiryId }: { enquiryId: string }) => {
-    return (
-        <div className='flex gap-4'>
-            <Button
-                variant={'outline'}
-                size={'sm'}
-                className='flex items-center gap-1.5 bg-red-600/[.2] text-red-800 border-red-800 px-5 py-1 font-semibold'
-            >
-                <MdDeleteSweep />
-                Delete
-            </Button>
-        </div>
     );
 };
 

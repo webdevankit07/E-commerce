@@ -1,23 +1,39 @@
 'use client';
+import Actions from '@/components/Admin/Acion';
 import Table from '@/components/Admin/Table';
 import BreadCrumb from '@/components/shared/Breadcrumb';
 import Loading from '@/components/shared/Loading';
-import { Button } from '@/components/ui/button';
+import { handleAxiosError } from '@/config/axios';
 import { useAppDispatch, useAppSelector } from '@/hooks/storeHooks';
-import { getAllProducts } from '@/redux/features/product/productSlice';
+import { deleteProduct, getAllProducts } from '@/redux/features/product/productSlice';
 import { useEffect } from 'react';
-import { FiEdit } from 'react-icons/fi';
-import { MdDeleteSweep } from 'react-icons/md';
+import toast from 'react-hot-toast';
 
 const ProductList = () => {
-    const { products, isLoading } = useAppSelector((state) => state.product);
+    const { products, isLoading, message, isError, isProductEditing, isProductDeleting } = useAppSelector(
+        (state) => state.product
+    );
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        if (!products || products.length === 0) {
+        if (!products) {
             dispatch(getAllProducts());
         }
     }, [dispatch, products]);
+
+    const handleDelete = async (productId: string) => {
+        try {
+            await dispatch(deleteProduct(productId));
+            if (isError) {
+                toast.error(`${message}`);
+            } else {
+                toast.success('Product deleted');
+            }
+        } catch (error) {
+            const err = await handleAxiosError(error);
+            toast.error(err);
+        }
+    };
 
     const columns = [
         { title: 'SI.No.', dataIndex: 'key' },
@@ -36,36 +52,21 @@ const ProductList = () => {
         brand: product.brand,
         sold: product.sold,
         quantity: product.quantity,
-        actions: <Action productId={product._id} />,
+        actions: (
+            <Actions
+                Id={product._id}
+                editBaseUrl={`/edit-product/${product._id}`}
+                handleDelete={handleDelete}
+                isDeleting={isProductDeleting}
+                isEditing={isProductEditing}
+            />
+        ),
     }));
 
     return (
         <div>
             <BreadCrumb BreadCrumbs={[{ name: 'Dashboard', location: '/admin/dashboard' }, { name: 'Products' }]} />
             {isLoading ? <Loading /> : <Table title='Products' columns={columns} dataSource={dataSource} />}
-        </div>
-    );
-};
-
-const Action = ({ productId }: { productId: string }) => {
-    return (
-        <div className='flex gap-4'>
-            <Button
-                variant={'outline'}
-                size={'sm'}
-                className='flex items-center gap-1.5 bg-green-600/[.2] text-green-800 border-green-800 px-5 py-1 font-semibold'
-            >
-                <FiEdit />
-                Edit
-            </Button>
-            <Button
-                variant={'outline'}
-                size={'sm'}
-                className='flex items-center gap-1.5 bg-red-600/[.2] text-red-800 border-red-800 px-5 py-1 font-semibold'
-            >
-                <MdDeleteSweep />
-                Delete
-            </Button>
         </div>
     );
 };

@@ -15,7 +15,7 @@ const Order = () => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        if (!orders || orders.length === 0) {
+        if (!orders) {
             dispatch(getAllOrders());
         }
     }, [dispatch, orders]);
@@ -34,7 +34,7 @@ const Order = () => {
         customer: `${order.orderby.firstname} ${order.orderby.lastname}`,
         product: order.products.map(({ product }) => (
             <>
-                <p className='font-semibold'>{product.title}</p>
+                <p className='font-semibold'>{product ? product.title : 'Product not available'}</p>
             </>
         )),
         amount: <p className='font-semibold'>&#8377;{order.paymentIntent.amount}</p>,

@@ -1,4 +1,5 @@
 'use client';
+import Actions from '@/components/Admin/Acion';
 import Table from '@/components/Admin/Table';
 import BreadCrumb from '@/components/shared/Breadcrumb';
 import Loading from '@/components/shared/Loading';
@@ -15,10 +16,14 @@ const Color = () => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        if (!colors || colors.length === 0) {
+        if (!colors) {
             dispatch(getAllColors());
         }
     }, [dispatch, colors]);
+
+    const handleDelete = (colorId: string) => {
+        console.log(colorId);
+    };
 
     const columns = [
         { title: 'SI.No.', dataIndex: 'key' },
@@ -29,7 +34,7 @@ const Color = () => {
     const dataSource = colors.map((color, index) => ({
         key: ++index,
         name: color.name,
-        actions: <Action colorId={color._id} />,
+        actions: <Actions Id={color._id} handleDelete={handleDelete} />,
     }));
 
     return (

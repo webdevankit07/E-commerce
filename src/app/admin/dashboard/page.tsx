@@ -2,40 +2,16 @@
 import { HiMiniArrowTrendingDown, HiMiniArrowTrendingUp } from 'react-icons/hi2';
 import Chart from '@/components/Admin/Dasboard/Chart';
 import BreadCrumb from '@/components/shared/Breadcrumb';
-import { useAppDispatch, useAppSelector } from '@/hooks/storeHooks';
-import { useEffect } from 'react';
-import { getAllOrders } from '@/redux/features/order/orderSlice';
+import { useAppSelector } from '@/hooks/storeHooks';
 import Loading from '@/components/shared/Loading';
 import Table from '@/components/Admin/Table';
 import ShowDate from '@/components/shared/ShowDate';
 import { Button } from '@/components/ui/button';
 import { FiEdit } from 'react-icons/fi';
 import { MdDeleteSweep } from 'react-icons/md';
-import { getAllBrands } from '@/redux/features/brand/brandSlice';
-import { getAllCategories } from '@/redux/features/categories/categorySlice';
-import { getAllColors } from '@/redux/features/color/colorSlice';
 
 const AdminDashBoard = () => {
     const { orders, isLoading } = useAppSelector((state) => state.order);
-    const { categories } = useAppSelector((state) => state.category);
-    const { brands } = useAppSelector((state) => state.brand);
-    const { colors } = useAppSelector((state) => state.color);
-    const dispatch = useAppDispatch();
-
-    useEffect(() => {
-        if (!categories || categories.length === 0) {
-            dispatch(getAllCategories());
-        }
-        if (!brands || brands.length === 0) {
-            dispatch(getAllBrands());
-        }
-        if (!colors || colors.length === 0) {
-            dispatch(getAllColors());
-        }
-        if (!orders || orders.length === 0) {
-            dispatch(getAllOrders());
-        }
-    }, [dispatch, orders, categories, brands, colors]);
 
     const columns = [
         { title: 'SI.No.', dataIndex: 'key' },
@@ -51,7 +27,7 @@ const AdminDashBoard = () => {
         customer: `${order.orderby.firstname} ${order.orderby.lastname}`,
         product: order.products.map(({ product }) => (
             <>
-                <p className='font-semibold'>{product.title}</p>
+                <p className='font-semibold'>{product ? product.title : 'not Available'}</p>
             </>
         )),
         amount: <p className='font-semibold'>&#8377;{order.paymentIntent.amount}</p>,

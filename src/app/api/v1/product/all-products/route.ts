@@ -52,7 +52,7 @@ export const GET = async (req: NextRequest) => {
         const rightRange = Limit * pageNo;
 
         const totalProducts = await Product.countDocuments();
-        if (skip >= totalProducts)
+        if (skip >= totalProducts && totalProducts > 1)
             return NextResponse.json({ message: 'Page does not exist', success: false }, { status: 400 });
 
         productData = productData.skip(skip).limit(Limit);

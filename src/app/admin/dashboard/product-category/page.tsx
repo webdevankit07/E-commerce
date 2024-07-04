@@ -1,4 +1,5 @@
 'use client';
+import Actions from '@/components/Admin/Acion';
 import Table from '@/components/Admin/Table';
 import BreadCrumb from '@/components/shared/Breadcrumb';
 import Loading from '@/components/shared/Loading';
@@ -15,10 +16,14 @@ const Category = () => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        if (!categories || categories.length === 0) {
+        if (!categories) {
             dispatch(getAllCategories());
         }
     }, [dispatch, categories]);
+
+    const handleDelete = (categoryId: string) => {
+        console.log(categoryId);
+    };
 
     const columns = [
         { title: 'SI.No.', dataIndex: 'key' },
@@ -29,7 +34,7 @@ const Category = () => {
     const dataSource = categories.map((category, index) => ({
         key: ++index,
         name: category.title,
-        actions: <Action categoryId={category._id} />,
+        actions: <Actions Id={category._id} handleDelete={handleDelete} />,
     }));
 
     return (
@@ -48,29 +53,6 @@ const Category = () => {
                 <Button className='py-5 bg-green-600 rounded-sm hover:bg-green-700'>Add Category</Button>
             </div>
             {isLoading ? <Loading /> : <Table title='Categories' columns={columns} dataSource={dataSource} />}
-        </div>
-    );
-};
-
-const Action = ({ categoryId }: { categoryId: string }) => {
-    return (
-        <div className='flex gap-4'>
-            <Button
-                variant={'outline'}
-                size={'sm'}
-                className='flex items-center gap-1.5 bg-green-600/[.2] text-green-800 border-green-800 px-5 py-1 font-semibold'
-            >
-                <FiEdit />
-                Edit
-            </Button>
-            <Button
-                variant={'outline'}
-                size={'sm'}
-                className='flex items-center gap-1.5 bg-red-600/[.2] text-red-800 border-red-800 px-5 py-1 font-semibold'
-            >
-                <MdDeleteSweep />
-                Delete
-            </Button>
         </div>
     );
 };
