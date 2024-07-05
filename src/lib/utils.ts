@@ -1,5 +1,5 @@
 import { SelectDataType } from '@/app/admin/dashboard/add-product/page';
-import { CreateProductData, CreateProductInfo } from '@/types';
+import { CreateProductData, CreateProductInfo, UpdateProductInfo } from '@/types';
 import { type ClassValue, clsx } from 'clsx';
 import { Dispatch, SetStateAction } from 'react';
 import { twMerge } from 'tailwind-merge';

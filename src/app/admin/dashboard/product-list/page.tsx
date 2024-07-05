@@ -55,7 +55,7 @@ const ProductList = () => {
         actions: (
             <Actions
                 Id={product._id}
-                editBaseUrl={`/edit-product/${product._id}`}
+                editBaseUrl={`update-product/${product._id}`}
                 handleDelete={handleDelete}
                 isDeleting={isProductDeleting}
                 isEditing={isProductEditing}

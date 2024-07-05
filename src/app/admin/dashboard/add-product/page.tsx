@@ -28,7 +28,6 @@ const AddProduct = () => {
     const [selectData, setSelectData] = useState<SelectDataType>({ category: '', brand: '', colors: [] });
     const [selectDataErrors, setSelectDataErrors] = useState({ category: '', brand: '', colors: '' });
     const dispatch = useAppDispatch();
-    const loading = true;
 
     const {
         register,
@@ -46,14 +45,9 @@ const AddProduct = () => {
 
         try {
             await dispatch(createProduct({ productInfo, imageFiles }));
-            if (isError) {
-                toast.success(`${message}`);
-            } else {
-                toast.success('Product created');
-            }
         } catch (error) {
             const err = await handleAxiosError(error);
-            toast.error(err);
+            console.log(err);
         }
     };
 

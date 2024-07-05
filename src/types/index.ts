@@ -22,8 +22,7 @@ export type ProductType = {
     brand: string;
     quantity: number;
     sold: number;
-    colors: ColorType[];
-    color: ColorType[];
+    colors: string[];
     images: ImageType[];
     ratings: RatingType[];
     totalRating: number;
@@ -143,7 +142,7 @@ export type CreateProductData = {
     images: File[];
     category: string;
     brand: string;
-    colors: string | string[];
+    colors: string[];
 };
 
 export type CreateProductInfo = {
@@ -153,7 +152,7 @@ export type CreateProductInfo = {
     quantity: number;
     category: string;
     brand: string;
-    colors: string | string[];
+    colors: string[];
 };
 
 export type CreateProductResType = {
@@ -161,6 +160,28 @@ export type CreateProductResType = {
     success: boolean;
     message: string;
 };
+export type UpdateProductData = {
+    title: string;
+    description: string;
+    price: number;
+    quantity: number;
+    images: File[];
+    category: string;
+    brand: string;
+    colors: string[];
+};
+export type UpdateProductInfo = {
+    _id: string;
+    title: string;
+    description: string;
+    price: number;
+    quantity: number;
+    category: string;
+    brand: string;
+    colors: string[];
+    images: ImageType[];
+};
+export type UpdateProductResType = CreateProductResType;
 
 export type DeleteProductResType = {
     productId: string;
@@ -186,6 +207,16 @@ export type BrandInitialStateType = {
     isSuccess: boolean;
     message: string | unknown;
 };
+export type CreateBrandResType = {
+    newBrand: BrandType;
+    message: string;
+    success: boolean;
+};
+export type DeleteBrandResType = {
+    brand: BrandType;
+    message: string;
+    success: boolean;
+};
 
 //!
 //!
@@ -200,6 +231,16 @@ export type ColorInitialStateType = {
     isLoading: boolean;
     isSuccess: boolean;
     message: string | unknown;
+};
+export type CreateColorResType = {
+    newColor: ColorType;
+    message: string;
+    success: boolean;
+};
+export type DeleteColorResType = {
+    color: ColorType;
+    message: string;
+    success: boolean;
 };
 
 //!
@@ -219,6 +260,16 @@ export type CategoryInitialStateType = {
     isLoading: boolean;
     isSuccess: boolean;
     message: string | unknown;
+};
+export type CreateCategoryResType = {
+    newCategory: ProductCategoryType;
+    message: string;
+    success: boolean;
+};
+export type DeleteCategoryResType = {
+    deletedcategory: ProductCategoryType;
+    message: string;
+    success: boolean;
 };
 
 //!
@@ -296,4 +347,21 @@ export type OderInitialStateType = {
     isLoading: boolean;
     isSuccess: boolean;
     message: string | unknown;
+};
+
+//!
+//!
+//!
+//! ********************  EnquirySlice ********************* //
+export type DeleteEnquiryType = {
+    enquiry: {
+        name: string;
+        email: string;
+        mobile: string;
+        comment: string;
+        status: string;
+        _id: string;
+    };
+    message: 'success';
+    success: true;
 };

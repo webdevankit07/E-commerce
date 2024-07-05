@@ -81,7 +81,6 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
             toast.error('You are not Admin');
         } else if (user?.role === 'admin') {
             toast.success('Welcom to Admin Dashboard');
-            router.push('/admin/dashboard');
         }
     }, [user, router, isLoading]);
 

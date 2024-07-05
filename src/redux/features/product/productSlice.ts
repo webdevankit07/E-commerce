@@ -1,5 +1,6 @@
-import { CreateProduct, DeleteProduct, getProducts } from '@/services/products';
-import { CreateProductInfo, ProductSliceInitialStateType } from '@/types';
+import toast from 'react-hot-toast';
+import { CreateProduct, DeleteProduct, getProducts, UpdateProduct } from '@/services/products';
+import { CreateProductInfo, ProductSliceInitialStateType, UpdateProductInfo } from '@/types';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 export const getAllProducts = createAsyncThunk('products/getAllProducts', async (_, { rejectWithValue }) => {
@@ -19,8 +20,27 @@ export const createProduct = createAsyncThunk(
     ) => {
         try {
             const product = await CreateProduct(productInfo, imageFiles);
+            toast.success('Product created');
             return product;
         } catch (error) {
+            toast.error(error as string);
+            return rejectWithValue(error);
+        }
+    }
+);
+
+export const updateProduct = createAsyncThunk(
+    'products/update-product',
+    async (
+        { ProductInfo, imageFiles }: { ProductInfo: UpdateProductInfo; imageFiles: FormData },
+        { rejectWithValue }
+    ) => {
+        try {
+            const product = await UpdateProduct(ProductInfo, imageFiles);
+            toast.success('Product succefully updated');
+            return product;
+        } catch (error) {
+            toast.error(error as string);
             return rejectWithValue(error);
         }
     }
@@ -77,6 +97,26 @@ const productsSlice = createSlice({
                 state.isError = false;
             })
             .addCase(createProduct.rejected, (state, { error }) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.isSuccess = false;
+                state.message = error;
+            })
+            .addCase(updateProduct.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(updateProduct.fulfilled, (state, { payload }) => {
+                state.products = state.products.map((product) => {
+                    if (product._id === payload._id) {
+                        return payload;
+                    }
+                    return product;
+                });
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.isError = false;
+            })
+            .addCase(updateProduct.rejected, (state, { error }) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.isSuccess = false;

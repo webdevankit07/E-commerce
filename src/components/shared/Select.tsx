@@ -14,13 +14,24 @@ interface SelectOptionPropsType {
     selectItems: string[];
     onValueChange: (val: string) => void;
     className?: string;
+    defaultValue?: string;
 }
 
-const SelectOption = ({ trigger, selectLabel, selectItems, onValueChange, className }: SelectOptionPropsType) => {
+const SelectOption = ({
+    trigger,
+    selectLabel,
+    selectItems,
+    onValueChange,
+    className,
+    defaultValue,
+}: SelectOptionPropsType) => {
     return (
-        <Select onValueChange={onValueChange}>
+        <Select onValueChange={onValueChange} defaultValue={defaultValue}>
             <SelectTrigger className={`bg-gray-100 border py-5 border-gray-600 rounded-sm ${className}`}>
-                <SelectValue placeholder={trigger} className='bg-gray-100 border border-slate-800 font-bold' />
+                <SelectValue
+                    placeholder={defaultValue ? defaultValue : trigger}
+                    className='bg-gray-100 border border-slate-800 font-bold'
+                />
             </SelectTrigger>
             <SelectContent>
                 <SelectGroup>
