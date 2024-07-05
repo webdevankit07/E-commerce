@@ -10,9 +10,7 @@ import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 
 const ProductList = () => {
-    const { products, isLoading, message, isError, isProductEditing, isProductDeleting } = useAppSelector(
-        (state) => state.product
-    );
+    const { products, isLoading, isProductEditing, isProductDeleting } = useAppSelector((state) => state.product);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -24,11 +22,6 @@ const ProductList = () => {
     const handleDelete = async (productId: string) => {
         try {
             await dispatch(deleteProduct(productId));
-            if (isError) {
-                toast.error(`${message}`);
-            } else {
-                toast.success('Product deleted');
-            }
         } catch (error) {
             const err = await handleAxiosError(error);
             toast.error(err);

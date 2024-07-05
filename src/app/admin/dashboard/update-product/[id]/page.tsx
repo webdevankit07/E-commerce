@@ -19,6 +19,7 @@ import { Select } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import Image from 'next/image';
 import { RxCross2 } from 'react-icons/rx';
+import { useRouter } from 'next/navigation';
 
 const UpdateProduct = ({ params }: { params: { id: string } }) => {
     const { isLoading } = useAppSelector((state) => state.product);
@@ -30,6 +31,7 @@ const UpdateProduct = ({ params }: { params: { id: string } }) => {
     const [product, setProduct] = useState<ProductType>();
     const [IsLoading, setIsLoading] = useState(false);
     const dispatch = useAppDispatch();
+    const router = useRouter();
 
     const Categories = categories.map((category) => category.title);
     const Brands = brands.map((brand) => brand.name);
@@ -79,6 +81,7 @@ const UpdateProduct = ({ params }: { params: { id: string } }) => {
 
             try {
                 await dispatch(updateProduct({ ProductInfo, imageFiles }));
+                router.push('/admin/dashboard/product-list');
             } catch (error) {
                 const err = await handleAxiosError(error);
                 console.log(err);

@@ -9,10 +9,14 @@ import { useAppDispatch, useAppSelector } from '@/hooks/storeHooks';
 import { validateFormData } from '@/lib/utils';
 import { createProduct } from '@/redux/features/product/productSlice';
 import { CreateProductData } from '@/types';
+// import Image from 'next/image';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Oval } from 'react-loader-spinner';
+import { Select } from 'antd';
+import { DownOutlined } from '@ant-design/icons';
+import { useRouter } from 'next/navigation';
 
 export interface SelectDataType {
     category: string;
@@ -27,7 +31,9 @@ const AddProduct = () => {
     const { colors } = useAppSelector((state) => state.color);
     const [selectData, setSelectData] = useState<SelectDataType>({ category: '', brand: '', colors: [] });
     const [selectDataErrors, setSelectDataErrors] = useState({ category: '', brand: '', colors: '' });
+    // const [imageUrls, setImageUrls] = useState<string[]>([]);
     const dispatch = useAppDispatch();
+    const router = useRouter();
 
     const {
         register,
@@ -38,6 +44,25 @@ const AddProduct = () => {
     const Categories = categories.map((category) => category.title);
     const Brands = brands.map((brand) => brand.name);
     const Colors = colors.map((color) => color.name);
+    const options = colors.map((color) => ({ value: color.name, label: color.name }));
+
+    // const handleImageChange = (e: React.FormEvent<HTMLInputElement>) => {
+    //     const target = e.target as HTMLInputElement;
+    //     if (!target.files) return;
+    //     for (let i = 0; i < target.files.length; i++) {
+    //         const file: File = (target.files as FileList)[i];
+    //         if (file) {
+    //             const tempUrl = URL.createObjectURL(file);
+    //             if (!imageUrls) {
+    //                 console.log({ state: 'in', imageUrls });
+    //                 setImageUrls([tempUrl]);
+    //             } else {
+    //                 console.log({ state: 'out', imageUrls });
+    //                 setImageUrls([...imageUrls, tempUrl]);
+    //             }
+    //         }
+    //     }
+    // };
 
     const handleFormSubmit: SubmitHandler<CreateProductData> = async (formData) => {
         const { productInfo, imageFiles, error } = validateFormData(formData, selectData, setSelectDataErrors);
@@ -45,9 +70,10 @@ const AddProduct = () => {
 
         try {
             await dispatch(createProduct({ productInfo, imageFiles }));
+            router.push('/admin/dashboard/product-list');
         } catch (error) {
             const err = await handleAxiosError(error);
-            console.log(err);
+            toast.error(err);
         }
     };
 
@@ -153,34 +179,63 @@ const AddProduct = () => {
                                 </span>
                             </div>
                             <div>
-                                <SelectOption
-                                    trigger='Select Color'
-                                    selectLabel='Select Color'
-                                    selectItems={Colors}
-                                    className='py-6'
-                                    onValueChange={(val) => {
-                                        setSelectData({ ...selectData, colors: [val] });
+                                <Select
+                                    mode='multiple'
+                                    value={selectData.colors}
+                                    defaultValue={selectData.colors}
+                                    style={{
+                                        width: '100%',
+                                        height: '50px',
+                                        border: '1px solid black',
+                                        borderRadius: '5px',
+                                    }}
+                                    onChange={(val) => {
+                                        setSelectData({ ...selectData, colors: val });
                                         setSelectDataErrors({ ...selectDataErrors, colors: '' });
                                     }}
+                                    suffixIcon={<DownOutlined />}
+                                    placeholder='Select Colors'
+                                    options={options}
+                                    className='focus:outline-none hover:outline-none'
                                 />
                                 <span className='absolute font-semibold text-xs ml-1 text-red-500'>
                                     {selectDataErrors.colors}
                                 </span>
                             </div>
                         </div>
-                        <div className='relative'>
-                            <Input
-                                id='file-choose'
-                                type='file'
-                                multiple
-                                className='bg-gray-100 py-2 h-10 w-96 rounded-sm focus:outline-gray-500 border border-gray-600'
-                                {...register('images', {
-                                    required: { value: true, message: 'images is required' },
-                                })}
-                            />
-                            <span className='absolute font-semibold text-xs ml-1 text-red-500'>
-                                {errors.images?.message}
-                            </span>
+                        <div className='relative flex items-center  gap-20 h-[100px]'>
+                            <div>
+                                <Input
+                                    id='file-choose'
+                                    type='file'
+                                    multiple
+                                    className='bg-gray-100 py-2 h-10 w-96 rounded-sm focus:outline-gray-500 border border-gray-600'
+                                    {...register('images', {
+                                        required: { value: true, message: 'images is required' },
+                                    })}
+                                    // onChange={handleImageChange}
+                                />
+                                <span className='absolute font-semibold text-xs ml-1 text-red-500'>
+                                    {errors.images?.message}
+                                </span>
+                            </div>
+                            {/* <div className='flex gap-5'>
+                                {imageUrls &&
+                                    imageUrls.map((imageUrl, index) => (
+                                        <div
+                                            className='relative hover:scale-110 transition-all duration-300'
+                                            key={index}
+                                        >
+                                            <Image
+                                                width={80}
+                                                height={80}
+                                                src={imageUrl}
+                                                alt='product-img'
+                                                className='border-[1.5px] border-slate-500 rounded hover:shadow  transition-all duration-300 p-1'
+                                            />
+                                        </div>
+                                    ))}
+                            </div> */}
                         </div>
                         <Button
                             type='submit'
