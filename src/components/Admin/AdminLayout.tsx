@@ -79,12 +79,13 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
         if (!isLoading && !user === null && user?.role !== 'admin') {
             router.push('/');
             toast.error('You are not Admin');
+        } else if (user?.role === 'admin') {
+            router.push('/admin/dashboard');
+            toast.success('Welcom to Admin Dashboard');
         }
     }, [user, router, isLoading]);
 
     if (user?.role === 'admin') {
-        router.push('/admin/dashboard');
-        toast.success('Welcom to Admin Dashboard');
         return (
             <Layout className='min-h-screen'>
                 <ScrollArea className='h-screen'>
