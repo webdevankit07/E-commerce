@@ -1,4 +1,4 @@
-import { getOrders } from '@/services/order';
+import { getOrders, UpdateOrderStatus } from '@/services/order';
 import { OderInitialStateType } from '@/types';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
@@ -10,6 +10,18 @@ export const getAllOrders = createAsyncThunk('order/all-orders', async (_, { rej
         return rejectWithValue(error);
     }
 });
+
+export const updateOrderStatus = createAsyncThunk(
+    'enquiry/update-enquiry',
+    async ({ status, orderId }: { status: string; orderId: string }, { rejectWithValue }) => {
+        try {
+            const order = await UpdateOrderStatus(status, orderId);
+            return order;
+        } catch (error) {
+            return rejectWithValue(error);
+        }
+    }
+);
 
 const initialState: OderInitialStateType = {
     orders: [],
@@ -35,6 +47,27 @@ const orderSlice = createSlice({
                 state.isError = false;
             })
             .addCase(getAllOrders.rejected, (state, { error }) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.isSuccess = false;
+                state.orders = [];
+                state.message = error;
+            })
+            .addCase(updateOrderStatus.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(updateOrderStatus.fulfilled, (state, { payload }) => {
+                state.orders = state.orders.map((order) => {
+                    if (order._id === payload._id) {
+                        return payload;
+                    }
+                    return order;
+                });
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.isError = false;
+            })
+            .addCase(updateOrderStatus.rejected, (state, { error }) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.isSuccess = false;

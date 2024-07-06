@@ -330,6 +330,9 @@ export type EnquiryType = {
 export type EnquiryResType = {
     enquiries: EnquiryType[];
 };
+export type UpdateEnqType = {
+    enquiry: EnquiryType;
+};
 export type EnquiryInitialStateType = {
     enquiries: EnquiryType[] | [];
     isError: boolean;
@@ -380,6 +383,11 @@ export type OrderType = {
 };
 export type OrderResType = {
     orders: OrderType[];
+    message: string;
+    success: boolean;
+};
+export type updateOrderResType = {
+    order: OrderType;
     message: string;
     success: boolean;
 };

@@ -1,14 +1,20 @@
 'use client';
+import Actions from '@/components/Admin/Acion';
 import Table from '@/components/Admin/Table';
 import BreadCrumb from '@/components/shared/Breadcrumb';
 import Loading from '@/components/shared/Loading';
 import ShowDate from '@/components/shared/ShowDate';
 import { Button } from '@/components/ui/button';
 import { useAppDispatch, useAppSelector } from '@/hooks/storeHooks';
-import { getAllOrders } from '@/redux/features/order/orderSlice';
+import { getAllOrders, updateOrderStatus } from '@/redux/features/order/orderSlice';
 import { useEffect } from 'react';
-import { FiEdit } from 'react-icons/fi';
-import { MdDeleteSweep } from 'react-icons/md';
+import { Select, SelectValue, SelectContent, SelectGroup, SelectItem, SelectTrigger } from '@/components/ui/select';
+import toast from 'react-hot-toast';
+
+interface Statustype {
+    status: string;
+    orderId: string;
+}
 
 const Order = () => {
     const { orders, isLoading } = useAppSelector((state) => state.order);
@@ -26,8 +32,20 @@ const Order = () => {
         { title: 'Product', dataIndex: 'product', sorter: (a: any, b: any) => a.username.localeCompare(b.username) },
         { title: 'Amount', dataIndex: 'amount', sorter: (a: any, b: any) => a.role.length - b.role.length },
         { title: 'Date', dataIndex: 'date', sorter: (a: any, b: any) => a.role.length - b.role.length },
+        { title: 'Status', dataIndex: 'status' },
         { title: 'Actions', dataIndex: 'actions' },
     ];
+
+    const handleDelete = () => {};
+
+    const handleStateChange = async (value: Statustype) => {
+        try {
+            await dispatch(updateOrderStatus({ status: value.status, orderId: value.orderId }));
+            toast.success('Order status changed');
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     const dataSource = orders.map((order, index) => ({
         key: ++index,
@@ -39,7 +57,8 @@ const Order = () => {
         )),
         amount: <p className='font-semibold'>&#8377;{order.paymentIntent.amount}</p>,
         date: <ShowDate timestamp={order.createdAt} />,
-        actions: <Action productId={order._id} />,
+        status: <Status status={order.orderStatus} onChange={handleStateChange} orderId={order._id} />,
+        actions: <Actions Id={order._id} handleDelete={handleDelete} />,
     }));
 
     return (
@@ -50,26 +69,31 @@ const Order = () => {
     );
 };
 
-const Action = ({ productId }: { productId: string }) => {
+const Status = ({
+    status,
+    onChange,
+    orderId,
+}: {
+    status: string;
+    orderId: string;
+    onChange: (value: Statustype) => void;
+}) => {
     return (
-        <div className='flex gap-4'>
-            <Button
-                variant={'outline'}
-                size={'sm'}
-                className='flex items-center gap-1.5 bg-green-600/[.2] text-green-800 border-green-800 px-5 py-1 font-semibold'
-            >
-                <FiEdit />
-                Edit
-            </Button>
-            <Button
-                variant={'outline'}
-                size={'sm'}
-                className='flex items-center gap-1.5 bg-red-600/[.2] text-red-800 border-red-800 px-5 py-1 font-semibold'
-            >
-                <MdDeleteSweep />
-                Delete
-            </Button>
-        </div>
+        <Select onValueChange={(val) => onChange({ status: val, orderId })}>
+            <SelectTrigger className='w-[180px]'>
+                <SelectValue placeholder={status} />
+            </SelectTrigger>
+            <SelectContent>
+                <SelectGroup>
+                    <SelectItem value='Submitted'>Not Processed</SelectItem>
+                    <SelectItem value='Contacted'>Cash on Delivery</SelectItem>
+                    <SelectItem value='In Progress'>Processing</SelectItem>
+                    <SelectItem value='Dispatched'>Dispatched</SelectItem>
+                    <SelectItem value='Delivered'>Delivered</SelectItem>
+                    <SelectItem value='Cancelled'>Cancelled</SelectItem>
+                </SelectGroup>
+            </SelectContent>
+        </Select>
     );
 };
 

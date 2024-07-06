@@ -2,22 +2,18 @@
 import Table from '@/components/Admin/Table';
 import BreadCrumb from '@/components/shared/Breadcrumb';
 import Loading from '@/components/shared/Loading';
-import { Button } from '@/components/ui/button';
 import { useAppDispatch, useAppSelector } from '@/hooks/storeHooks';
-import { getAllEnquiries } from '@/redux/features/enquiry/enquirySlice';
+import { getAllEnquiries, updateEnq } from '@/redux/features/enquiry/enquirySlice';
 import { useEffect } from 'react';
-import { MdDeleteSweep } from 'react-icons/md';
-import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectLabel,
-    SelectTrigger,
-    SelectValue,
-} from '@/components/ui/select';
+import { Select, SelectValue, SelectContent, SelectGroup, SelectItem, SelectTrigger } from '@/components/ui/select';
 import ShowDate from '@/components/shared/ShowDate';
 import Actions from '@/components/Admin/Acion';
+import toast from 'react-hot-toast';
+
+interface Statustype {
+    status: string;
+    enqId: string;
+}
 
 const Enquiry = () => {
     const { enquiries, isLoading } = useAppSelector((state) => state.enquiry);
@@ -44,8 +40,13 @@ const Enquiry = () => {
         { title: 'Actions', dataIndex: 'actions' },
     ];
 
-    const handleStateChange = (value: string) => {
-        console.log(value);
+    const handleStateChange = async (value: Statustype) => {
+        try {
+            await dispatch(updateEnq({ status: value.status, enqId: value.enqId }));
+            toast.success('Enquiry status changed');
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const dataSource = enquiries.map((enquiry, index) => ({
@@ -54,7 +55,7 @@ const Enquiry = () => {
         email: enquiry.email,
         mobile: enquiry.mobile,
         comment: enquiry.comment,
-        status: <Status status={enquiry.status} onChange={handleStateChange} />,
+        status: <Status status={enquiry.status} onChange={handleStateChange} enqId={enquiry._id} />,
         date: <ShowDate timestamp={enquiry.createdAt} />,
         actions: <Actions Id={enquiry._id} handleDelete={handleDelete} />,
     }));
@@ -67,9 +68,17 @@ const Enquiry = () => {
     );
 };
 
-const Status = ({ status, onChange }: { status: string; onChange: (value: string) => void }) => {
+const Status = ({
+    status,
+    onChange,
+    enqId,
+}: {
+    status: string;
+    enqId: string;
+    onChange: (value: Statustype) => void;
+}) => {
     return (
-        <Select onValueChange={onChange}>
+        <Select onValueChange={(val) => onChange({ status: val, enqId })}>
             <SelectTrigger className='w-[180px]'>
                 <SelectValue placeholder={status} />
             </SelectTrigger>

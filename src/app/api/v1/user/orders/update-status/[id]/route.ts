@@ -25,7 +25,7 @@ export const PUT = async (req: NextRequest, { params }: { params: { id: string }
             .select('-__v')
             .populate('products.product', 'title price images');
 
-        return NextResponse.json({ updatedOrder, message: 'success', success: true }, { status: 200 });
+        return NextResponse.json({ order: updatedOrder, message: 'success', success: true }, { status: 200 });
     } catch (error: any) {
         return NextResponse.json({ message: error.message, success: false }, { status: 500 });
     }
