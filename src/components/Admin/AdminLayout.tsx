@@ -7,12 +7,12 @@ import { Metadata } from 'next';
 import { AiOutlineDashboard } from 'react-icons/ai';
 import { MdAddToPhotos } from 'react-icons/md';
 import { FaShoppingCart, FaRegUser, FaClipboardList } from 'react-icons/fa';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { IoList } from 'react-icons/io5';
 import { SiBrandfolder } from 'react-icons/si';
 import { TbCategoryFilled } from 'react-icons/tb';
 import { IoIosColorPalette } from 'react-icons/io';
-import { RiQuestionnaireFill } from 'react-icons/ri';
+import { RiDiscountPercentFill, RiQuestionnaireFill } from 'react-icons/ri';
 import { ScrollArea } from '../ui/scroll-area';
 // import Image from 'next/image';
 import HeaderCustom from './Dasboard/HeaderCustom';
@@ -26,6 +26,7 @@ import { getAllColors } from '@/redux/features/color/colorSlice';
 import { getAllusers } from '@/redux/features/customer/customerSlice';
 import { getAllProducts } from '@/redux/features/product/productSlice';
 import { getAllEnquiries } from '@/redux/features/enquiry/enquirySlice';
+import { getAllCoupons } from '@/redux/features/coupon/couponSlice';
 
 export const metadata: Metadata = {
     title: 'Admin Dashboard',
@@ -48,6 +49,7 @@ const items: MenuItem[] = [
         getItem('Brand', 'product-brand', <SiBrandfolder />),
         getItem('Category', 'product-category', <TbCategoryFilled />),
         getItem('Color', 'product-color', <IoIosColorPalette />),
+        getItem('Coupon', 'coupon', <RiDiscountPercentFill />),
     ]),
     getItem('Orders', 'orders', <FaClipboardList />),
     getItem('Enquiries', 'enquiries', <RiQuestionnaireFill />),
@@ -70,6 +72,7 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
             await dispatch(getAllCategories());
             await dispatch(getAllBrands());
             await dispatch(getAllColors());
+            await dispatch(getAllCoupons());
             await dispatch(getAllOrders());
             await dispatch(getAllEnquiries());
         })();

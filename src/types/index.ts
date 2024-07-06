@@ -272,13 +272,48 @@ export type CreateCategoryResType = {
 export type DeleteCategoryResType = {
     deletedcategory: ProductCategoryType;
     message: string;
+};
+//!
+//!
+//!
+//! ********************  CouponSlice ********************* //
+export type CouponType = {
+    _id: string;
+    name: string;
+    expiry: Date;
+    discount: number;
+};
+export type CreateCouponDataType = {
+    name: string;
+    expiry: Date;
+    discount: number;
+};
+export type CouponResType = {
+    coupons: CouponType[];
+};
+export type CouponSliceInitialStateType = {
+    coupons: CouponType[] | [];
+    isError: boolean;
+    isLoading: boolean;
+    createLoading: boolean;
+    isSuccess: boolean;
+    message: string | unknown;
+};
+export type CreateCouponResType = {
+    coupon: CouponType;
+    message: string;
+    success: boolean;
+};
+export type DeleteCouponResType = {
+    coupon: CouponType;
+    message: string;
     success: boolean;
 };
 
 //!
 //!
 //!
-//! ********************  CategorySlice ********************* //
+//! ********************  enqSlice ********************* //
 export type EnquiryType = {
     _id: string;
     name: string;

@@ -10,7 +10,7 @@ import { validateFormData } from '@/lib/utils';
 import { createProduct } from '@/redux/features/product/productSlice';
 import { CreateProductData } from '@/types';
 // import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Oval } from 'react-loader-spinner';
@@ -25,7 +25,7 @@ export interface SelectDataType {
 }
 
 const AddProduct = () => {
-    const { isLoading, isError, message } = useAppSelector((state) => state.product);
+    const { isLoading } = useAppSelector((state) => state.product);
     const { categories } = useAppSelector((state) => state.category);
     const { brands } = useAppSelector((state) => state.brand);
     const { colors } = useAppSelector((state) => state.color);
@@ -35,16 +35,22 @@ const AddProduct = () => {
     const dispatch = useAppDispatch();
     const router = useRouter();
 
+    const Categories = categories.map((category) => category.title);
+    const Brands = brands.map((brand) => brand.name);
+    const options = colors.map((color) => ({ value: color.name, label: color.name }));
+
     const {
         register,
         handleSubmit,
-        formState: { errors },
+        formState: { errors, isSubmitSuccessful },
+        reset,
     } = useForm<CreateProductData>();
 
-    const Categories = categories.map((category) => category.title);
-    const Brands = brands.map((brand) => brand.name);
-    const Colors = colors.map((color) => color.name);
-    const options = colors.map((color) => ({ value: color.name, label: color.name }));
+    useEffect(() => {
+        if (isSubmitSuccessful) {
+            reset();
+        }
+    }, [isSubmitSuccessful, reset]);
 
     // const handleImageChange = (e: React.FormEvent<HTMLInputElement>) => {
     //     const target = e.target as HTMLInputElement;
@@ -196,14 +202,14 @@ const AddProduct = () => {
                                     suffixIcon={<DownOutlined />}
                                     placeholder='Select Colors'
                                     options={options}
-                                    className='focus:outline-none hover:outline-none'
+                                    className='focus:outline-none hover:outline-none block'
                                 />
                                 <span className='absolute font-semibold text-xs ml-1 text-red-500'>
                                     {selectDataErrors.colors}
                                 </span>
                             </div>
                         </div>
-                        <div className='relative flex items-center  gap-20 h-[100px]'>
+                        <div className='relative flex items-center gap-20 h-[100px]'>
                             <div>
                                 <Input
                                     id='file-choose'

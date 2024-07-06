@@ -93,26 +93,4 @@ const Color = () => {
     );
 };
 
-const Action = ({ colorId }: { colorId: string }) => {
-    return (
-        <div className='flex gap-4'>
-            <Button
-                variant={'outline'}
-                size={'sm'}
-                className='flex items-center gap-1.5 bg-green-600/[.2] text-green-800 border-green-800 px-5 py-1 font-semibold'
-            >
-                <FiEdit />
-                Edit
-            </Button>
-            <Button
-                variant={'outline'}
-                size={'sm'}
-                className='flex items-center gap-1.5 bg-red-600/[.2] text-red-800 border-red-800 px-5 py-1 font-semibold'
-            >
-                <MdDeleteSweep />
-                Delete
-            </Button>
-        </div>
-    );
-};
 export default Color;

@@ -59,7 +59,11 @@ const ProductList = () => {
     return (
         <div>
             <BreadCrumb BreadCrumbs={[{ name: 'Dashboard', location: '/admin/dashboard' }, { name: 'Products' }]} />
-            {isLoading ? <Loading /> : <Table title='Products' columns={columns} dataSource={dataSource} />}
+            {isLoading || isProductDeleting ? (
+                <Loading />
+            ) : (
+                <Table title='Products' columns={columns} dataSource={dataSource} />
+            )}
         </div>
     );
 };
