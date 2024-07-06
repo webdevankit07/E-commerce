@@ -6,13 +6,16 @@ import Loading from '@/components/shared/Loading';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useAppDispatch, useAppSelector } from '@/hooks/storeHooks';
-import { getAllColors } from '@/redux/features/color/colorSlice';
-import { useEffect } from 'react';
+import { createColor, deleteColor, getAllColors } from '@/redux/features/color/colorSlice';
+import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { FiEdit } from 'react-icons/fi';
 import { MdDeleteSweep } from 'react-icons/md';
+import { Oval } from 'react-loader-spinner';
 
 const Color = () => {
-    const { colors, isLoading } = useAppSelector((state) => state.color);
+    const { colors, isLoading, createLoading } = useAppSelector((state) => state.color);
+    const [colorName, setColorName] = useState('');
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -21,21 +24,34 @@ const Color = () => {
         }
     }, [dispatch, colors]);
 
-    const handleDelete = (colorId: string) => {
-        console.log(colorId);
-    };
-
     const columns = [
         { title: 'SI.No.', dataIndex: 'key' },
         { title: 'Name', dataIndex: 'name', sorter: (a: any, b: any) => a.name.localeCompare(b.name) },
         { title: 'Actions', dataIndex: 'actions' },
     ];
 
+    const handleDeleteColor = async (colorId: string) => {
+        try {
+            await dispatch(deleteColor(colorId));
+        } catch (error) {
+            toast.error(error as string);
+        }
+    };
+
     const dataSource = colors.map((color, index) => ({
         key: ++index,
         name: color.name,
-        actions: <Actions Id={color._id} handleDelete={handleDelete} />,
+        actions: <Actions Id={color._id} handleDelete={handleDeleteColor} />,
     }));
+
+    const handleCreateColor = async () => {
+        try {
+            await dispatch(createColor(colorName));
+            setColorName('');
+        } catch (error) {
+            toast.error(error as string);
+        }
+    };
 
     return (
         <div className='pb-10'>
@@ -46,11 +62,31 @@ const Color = () => {
                 <Input
                     type='text'
                     name='title'
+                    value={colorName}
                     className='bg-gray-100 w-full py-5 rounded-sm focus:outline-gray-500 border border-gray-600 max-w-96'
                     placeholder='Color name'
                     autoComplete='off'
+                    onChange={(e) => setColorName(e.target.value)}
                 />
-                <Button className='py-5 bg-green-600 rounded-sm hover:bg-green-700'>Add Color</Button>
+
+                <Button
+                    className='py-5 bg-green-600 rounded-sm hover:bg-green-700 min-w-[100px]'
+                    onClick={handleCreateColor}
+                >
+                    {createLoading ? (
+                        <Oval
+                            visible={true}
+                            width={20}
+                            height={20}
+                            color='#ececec'
+                            secondaryColor='#c4c4c4'
+                            ariaLabel='oval-loading'
+                            strokeWidth={3}
+                        />
+                    ) : (
+                        'Add Color'
+                    )}
+                </Button>
             </div>
             {isLoading ? <Loading /> : <Table title='Colors' columns={columns} dataSource={dataSource} />}
         </div>

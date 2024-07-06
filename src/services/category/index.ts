@@ -11,7 +11,7 @@ export const getCategories = async () => {
     }
 };
 
-export const createCategory = async (title: string) => {
+export const CreateCategory = async (title: string) => {
     try {
         const { data } = await Axios.post<CreateCategoryResType>(`/category/product-category/create`, { title });
         return data.newCategory;
@@ -21,7 +21,7 @@ export const createCategory = async (title: string) => {
     }
 };
 
-export const deleteCategory = async (categoryId: string) => {
+export const DeleteCategory = async (categoryId: string) => {
     try {
         const { data } = await Axios.delete<DeleteCategoryResType>(`/category/product-category/delete/${categoryId}`);
         return data.deletedcategory._id;

@@ -11,7 +11,7 @@ export const getColors = async () => {
     }
 };
 
-export const createColor = async (name: string) => {
+export const CreateColor = async (name: string) => {
     try {
         const { data } = await Axios.post<CreateColorResType>(`/color/create`, { name });
         return data.newColor;
@@ -21,7 +21,7 @@ export const createColor = async (name: string) => {
     }
 };
 
-export const deleteColor = async (colorId: string) => {
+export const DeleteColor = async (colorId: string) => {
     try {
         const { data } = await Axios.delete<DeleteColorResType>(`/color/delete/${colorId}`);
         return data.color._id;

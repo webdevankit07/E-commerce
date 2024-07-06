@@ -204,6 +204,7 @@ export type BrandInitialStateType = {
     brands: BrandType[] | [];
     isError: boolean;
     isLoading: boolean;
+    createLoading: boolean;
     isSuccess: boolean;
     message: string | unknown;
 };
@@ -229,6 +230,7 @@ export type ColorInitialStateType = {
     colors: ColorType[] | [];
     isError: boolean;
     isLoading: boolean;
+    createLoading: boolean;
     isSuccess: boolean;
     message: string | unknown;
 };
@@ -258,6 +260,7 @@ export type CategoryInitialStateType = {
     categories: ProductCategoryType[] | [];
     isError: boolean;
     isLoading: boolean;
+    createLoading: boolean;
     isSuccess: boolean;
     message: string | unknown;
 };

@@ -11,7 +11,7 @@ export const getBrands = async () => {
     }
 };
 
-export const createBrand = async (name: string) => {
+export const CreateBrand = async (name: string) => {
     try {
         const { data } = await Axios.post<CreateBrandResType>(`/brand/create`, { name });
         return data.newBrand;
@@ -21,7 +21,7 @@ export const createBrand = async (name: string) => {
     }
 };
 
-export const deleteBrand = async (brandId: string) => {
+export const DeleteBrand = async (brandId: string) => {
     try {
         const { data } = await Axios.delete<DeleteBrandResType>(`/brand/delete/${brandId}`);
         return data.brand._id;
