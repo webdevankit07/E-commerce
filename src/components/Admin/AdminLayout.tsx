@@ -7,7 +7,7 @@ import { Metadata } from 'next';
 import { AiOutlineDashboard } from 'react-icons/ai';
 import { MdAddToPhotos } from 'react-icons/md';
 import { FaShoppingCart, FaRegUser, FaClipboardList } from 'react-icons/fa';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { IoList } from 'react-icons/io5';
 import { SiBrandfolder } from 'react-icons/si';
 import { TbCategoryFilled } from 'react-icons/tb';
@@ -60,33 +60,35 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
     const [collapsed, setCollapsed] = useState(false);
     const router = useRouter();
     const dispatch = useAppDispatch();
+    const pathname = usePathname();
 
     const {
         token: { colorBgContainer },
     } = theme.useToken();
 
     useEffect(() => {
-        (async () => {
-            await dispatch(getAllusers());
-            await dispatch(getAllProducts());
-            await dispatch(getAllCategories());
-            await dispatch(getAllBrands());
-            await dispatch(getAllColors());
-            await dispatch(getAllCoupons());
-            await dispatch(getAllOrders());
-            await dispatch(getAllEnquiries());
-        })();
-    }, [dispatch]);
+        if (pathname === '/admin/dashboard') {
+            (async () => {
+                await dispatch(getAllusers());
+                await dispatch(getAllProducts());
+                await dispatch(getAllCategories());
+                await dispatch(getAllBrands());
+                await dispatch(getAllColors());
+                await dispatch(getAllCoupons());
+                await dispatch(getAllOrders());
+                await dispatch(getAllEnquiries());
+            })();
+        }
+    }, [dispatch, pathname]);
 
     useEffect(() => {
         if (!isLoading && !user === null && user?.role !== 'admin') {
             router.push('/');
             toast.error('You are not Admin');
         } else if (user?.role === 'admin') {
-            router.push('/admin/dashboard');
-            toast.success('Welcom to Admin Dashboard');
+            if (pathname === '/admin/dashboard') toast.success('Welcom to Admin Dashboard');
         }
-    }, [user, router, isLoading]);
+    }, [user, router, isLoading, pathname]);
 
     if (user?.role === 'admin') {
         return (
@@ -107,7 +109,7 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
                         </div>
                         <Menu
                             theme='dark'
-                            defaultSelectedKeys={['/']}
+                            defaultSelectedKeys={[pathname]}
                             mode='inline'
                             items={items}
                             onClick={(key) => router.push(`/admin/dashboard/${key.key}`)}

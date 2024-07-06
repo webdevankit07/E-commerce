@@ -17,7 +17,7 @@ const Category = () => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        if (!categories) {
+        if (!categories.length) {
             dispatch(getAllCategories());
         }
     }, [dispatch, categories]);

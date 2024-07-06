@@ -8,8 +8,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useAppDispatch, useAppSelector } from '@/hooks/storeHooks';
 import { createCoupon, deleteCoupon, getAllCoupons } from '@/redux/features/coupon/couponSlice';
-import { CreateCouponDataType } from '@/types';
-import { useEffect, useState } from 'react';
+import { CouponType, CreateCouponDataType } from '@/types';
+import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Oval } from 'react-loader-spinner';
@@ -22,10 +22,10 @@ const Coupon = () => {
         handleSubmit,
         formState: { errors, isSubmitSuccessful },
         reset,
-    } = useForm<CreateCouponDataType>();
+    } = useForm<CouponType>();
 
     useEffect(() => {
-        if (!coupons) {
+        if (!coupons.length) {
             dispatch(getAllCoupons());
         }
     }, [dispatch, coupons]);
@@ -57,7 +57,13 @@ const Coupon = () => {
         name: coupon.name,
         discount: `${coupon.discount}%`,
         expiry: <ShowDate timestamp={coupon.expiry} />,
-        actions: <Actions Id={coupon._id} handleDelete={handleDeleteCoupon} />,
+        actions: (
+            <Actions
+                Id={coupon._id}
+                handleDelete={handleDeleteCoupon}
+                editBaseUrl={`coupon/update-coupon/${coupon._id}`}
+            />
+        ),
     }));
 
     const handleCreateCoupon: SubmitHandler<CreateCouponDataType> = async (couponData) => {

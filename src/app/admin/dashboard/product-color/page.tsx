@@ -19,7 +19,7 @@ const Color = () => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        if (!colors) {
+        if (!colors.length) {
             dispatch(getAllColors());
         }
     }, [dispatch, colors]);

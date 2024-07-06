@@ -24,7 +24,7 @@ const Enquiry = () => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        if (!enquiries) {
+        if (!enquiries.length) {
             dispatch(getAllEnquiries());
         }
     }, [dispatch, enquiries]);

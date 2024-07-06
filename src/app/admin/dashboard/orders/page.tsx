@@ -15,7 +15,7 @@ const Order = () => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        if (!orders) {
+        if (!orders.length) {
             dispatch(getAllOrders());
         }
     }, [dispatch, orders]);

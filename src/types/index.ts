@@ -288,8 +288,12 @@ export type CreateCouponDataType = {
     expiry: Date;
     discount: number;
 };
+export type UpdateCouponDataType = CouponType;
 export type CouponResType = {
     coupons: CouponType[];
+};
+export type UpdateCouponResType = {
+    coupon: CouponType;
 };
 export type CouponSliceInitialStateType = {
     coupons: CouponType[] | [];

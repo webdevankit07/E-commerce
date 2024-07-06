@@ -17,7 +17,7 @@ const Brand = () => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        if (!brands) {
+        if (!brands.length) {
             dispatch(getAllBrands());
         }
     }, [dispatch, brands]);

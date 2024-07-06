@@ -12,7 +12,7 @@ const Customers = () => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        if (!customers) {
+        if (!customers.length) {
             dispatch(getAllusers());
         }
     }, [dispatch, customers]);

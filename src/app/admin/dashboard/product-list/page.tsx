@@ -10,11 +10,11 @@ import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 
 const ProductList = () => {
-    const { products, isLoading, isProductEditing, isProductDeleting } = useAppSelector((state) => state.product);
+    const { products, isLoading, isProductDeleting } = useAppSelector((state) => state.product);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        if (!products) {
+        if (!products.length) {
             dispatch(getAllProducts());
         }
     }, [dispatch, products]);
@@ -45,15 +45,7 @@ const ProductList = () => {
         brand: product.brand,
         sold: product.sold,
         quantity: product.quantity,
-        actions: (
-            <Actions
-                Id={product._id}
-                editBaseUrl={`update-product/${product._id}`}
-                handleDelete={handleDelete}
-                isDeleting={isProductDeleting}
-                isEditing={isProductEditing}
-            />
-        ),
+        actions: <Actions Id={product._id} editBaseUrl={`update-product/${product._id}`} handleDelete={handleDelete} />,
     }));
 
     return (

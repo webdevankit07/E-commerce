@@ -1,7 +1,7 @@
 import toast from 'react-hot-toast';
-import { CouponSliceInitialStateType, CreateCouponDataType } from '@/types';
+import { CouponSliceInitialStateType, CreateCouponDataType, UpdateCouponDataType } from '@/types';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { CreateCoupon, DeleteCoupon, getCoupons } from '@/services/coupon';
+import { CreateCoupon, DeleteCoupon, getCoupons, UpdateCoupon } from '@/services/coupon';
 
 export const getAllCoupons = createAsyncThunk('coupon/all-coupons', async (_, { rejectWithValue }) => {
     try {
@@ -16,9 +16,21 @@ export const createCoupon = createAsyncThunk(
     'coupon/create-coupon',
     async (couponData: CreateCouponDataType, { rejectWithValue }) => {
         try {
-            console.log(couponData);
             const coupon = await CreateCoupon(couponData);
-            toast.success('Product created');
+            toast.success('Coupon created');
+            return coupon;
+        } catch (error) {
+            return rejectWithValue(error);
+        }
+    }
+);
+
+export const updateCoupon = createAsyncThunk(
+    'coupon/update-coupon',
+    async ({ couponData, couponId }: { couponData: UpdateCouponDataType; couponId: string }, { rejectWithValue }) => {
+        try {
+            const coupon = await UpdateCoupon(couponData, couponId);
+            toast.success('Coupon Updated');
             return coupon;
         } catch (error) {
             toast.error(error as string);
@@ -80,6 +92,29 @@ const couponSlice = createSlice({
                 state.isError = false;
             })
             .addCase(createCoupon.rejected, (state, { error }) => {
+                state.isLoading = false;
+                state.createLoading = false;
+                state.isError = true;
+                state.isSuccess = false;
+                state.message = error;
+            })
+            .addCase(updateCoupon.pending, (state) => {
+                state.isLoading = true;
+                state.createLoading = true;
+            })
+            .addCase(updateCoupon.fulfilled, (state, { payload }) => {
+                state.coupons = state.coupons.map((coupon) => {
+                    if (coupon._id === payload._id) {
+                        return payload;
+                    }
+                    return coupon;
+                });
+                state.isLoading = false;
+                state.createLoading = false;
+                state.isSuccess = true;
+                state.isError = false;
+            })
+            .addCase(updateCoupon.rejected, (state, { error }) => {
                 state.isLoading = false;
                 state.createLoading = false;
                 state.isError = true;
