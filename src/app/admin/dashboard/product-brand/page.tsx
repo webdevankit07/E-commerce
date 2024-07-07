@@ -39,7 +39,13 @@ const Brand = () => {
     const dataSource = brands.map((brand, index) => ({
         key: ++index,
         name: brand.name,
-        actions: <Actions Id={brand._id} handleDelete={handleDeleteBrand} />,
+        actions: (
+            <Actions
+                Id={brand._id}
+                handleDelete={handleDeleteBrand}
+                dialougeDescription='This action cannot be undone. This will permanently delete this Brand.'
+            />
+        ),
     }));
 
     const handleCreateBrand = async () => {

@@ -45,7 +45,14 @@ const ProductList = () => {
         brand: product.brand,
         sold: product.sold,
         quantity: product.quantity,
-        actions: <Actions Id={product._id} editBaseUrl={`update-product/${product._id}`} handleDelete={handleDelete} />,
+        actions: (
+            <Actions
+                Id={product._id}
+                editBaseUrl={`update-product/${product._id}`}
+                handleDelete={handleDelete}
+                dialougeDescription='This action cannot be undone. This will permanently delete this product.'
+            />
+        ),
     }));
 
     return (

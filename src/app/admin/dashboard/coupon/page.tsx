@@ -62,6 +62,7 @@ const Coupon = () => {
                 Id={coupon._id}
                 handleDelete={handleDeleteCoupon}
                 editBaseUrl={`coupon/update-coupon/${coupon._id}`}
+                dialougeDescription='This action cannot be undone. This will permanently delete this Coupon.'
             />
         ),
     }));

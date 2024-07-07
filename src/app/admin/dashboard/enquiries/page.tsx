@@ -57,7 +57,13 @@ const Enquiry = () => {
         comment: enquiry.comment,
         status: <Status status={enquiry.status} onChange={handleStateChange} enqId={enquiry._id} />,
         date: <ShowDate timestamp={enquiry.createdAt} />,
-        actions: <Actions Id={enquiry._id} handleDelete={handleDelete} />,
+        actions: (
+            <Actions
+                Id={enquiry._id}
+                handleDelete={handleDelete}
+                dialougeDescription='This action cannot be undone. This will permanently delete this Enquiry.'
+            />
+        ),
     }));
 
     return (

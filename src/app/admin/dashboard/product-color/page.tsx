@@ -41,7 +41,13 @@ const Color = () => {
     const dataSource = colors.map((color, index) => ({
         key: ++index,
         name: color.name,
-        actions: <Actions Id={color._id} handleDelete={handleDeleteColor} />,
+        actions: (
+            <Actions
+                Id={color._id}
+                handleDelete={handleDeleteColor}
+                dialougeDescription='This action cannot be undone. This will permanently delete this Color.'
+            />
+        ),
     }));
 
     const handleCreateColor = async () => {

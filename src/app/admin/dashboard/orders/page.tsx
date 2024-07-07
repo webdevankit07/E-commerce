@@ -58,7 +58,13 @@ const Order = () => {
         amount: <p className='font-semibold'>&#8377;{order.paymentIntent.amount}</p>,
         date: <ShowDate timestamp={order.createdAt} />,
         status: <Status status={order.orderStatus} onChange={handleStateChange} orderId={order._id} />,
-        actions: <Actions Id={order._id} handleDelete={handleDelete} />,
+        actions: (
+            <Actions
+                Id={order._id}
+                handleDelete={handleDelete}
+                dialougeDescription='This action cannot be undone. This will permanently delete this Order.'
+            />
+        ),
     }));
 
     return (

@@ -39,7 +39,13 @@ const Category = () => {
     const dataSource = categories.map((category, index) => ({
         key: ++index,
         name: category.title,
-        actions: <Actions Id={category._id} handleDelete={handleDeleteCategory} />,
+        actions: (
+            <Actions
+                Id={category._id}
+                handleDelete={handleDeleteCategory}
+                dialougeDescription='This action cannot be undone. This will permanently delete this Category.'
+            />
+        ),
     }));
 
     const handleCreateBrand = async () => {

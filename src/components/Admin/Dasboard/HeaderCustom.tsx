@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { FaRegUserCircle } from 'react-icons/fa';
 import { IoMdNotifications } from 'react-icons/io';
 import {
