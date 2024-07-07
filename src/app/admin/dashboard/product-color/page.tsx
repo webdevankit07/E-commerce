@@ -8,9 +8,6 @@ import { Input } from '@/components/ui/input';
 import { useAppDispatch, useAppSelector } from '@/hooks/storeHooks';
 import { createColor, deleteColor, getAllColors } from '@/redux/features/color/colorSlice';
 import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
-import { FiEdit } from 'react-icons/fi';
-import { MdDeleteSweep } from 'react-icons/md';
 import { Oval } from 'react-loader-spinner';
 
 const Color = () => {
@@ -31,11 +28,7 @@ const Color = () => {
     ];
 
     const handleDeleteColor = async (colorId: string) => {
-        try {
-            await dispatch(deleteColor(colorId));
-        } catch (error) {
-            toast.error(error as string);
-        }
+        await dispatch(deleteColor(colorId));
     };
 
     const dataSource = colors.map((color, index) => ({
@@ -51,12 +44,8 @@ const Color = () => {
     }));
 
     const handleCreateColor = async () => {
-        try {
-            await dispatch(createColor(colorName));
-            setColorName('');
-        } catch (error) {
-            toast.error(error as string);
-        }
+        await dispatch(createColor(colorName));
+        setColorName('');
     };
 
     return (

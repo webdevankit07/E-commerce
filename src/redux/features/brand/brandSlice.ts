@@ -1,3 +1,4 @@
+import { handleAxiosError } from '@/config/axios';
 import { CreateBrand, DeleteBrand, getBrands } from '@/services/brand';
 import { BrandInitialStateType } from '@/types';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
@@ -8,7 +9,9 @@ export const getAllBrands = createAsyncThunk('brands/all-brands', async (_, { re
         const brands = await getBrands();
         return brands;
     } catch (error) {
-        return rejectWithValue(error);
+        const err = await handleAxiosError(error);
+        toast.error(err);
+        throw rejectWithValue(err);
     }
 });
 
@@ -18,8 +21,9 @@ export const createBrand = createAsyncThunk('brands/create-brand', async (name: 
         toast.success('Brand created');
         return brand;
     } catch (error) {
-        toast.error(error as string);
-        return rejectWithValue(error);
+        const err = await handleAxiosError(error);
+        toast.error(err);
+        throw rejectWithValue(err);
     }
 });
 
@@ -29,8 +33,9 @@ export const deleteBrand = createAsyncThunk('brands/delete-brand', async (brandI
         toast.success('Brand deleted');
         return id;
     } catch (error) {
-        toast.error(error as string);
-        return rejectWithValue(error);
+        const err = await handleAxiosError(error);
+        toast.error(err);
+        throw rejectWithValue(err);
     }
 });
 
@@ -51,6 +56,7 @@ const brandSlice = createSlice({
         builder
             .addCase(getAllBrands.pending, (state) => {
                 state.isLoading = true;
+                state.isError = false;
             })
             .addCase(getAllBrands.fulfilled, (state, { payload }) => {
                 state.brands = payload;
@@ -67,6 +73,7 @@ const brandSlice = createSlice({
             })
             .addCase(createBrand.pending, (state) => {
                 state.isLoading = true;
+                state.isError = false;
                 state.createLoading = true;
             })
             .addCase(createBrand.fulfilled, (state, { payload }) => {
@@ -84,6 +91,7 @@ const brandSlice = createSlice({
                 state.message = error;
             })
             .addCase(deleteBrand.pending, (state) => {
+                state.isError = false;
                 state.isLoading = true;
             })
             .addCase(deleteBrand.fulfilled, (state, { payload }) => {

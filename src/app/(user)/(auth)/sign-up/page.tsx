@@ -18,7 +18,7 @@ import { handleAxiosError } from '@/config/axios';
 import { Oval } from 'react-loader-spinner';
 
 const SignUp = () => {
-    const { isLoading } = useAppSelector((state) => state.auth);
+    const { isLoading, isError } = useAppSelector((state) => state.auth);
     const [showPassword, setShowPassword] = useState(false);
     const router = useRouter();
     const dispatch = useAppDispatch();
@@ -30,14 +30,9 @@ const SignUp = () => {
     } = useForm<SignUpFormData>();
 
     const handleFormSubmit: SubmitHandler<SignUpFormData> = async (formData) => {
-        try {
-            await dispatch(userRegister(formData));
-            toast.success('User Registered');
-            router.push('/');
+        await dispatch(userRegister(formData));
+        if (!isError) {
             router.refresh();
-        } catch (error) {
-            const err = await handleAxiosError(error);
-            toast.error(err);
         }
     };
 
@@ -215,8 +210,8 @@ const SignUp = () => {
                                     <Oval
                                         visible={true}
                                         width={20}
-                                        color='#616161'
-                                        secondaryColor='#666666'
+                                        color='#e8e8e8'
+                                        secondaryColor='#ababab'
                                         ariaLabel='oval-loading'
                                         strokeWidth={3}
                                     />

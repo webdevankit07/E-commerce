@@ -9,8 +9,9 @@ export const getAllEnquiries = createAsyncThunk('enquiry/all-enquiries', async (
         const enquiries = await getEnquiries();
         return enquiries;
     } catch (error) {
-        toast.error(error as string);
-        return rejectWithValue(error);
+        const err = await handleAxiosError(error);
+        toast.error(err);
+        throw rejectWithValue(err);
     }
 });
 
@@ -35,7 +36,9 @@ export const deleteEnq = createAsyncThunk('enquiry/delete-enquiry', async (enqId
         toast.success('Enquiry Deleted');
         return enquiry;
     } catch (error) {
-        return rejectWithValue(error);
+        const err = await handleAxiosError(error);
+        toast.error(err);
+        throw rejectWithValue(err);
     }
 });
 
@@ -54,6 +57,7 @@ const enquirySlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(getAllEnquiries.pending, (state) => {
+                state.isError = false;
                 state.isLoading = true;
             })
             .addCase(getAllEnquiries.fulfilled, (state, { payload }) => {
@@ -70,6 +74,7 @@ const enquirySlice = createSlice({
                 state.message = error;
             })
             .addCase(updateEnq.pending, (state) => {
+                state.isError = false;
                 state.isLoading = true;
             })
             .addCase(updateEnq.fulfilled, (state, { payload }) => {
@@ -90,6 +95,7 @@ const enquirySlice = createSlice({
                 state.message = error.message;
             })
             .addCase(deleteEnq.pending, (state) => {
+                state.isError = false;
                 state.isLoading = true;
             })
             .addCase(deleteEnq.fulfilled, (state, { payload }) => {

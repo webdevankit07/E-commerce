@@ -15,7 +15,7 @@ import toast from 'react-hot-toast';
 import { Oval } from 'react-loader-spinner';
 
 const UpdateCoupon = ({ params }: { params: { id: string } }) => {
-    const { createLoading } = useAppSelector((state) => state.coupon);
+    const { createLoading, isError } = useAppSelector((state) => state.coupon);
     const [coupon, setCoupon] = useState<CouponType>();
     const [isLoading, setIsLoading] = useState(false);
     const dispatch = useAppDispatch();
@@ -43,11 +43,9 @@ const UpdateCoupon = ({ params }: { params: { id: string } }) => {
     }, [params.id]);
 
     const handleUpdateCoupon: SubmitHandler<UpdateCouponDataType> = async (couponData) => {
-        try {
-            await dispatch(updateCoupon({ couponData, couponId: params.id }));
+        await dispatch(updateCoupon({ couponData, couponId: params.id }));
+        if (!isError) {
             router.back();
-        } catch (error) {
-            toast.error(error as string);
         }
     };
 

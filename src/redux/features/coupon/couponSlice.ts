@@ -2,13 +2,16 @@ import toast from 'react-hot-toast';
 import { CouponSliceInitialStateType, CreateCouponDataType, UpdateCouponDataType } from '@/types';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { CreateCoupon, DeleteCoupon, getCoupons, UpdateCoupon } from '@/services/coupon';
+import { handleAxiosError } from '@/config/axios';
 
 export const getAllCoupons = createAsyncThunk('coupon/all-coupons', async (_, { rejectWithValue }) => {
     try {
         const coupons = await getCoupons();
         return coupons;
     } catch (error) {
-        return rejectWithValue(error);
+        const err = await handleAxiosError(error);
+        toast.error(err);
+        throw rejectWithValue(err);
     }
 });
 
@@ -20,7 +23,9 @@ export const createCoupon = createAsyncThunk(
             toast.success('Coupon created');
             return coupon;
         } catch (error) {
-            return rejectWithValue(error);
+            const err = await handleAxiosError(error);
+            toast.error(err);
+            throw rejectWithValue(err);
         }
     }
 );
@@ -33,8 +38,9 @@ export const updateCoupon = createAsyncThunk(
             toast.success('Coupon Updated');
             return coupon;
         } catch (error) {
-            toast.error(error as string);
-            return rejectWithValue(error);
+            const err = await handleAxiosError(error);
+            toast.error(err);
+            throw rejectWithValue(err);
         }
     }
 );
@@ -45,7 +51,9 @@ export const deleteCoupon = createAsyncThunk('coupon/delete-coupon', async (coup
         toast.success('Coupon deleted');
         return id;
     } catch (error) {
-        return rejectWithValue(error);
+        const err = await handleAxiosError(error);
+        toast.error(err);
+        throw rejectWithValue(err);
     }
 });
 
@@ -65,6 +73,7 @@ const couponSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(getAllCoupons.pending, (state) => {
+                state.isError = false;
                 state.isLoading = true;
             })
             .addCase(getAllCoupons.fulfilled, (state, { payload }) => {
@@ -81,6 +90,7 @@ const couponSlice = createSlice({
                 state.message = error;
             })
             .addCase(createCoupon.pending, (state) => {
+                state.isError = false;
                 state.isLoading = true;
                 state.createLoading = true;
             })
@@ -99,6 +109,7 @@ const couponSlice = createSlice({
                 state.message = error;
             })
             .addCase(updateCoupon.pending, (state) => {
+                state.isError = false;
                 state.isLoading = true;
                 state.createLoading = true;
             })
@@ -122,6 +133,7 @@ const couponSlice = createSlice({
                 state.message = error;
             })
             .addCase(deleteCoupon.pending, (state) => {
+                state.isError = false;
                 state.isLoading = true;
             })
             .addCase(deleteCoupon.fulfilled, (state, { payload }) => {

@@ -1,15 +1,20 @@
+import { handleAxiosError } from '@/config/axios';
 import { login, logout, register } from '@/services/auth';
 import { AuthInitialStateType, LoginData, SignUpFormData, UserResType } from '@/types';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import toast from 'react-hot-toast';
 
 export const userRegister = createAsyncThunk(
     'auth/user-register',
     async (userData: SignUpFormData, { rejectWithValue }) => {
         try {
             const res = await register(userData);
+            toast.success('Successfully Registered');
             return res;
         } catch (error) {
-            return rejectWithValue(error);
+            const err = await handleAxiosError(error);
+            toast.error(err);
+            throw rejectWithValue(err);
         }
     }
 );
@@ -17,18 +22,24 @@ export const userRegister = createAsyncThunk(
 export const userLogin = createAsyncThunk('auth/user-login', async (userData: LoginData, { rejectWithValue }) => {
     try {
         const res = await login(userData);
+        toast.success('Logged In');
         return res;
     } catch (error) {
-        return rejectWithValue(error);
+        const err = await handleAxiosError(error);
+        toast.error(err);
+        throw rejectWithValue(err);
     }
 });
 
 export const userLogout = createAsyncThunk('auth/user-logout', async (_, { rejectWithValue }) => {
     try {
         const res = await logout();
+        toast.success('Logged Out');
         return res;
     } catch (error) {
-        return rejectWithValue(error);
+        const err = await handleAxiosError(error);
+        toast.error(err);
+        throw rejectWithValue(err);
     }
 });
 
@@ -52,6 +63,7 @@ const authSlice = createSlice({
         builder
             .addCase(userRegister.pending, (state) => {
                 state.isLoading = true;
+                state.isError = false;
             })
             .addCase(userRegister.fulfilled, (state, { payload }) => {
                 state.isLoading = false;
@@ -67,6 +79,7 @@ const authSlice = createSlice({
             })
             .addCase(userLogin.pending, (state) => {
                 state.isLoading = true;
+                state.isError = false;
             })
             .addCase(userLogin.fulfilled, (state, { payload }) => {
                 state.isLoading = false;
@@ -82,6 +95,7 @@ const authSlice = createSlice({
             })
             .addCase(userLogout.pending, (state) => {
                 state.isLoading = true;
+                state.isError = false;
             })
             .addCase(userLogout.fulfilled, (state) => {
                 state.isLoading = false;

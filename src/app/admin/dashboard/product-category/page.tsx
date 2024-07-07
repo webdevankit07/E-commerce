@@ -8,7 +8,6 @@ import { Input } from '@/components/ui/input';
 import { useAppDispatch, useAppSelector } from '@/hooks/storeHooks';
 import { createCategory, deleteCategory, getAllCategories } from '@/redux/features/categories/categorySlice';
 import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
 import { Oval } from 'react-loader-spinner';
 
 const Category = () => {
@@ -29,11 +28,7 @@ const Category = () => {
     ];
 
     const handleDeleteCategory = async (categoryId: string) => {
-        try {
-            await dispatch(deleteCategory(categoryId));
-        } catch (error) {
-            toast.error(error as string);
-        }
+        await dispatch(deleteCategory(categoryId));
     };
 
     const dataSource = categories.map((category, index) => ({
@@ -49,12 +44,8 @@ const Category = () => {
     }));
 
     const handleCreateBrand = async () => {
-        try {
-            await dispatch(createCategory(categoryName));
-            setCategoryName('');
-        } catch (error) {
-            toast.error(error as string);
-        }
+        await dispatch(createCategory(categoryName));
+        setCategoryName('');
     };
 
     return (

@@ -8,9 +8,9 @@ import { Textarea } from '@/components/ui/textarea';
 import { handleAxiosError } from '@/config/axios';
 import { useAppDispatch, useAppSelector } from '@/hooks/storeHooks';
 import { validateFormData } from '@/lib/utils';
-import { createProduct, updateProduct } from '@/redux/features/product/productSlice';
+import { updateProduct } from '@/redux/features/product/productSlice';
 import { getProduct } from '@/services/products';
-import { CreateProductData, ProductType, UpdateProductData, UpdateProductInfo } from '@/types';
+import { ProductType, UpdateProductData } from '@/types';
 import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
@@ -22,7 +22,7 @@ import { RxCross2 } from 'react-icons/rx';
 import { useRouter } from 'next/navigation';
 
 const UpdateProduct = ({ params }: { params: { id: string } }) => {
-    const { isLoading } = useAppSelector((state) => state.product);
+    const { isLoading, isError } = useAppSelector((state) => state.product);
     const { categories } = useAppSelector((state) => state.category);
     const { brands } = useAppSelector((state) => state.brand);
     const { colors } = useAppSelector((state) => state.color);
@@ -79,12 +79,9 @@ const UpdateProduct = ({ params }: { params: { id: string } }) => {
 
             const ProductInfo = { ...productInfo, _id: product._id, images: product.images };
 
-            try {
-                await dispatch(updateProduct({ ProductInfo, imageFiles }));
+            await dispatch(updateProduct({ ProductInfo, imageFiles }));
+            if (!isError) {
                 router.push('/admin/dashboard/product-list');
-            } catch (error) {
-                const err = await handleAxiosError(error);
-                console.log(err);
             }
         };
 

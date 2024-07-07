@@ -1,13 +1,17 @@
+import { handleAxiosError } from '@/config/axios';
 import { getUsers } from '@/services/customer';
 import { CustomerInitialStateType } from '@/types';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import toast from 'react-hot-toast';
 
 export const getAllusers = createAsyncThunk('customer/getAllUsers', async (_, { rejectWithValue }) => {
     try {
         const users = await getUsers();
         return users;
     } catch (error) {
-        return rejectWithValue(error);
+        const err = await handleAxiosError(error);
+        toast.error(err);
+        throw rejectWithValue(err);
     }
 });
 
@@ -26,6 +30,7 @@ const customerSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(getAllusers.pending, (state) => {
+                state.isError = false;
                 state.isLoading = true;
             })
             .addCase(getAllusers.fulfilled, (state, { payload }) => {

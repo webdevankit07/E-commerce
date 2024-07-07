@@ -29,11 +29,7 @@ const Brand = () => {
     ];
 
     const handleDeleteBrand = async (brandId: string) => {
-        try {
-            await dispatch(deleteBrand(brandId));
-        } catch (error) {
-            toast.error(error as string);
-        }
+        await dispatch(deleteBrand(brandId));
     };
 
     const dataSource = brands.map((brand, index) => ({
@@ -49,12 +45,8 @@ const Brand = () => {
     }));
 
     const handleCreateBrand = async () => {
-        try {
-            await dispatch(createBrand(brandName));
-            setBrandName('');
-        } catch (error) {
-            toast.error(error as string);
-        }
+        await dispatch(createBrand(brandName));
+        setBrandName('');
     };
 
     return (

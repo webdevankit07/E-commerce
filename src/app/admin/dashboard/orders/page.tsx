@@ -4,12 +4,10 @@ import Table from '@/components/Admin/Table';
 import BreadCrumb from '@/components/shared/Breadcrumb';
 import Loading from '@/components/shared/Loading';
 import ShowDate from '@/components/shared/ShowDate';
-import { Button } from '@/components/ui/button';
 import { useAppDispatch, useAppSelector } from '@/hooks/storeHooks';
 import { getAllOrders, updateOrderStatus } from '@/redux/features/order/orderSlice';
 import { useEffect } from 'react';
 import { Select, SelectValue, SelectContent, SelectGroup, SelectItem, SelectTrigger } from '@/components/ui/select';
-import toast from 'react-hot-toast';
 
 interface Statustype {
     status: string;
@@ -39,12 +37,7 @@ const Order = () => {
     const handleDelete = () => {};
 
     const handleStateChange = async (value: Statustype) => {
-        try {
-            await dispatch(updateOrderStatus({ status: value.status, orderId: value.orderId }));
-            toast.success('Order status changed');
-        } catch (error) {
-            console.log(error);
-        }
+        await dispatch(updateOrderStatus({ status: value.status, orderId: value.orderId }));
     };
 
     const dataSource = orders.map((order, index) => ({

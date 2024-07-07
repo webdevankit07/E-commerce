@@ -1,3 +1,4 @@
+import { handleAxiosError } from '@/config/axios';
 import { CreateCategory, DeleteCategory, getCategories } from '@/services/category';
 import { CategoryInitialStateType } from '@/types';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
@@ -8,7 +9,9 @@ export const getAllCategories = createAsyncThunk('category/all-categories', asyn
         const categories = await getCategories();
         return categories;
     } catch (error) {
-        return rejectWithValue(error);
+        const err = await handleAxiosError(error);
+        toast.error(err);
+        throw rejectWithValue(err);
     }
 });
 
@@ -20,8 +23,9 @@ export const createCategory = createAsyncThunk(
             toast.success('Category created');
             return category;
         } catch (error) {
-            toast.error(error as string);
-            return rejectWithValue(error);
+            const err = await handleAxiosError(error);
+            toast.error(err);
+            throw rejectWithValue(err);
         }
     }
 );
@@ -34,8 +38,9 @@ export const deleteCategory = createAsyncThunk(
             toast.success('Category deleted');
             return id;
         } catch (error) {
-            toast.error(error as string);
-            return rejectWithValue(error);
+            const err = await handleAxiosError(error);
+            toast.error(err);
+            throw rejectWithValue(err);
         }
     }
 );
@@ -56,6 +61,7 @@ const categorySlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(getAllCategories.pending, (state) => {
+                state.isError = false;
                 state.isLoading = true;
             })
             .addCase(getAllCategories.fulfilled, (state, { payload }) => {
@@ -72,6 +78,7 @@ const categorySlice = createSlice({
                 state.message = error;
             })
             .addCase(createCategory.pending, (state) => {
+                state.isError = false;
                 state.isLoading = true;
                 state.createLoading = true;
             })
@@ -90,6 +97,7 @@ const categorySlice = createSlice({
                 state.message = error;
             })
             .addCase(deleteCategory.pending, (state) => {
+                state.isError = false;
                 state.isLoading = true;
             })
             .addCase(deleteCategory.fulfilled, (state, { payload }) => {

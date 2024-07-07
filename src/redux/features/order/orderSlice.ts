@@ -1,13 +1,17 @@
+import { handleAxiosError } from '@/config/axios';
 import { getOrders, UpdateOrderStatus } from '@/services/order';
 import { OderInitialStateType } from '@/types';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import toast from 'react-hot-toast';
 
 export const getAllOrders = createAsyncThunk('order/all-orders', async (_, { rejectWithValue }) => {
     try {
         const orders = await getOrders();
         return orders;
     } catch (error) {
-        return rejectWithValue(error);
+        const err = await handleAxiosError(error);
+        toast.error(err);
+        throw rejectWithValue(err);
     }
 });
 
@@ -18,7 +22,9 @@ export const updateOrderStatus = createAsyncThunk(
             const order = await UpdateOrderStatus(status, orderId);
             return order;
         } catch (error) {
-            return rejectWithValue(error);
+            const err = await handleAxiosError(error);
+            toast.error(err);
+            throw rejectWithValue(err);
         }
     }
 );
@@ -38,6 +44,7 @@ const orderSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(getAllOrders.pending, (state) => {
+                state.isError = false;
                 state.isLoading = true;
             })
             .addCase(getAllOrders.fulfilled, (state, { payload }) => {
@@ -54,6 +61,7 @@ const orderSlice = createSlice({
                 state.message = error;
             })
             .addCase(updateOrderStatus.pending, (state) => {
+                state.isError = false;
                 state.isLoading = true;
             })
             .addCase(updateOrderStatus.fulfilled, (state, { payload }) => {

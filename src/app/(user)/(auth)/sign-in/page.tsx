@@ -15,7 +15,7 @@ import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
 import { Oval } from 'react-loader-spinner';
 
 const SignIn = () => {
-    const { isLoading } = useAppSelector((state) => state.auth);
+    const { isLoading, isError } = useAppSelector((state) => state.auth);
     const [formData, setFormData] = useState({ identifier: '', password: '' });
     const [showPassword, setShowPassword] = useState(false);
     const router = useRouter();
@@ -23,14 +23,9 @@ const SignIn = () => {
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        try {
-            await dispatch(userLogin(formData));
-            toast.success('Login successful');
-            router.push('/');
+        await dispatch(userLogin(formData));
+        if (!isError) {
             router.refresh();
-        } catch (error) {
-            const err = await handleAxiosError(error);
-            toast.error(err);
         }
     };
 
@@ -88,8 +83,8 @@ const SignIn = () => {
                                     <Oval
                                         visible={true}
                                         width={20}
-                                        color='#616161'
-                                        secondaryColor='#666666'
+                                        color='#e8e8e8'
+                                        secondaryColor='#ababab'
                                         ariaLabel='oval-loading'
                                         strokeWidth={3}
                                     />

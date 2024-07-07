@@ -8,17 +8,8 @@ import { useEffect } from 'react';
 import { Select, SelectValue, SelectContent, SelectGroup, SelectItem, SelectTrigger } from '@/components/ui/select';
 import ShowDate from '@/components/shared/ShowDate';
 import Actions from '@/components/Admin/Acion';
-import toast from 'react-hot-toast';
-import { MdOutlineRemoveRedEye } from 'react-icons/md';
 import { EnquiryType } from '@/types';
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { FaEye } from 'react-icons/fa';
 
 interface Statustype {
@@ -37,11 +28,7 @@ const Enquiry = () => {
     }, [dispatch, enquiries]);
 
     const handleDelete = async (enquiryId: string) => {
-        try {
-            await dispatch(deleteEnq(enquiryId));
-        } catch (error) {
-            console.log(error);
-        }
+        await dispatch(deleteEnq(enquiryId));
     };
 
     const formatComment = (comment: string) => {
@@ -62,11 +49,7 @@ const Enquiry = () => {
     ];
 
     const handleStateChange = async (value: Statustype) => {
-        try {
-            await dispatch(updateEnq({ status: value.status, enqId: value.enqId }));
-        } catch (error) {
-            console.log({ error });
-        }
+        await dispatch(updateEnq({ status: value.status, enqId: value.enqId }));
     };
 
     const dataSource = enquiries.map((enquiry, index) => ({

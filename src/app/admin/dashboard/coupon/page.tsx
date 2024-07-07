@@ -45,11 +45,7 @@ const Coupon = () => {
     ];
 
     const handleDeleteCoupon = async (couponId: string) => {
-        try {
-            await dispatch(deleteCoupon(couponId));
-        } catch (error) {
-            toast.error(error as string);
-        }
+        await dispatch(deleteCoupon(couponId));
     };
 
     const dataSource = coupons.map((coupon, index) => ({
@@ -68,11 +64,7 @@ const Coupon = () => {
     }));
 
     const handleCreateCoupon: SubmitHandler<CreateCouponDataType> = async (couponData) => {
-        try {
-            await dispatch(createCoupon(couponData));
-        } catch (error) {
-            toast.error(error as string);
-        }
+        await dispatch(createCoupon(couponData));
     };
 
     return (

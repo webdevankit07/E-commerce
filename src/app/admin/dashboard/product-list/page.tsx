@@ -3,11 +3,9 @@ import Actions from '@/components/Admin/Acion';
 import Table from '@/components/Admin/Table';
 import BreadCrumb from '@/components/shared/Breadcrumb';
 import Loading from '@/components/shared/Loading';
-import { handleAxiosError } from '@/config/axios';
 import { useAppDispatch, useAppSelector } from '@/hooks/storeHooks';
 import { deleteProduct, getAllProducts } from '@/redux/features/product/productSlice';
 import { useEffect } from 'react';
-import toast from 'react-hot-toast';
 
 const ProductList = () => {
     const { products, isLoading, isProductDeleting } = useAppSelector((state) => state.product);
@@ -20,12 +18,7 @@ const ProductList = () => {
     }, [dispatch, products]);
 
     const handleDelete = async (productId: string) => {
-        try {
-            await dispatch(deleteProduct(productId));
-        } catch (error) {
-            const err = await handleAxiosError(error);
-            toast.error(err);
-        }
+        await dispatch(deleteProduct(productId));
     };
 
     const columns = [

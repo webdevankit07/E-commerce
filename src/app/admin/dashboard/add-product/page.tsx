@@ -29,7 +29,7 @@ export interface SelectDataType {
 }
 
 const AddProduct = () => {
-    const { isLoading } = useAppSelector((state) => state.product);
+    const { isLoading, isError } = useAppSelector((state) => state.product);
     const { categories } = useAppSelector((state) => state.category);
     const { brands } = useAppSelector((state) => state.brand);
     const { colors } = useAppSelector((state) => state.color);
@@ -83,13 +83,9 @@ const AddProduct = () => {
     const handleFormSubmit: SubmitHandler<CreateProductData> = async (formData) => {
         const { productInfo, imageFiles, error } = validateFormData(formData, selectData, setSelectDataErrors);
         if (error) return setSelectDataErrors(error);
-
-        try {
-            await dispatch(createProduct({ productInfo, imageFiles }));
+        await dispatch(createProduct({ productInfo, imageFiles }));
+        if (!isError) {
             router.push('/admin/dashboard/product-list');
-        } catch (error) {
-            const err = await handleAxiosError(error);
-            toast.error(err);
         }
     };
 

@@ -2,13 +2,16 @@ import toast from 'react-hot-toast';
 import { CreateProduct, DeleteProduct, getProducts, UpdateProduct } from '@/services/products';
 import { CreateProductInfo, ProductSliceInitialStateType, UpdateProductInfo } from '@/types';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { handleAxiosError } from '@/config/axios';
 
 export const getAllProducts = createAsyncThunk('products/getAllProducts', async (_, { rejectWithValue }) => {
     try {
         const products = await getProducts();
         return products;
     } catch (error) {
-        return rejectWithValue(error);
+        const err = await handleAxiosError(error);
+        toast.error(err);
+        throw rejectWithValue(err);
     }
 });
 
@@ -24,7 +27,9 @@ export const createProduct = createAsyncThunk(
             return product;
         } catch (error) {
             toast.error(error as string);
-            return rejectWithValue(error);
+            const err = await handleAxiosError(error);
+            toast.error(err);
+            throw rejectWithValue(err);
         }
     }
 );
@@ -37,11 +42,13 @@ export const updateProduct = createAsyncThunk(
     ) => {
         try {
             const product = await UpdateProduct(ProductInfo, imageFiles);
-            toast.success('Product succefully updated');
+            toast.success('Product updated');
             return product;
         } catch (error) {
             toast.error(error as string);
-            return rejectWithValue(error);
+            const err = await handleAxiosError(error);
+            toast.error(err);
+            throw rejectWithValue(err);
         }
     }
 );
@@ -52,7 +59,9 @@ export const deleteProduct = createAsyncThunk('products/delete-product', async (
         toast.success('Product deleted');
         return productId;
     } catch (error) {
-        return rejectWithValue(error);
+        const err = await handleAxiosError(error);
+        toast.error(err);
+        throw rejectWithValue(err);
     }
 });
 
@@ -73,6 +82,7 @@ const productsSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(getAllProducts.pending, (state) => {
+                state.isError = false;
                 state.isLoading = true;
             })
             .addCase(getAllProducts.fulfilled, (state, { payload }) => {
@@ -89,6 +99,7 @@ const productsSlice = createSlice({
                 state.message = error;
             })
             .addCase(createProduct.pending, (state) => {
+                state.isError = false;
                 state.isLoading = true;
             })
             .addCase(createProduct.fulfilled, (state, { payload }) => {
@@ -104,6 +115,7 @@ const productsSlice = createSlice({
                 state.message = error;
             })
             .addCase(updateProduct.pending, (state) => {
+                state.isError = false;
                 state.isLoading = true;
             })
             .addCase(updateProduct.fulfilled, (state, { payload }) => {
@@ -124,6 +136,7 @@ const productsSlice = createSlice({
                 state.message = error;
             })
             .addCase(deleteProduct.pending, (state) => {
+                state.isError = false;
                 state.isProductDeleting = true;
             })
             .addCase(deleteProduct.fulfilled, (state, { payload }) => {

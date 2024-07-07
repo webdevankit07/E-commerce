@@ -10,23 +10,17 @@ import {
 import { useAppDispatch, useAppSelector } from '@/hooks/storeHooks';
 import { userLogout } from '@/redux/features/auth/authSlice';
 import Link from 'next/link';
-import toast from 'react-hot-toast';
-import { handleAxiosError } from '@/config/axios';
 import { useRouter } from 'next/navigation';
 
 const HeaderCustom = () => {
-    const { user } = useAppSelector((state) => state.auth);
+    const { user, isError } = useAppSelector((state) => state.auth);
     const dispatch = useAppDispatch();
     const router = useRouter();
 
     const handleSignOut = async () => {
-        try {
-            await dispatch(userLogout());
-            toast.success('Logged out successfully');
+        await dispatch(userLogout());
+        if (!isError) {
             router.push('/');
-        } catch (error) {
-            const err = await handleAxiosError(error);
-            toast.error(err);
         }
     };
 

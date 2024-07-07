@@ -1,3 +1,4 @@
+import { handleAxiosError } from '@/config/axios';
 import { getCategories } from '@/services/category';
 import { CreateColor, DeleteColor, getColors } from '@/services/color';
 import { CategoryInitialStateType, ColorInitialStateType } from '@/types';
@@ -9,7 +10,9 @@ export const getAllColors = createAsyncThunk('color/all-colors', async (_, { rej
         const colors = await getColors();
         return colors;
     } catch (error) {
-        return rejectWithValue(error);
+        const err = await handleAxiosError(error);
+        toast.error(err);
+        throw rejectWithValue(err);
     }
 });
 
@@ -19,8 +22,9 @@ export const createColor = createAsyncThunk('color/create-color', async (name: s
         toast.success('Color created');
         return color;
     } catch (error) {
-        toast.error(error as string);
-        return rejectWithValue(error);
+        const err = await handleAxiosError(error);
+        toast.error(err);
+        throw rejectWithValue(err);
     }
 });
 
@@ -30,8 +34,9 @@ export const deleteColor = createAsyncThunk('brands/delete-brand', async (colorI
         toast.success('Color deleted');
         return id;
     } catch (error) {
-        toast.error(error as string);
-        return rejectWithValue(error);
+        const err = await handleAxiosError(error);
+        toast.error(err);
+        throw rejectWithValue(err);
     }
 });
 
@@ -51,6 +56,7 @@ const colorSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(getAllColors.pending, (state) => {
+                state.isError = false;
                 state.isLoading = true;
             })
             .addCase(getAllColors.fulfilled, (state, { payload }) => {
@@ -68,6 +74,7 @@ const colorSlice = createSlice({
             })
             .addCase(createColor.pending, (state) => {
                 state.isLoading = true;
+                state.isError = false;
                 state.createLoading = true;
             })
             .addCase(createColor.fulfilled, (state, { payload }) => {
@@ -85,6 +92,7 @@ const colorSlice = createSlice({
                 state.message = error;
             })
             .addCase(deleteColor.pending, (state) => {
+                state.isError = false;
                 state.isLoading = true;
             })
             .addCase(deleteColor.fulfilled, (state, { payload }) => {
