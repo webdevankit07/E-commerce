@@ -1,5 +1,6 @@
 import { Axios, handleAxiosError } from '@/config/axios';
 import { DeleteEnquiryType, EnquiryResType, UpdateEnqType } from '@/types';
+import toast from 'react-hot-toast';
 
 export const getEnquiries = async () => {
     try {
@@ -21,7 +22,7 @@ export const UpdateEnq = async (status: string, enqId: string) => {
     }
 };
 
-export const deleteEnq = async (enuiryId: string) => {
+export const DeleteEnq = async (enuiryId: string) => {
     try {
         const { data } = await Axios.delete<DeleteEnquiryType>(`/enq/delete/${enuiryId}`);
         return data.enquiry._id;

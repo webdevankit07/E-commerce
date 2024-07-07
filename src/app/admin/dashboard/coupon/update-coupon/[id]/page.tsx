@@ -111,9 +111,9 @@ const UpdateCoupon = ({ params }: { params: { id: string } }) => {
                             {errors.discount?.message}
                         </span>
                     </div>
-                    <div className='space-x-3'>
+                    <div className='flex items-center gap-3'>
                         <Button
-                            className='py-5 bg-green-600 rounded-sm hover:bg-green-700 min-w-[100px]'
+                            className='py-5 bg-green-600 rounded-sm hover:bg-green-700 min-w-[150px]'
                             onClick={handleSubmit(handleUpdateCoupon)}
                         >
                             {createLoading ? (
@@ -131,7 +131,7 @@ const UpdateCoupon = ({ params }: { params: { id: string } }) => {
                             )}
                         </Button>
                         <Button
-                            className='py-5 bg-green-600 rounded-sm hover:bg-green-700 min-w-[100px]'
+                            className='py-5 bg-green-600 rounded-sm hover:bg-green-700 min-w-[150px]'
                             onClick={(e) => {
                                 e.preventDefault();
                                 router.push('/admin/dashboard/coupon');

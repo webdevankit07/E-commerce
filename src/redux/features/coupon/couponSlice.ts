@@ -42,7 +42,7 @@ export const updateCoupon = createAsyncThunk(
 export const deleteCoupon = createAsyncThunk('coupon/delete-coupon', async (couponId: string, { rejectWithValue }) => {
     try {
         const id = await DeleteCoupon(couponId);
-        toast.success('Product deleted');
+        toast.success('Coupon deleted');
         return id;
     } catch (error) {
         return rejectWithValue(error);
