@@ -24,7 +24,7 @@ const HeaderCustom = () => {
         try {
             await dispatch(userLogout());
             toast.success('Logged out successfully');
-            router.refresh();
+            router.push('/');
         } catch (error) {
             const err = await handleAxiosError(error);
             toast.error(err);
