@@ -4,7 +4,6 @@ import BreadCrumb from '@/components/shared/Breadcrumb';
 import Container from '@/components/shared/Container';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
 import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
@@ -12,6 +11,7 @@ import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
 const ResetPassword = () => {
     const [showPassword, setShowPassword] = useState(false);
     const router = useRouter();
+
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
     };

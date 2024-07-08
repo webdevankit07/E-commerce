@@ -56,7 +56,7 @@ export const updateProduct = createAsyncThunk(
 export const deleteProduct = createAsyncThunk('products/delete-product', async (id: string, { rejectWithValue }) => {
     try {
         const productId = await DeleteProduct(id);
-        toast.success('Product deleted');
+        toast.error('Product deleted');
         return productId;
     } catch (error) {
         const err = await handleAxiosError(error);

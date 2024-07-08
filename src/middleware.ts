@@ -1,3 +1,4 @@
+import { usePathname } from 'next/navigation';
 import { NextResponse, type NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
@@ -24,10 +25,10 @@ export const config = {
     matcher: [
         '/sign-in',
         '/sign-up',
-        '/admin/dashboard',
-        '/admin/dashboard/',
         '/wishlist',
         '/compare-products',
         '/cart',
+        '/admin/dashboard',
+        '/admin/dashboard/',
     ],
 };

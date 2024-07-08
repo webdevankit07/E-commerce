@@ -35,7 +35,7 @@ export const deleteCategory = createAsyncThunk(
     async (categoryId: string, { rejectWithValue }) => {
         try {
             const id = await DeleteCategory(categoryId);
-            toast.success('Category deleted');
+            toast.error('Category deleted');
             return id;
         } catch (error) {
             const err = await handleAxiosError(error);

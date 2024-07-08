@@ -11,9 +11,9 @@ export const getColors = async () => {
     }
 };
 
-export const CreateColor = async (name: string) => {
+export const CreateColor = async (name: string, colorCode: string) => {
     try {
-        const { data } = await Axios.post<CreateColorResType>(`/color/create`, { name });
+        const { data } = await Axios.post<CreateColorResType>(`/color/create`, { name, colorCode });
         return data.newColor;
     } catch (error) {
         const err = await handleAxiosError(error);

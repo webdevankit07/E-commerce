@@ -30,7 +30,7 @@ export const createBrand = createAsyncThunk('brands/create-brand', async (name: 
 export const deleteBrand = createAsyncThunk('brands/delete-brand', async (brandId: string, { rejectWithValue }) => {
     try {
         const id = await DeleteBrand(brandId);
-        toast.success('Brand deleted');
+        toast.error('Brand deleted');
         return id;
     } catch (error) {
         const err = await handleAxiosError(error);

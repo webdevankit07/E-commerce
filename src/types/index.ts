@@ -3,6 +3,7 @@ import { IconType } from 'react-icons/lib';
 export type ColorType = {
     _id: string;
     name: string;
+    colorCode: string;
 };
 export type RatingType = {
     _id: string;

@@ -10,6 +10,7 @@ export const POST = async (req: NextRequest) => {
 
     try {
         const body = await req.json();
+        const { name, colorCode } = body;
 
         const { isAdmin } = await validateToken(req);
         if (!isAdmin) {
@@ -18,7 +19,7 @@ export const POST = async (req: NextRequest) => {
 
         await validate(body, CreateColorValidator);
 
-        const color = await Color.findOne({ name: body.name });
+        const color = await Color.findOne({ $or: [{ name: name }, { colorCode: colorCode }] });
         if (color) {
             return NextResponse.json({ message: 'Color name already exists', success: false }, { status: 400 });
         }

@@ -35,7 +35,7 @@ export const updateCoupon = createAsyncThunk(
     async ({ couponData, couponId }: { couponData: UpdateCouponDataType; couponId: string }, { rejectWithValue }) => {
         try {
             const coupon = await UpdateCoupon(couponData, couponId);
-            toast.success('Coupon Updated');
+            toast.error('Coupon Updated');
             return coupon;
         } catch (error) {
             const err = await handleAxiosError(error);

@@ -16,22 +16,25 @@ export const getAllColors = createAsyncThunk('color/all-colors', async (_, { rej
     }
 });
 
-export const createColor = createAsyncThunk('color/create-color', async (name: string, { rejectWithValue }) => {
-    try {
-        const color = await CreateColor(name);
-        toast.success('Color created');
-        return color;
-    } catch (error) {
-        const err = await handleAxiosError(error);
-        toast.error(err);
-        throw rejectWithValue(err);
+export const createColor = createAsyncThunk(
+    'color/create-color',
+    async ({ name, colorCode }: { name: string; colorCode: string }, { rejectWithValue }) => {
+        try {
+            const color = await CreateColor(name, colorCode);
+            toast.success('Color created');
+            return color;
+        } catch (error) {
+            const err = await handleAxiosError(error);
+            toast.error(err);
+            throw rejectWithValue(err);
+        }
     }
-});
+);
 
 export const deleteColor = createAsyncThunk('brands/delete-brand', async (colorId: string, { rejectWithValue }) => {
     try {
         const id = await DeleteColor(colorId);
-        toast.success('Color deleted');
+        toast.error('Color deleted');
         return id;
     } catch (error) {
         const err = await handleAxiosError(error);

@@ -33,7 +33,7 @@ export const updateEnq = createAsyncThunk(
 export const deleteEnq = createAsyncThunk('enquiry/delete-enquiry', async (enqId: string, { rejectWithValue }) => {
     try {
         const enquiry = await DeleteEnq(enqId);
-        toast.success('Enquiry Deleted');
+        toast.error('Enquiry Deleted');
         return enquiry;
     } catch (error) {
         const err = await handleAxiosError(error);
