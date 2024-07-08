@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const name = z.string({ required_error: 'name is required' }).min(1, 'Please enter valid brand name');
+const name = z.string({ required_error: 'name is required' }).min(1, 'Please enter valid Color name');
 const colorCode = z
     .string({ required_error: 'color code is required' })
     .min(7, 'invalid color code')

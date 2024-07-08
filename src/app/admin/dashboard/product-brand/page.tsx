@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useAppDispatch, useAppSelector } from '@/hooks/storeHooks';
 import { createBrand, deleteBrand, getAllBrands } from '@/redux/features/brand/brandSlice';
-import { useEffect, useState } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { Oval } from 'react-loader-spinner';
 
@@ -44,7 +44,8 @@ const Brand = () => {
         ),
     }));
 
-    const handleCreateBrand = async () => {
+    const handleCreateBrand = async (e: MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
         await dispatch(createBrand(brandName));
         setBrandName('');
     };
@@ -54,7 +55,7 @@ const Brand = () => {
             <BreadCrumb
                 BreadCrumbs={[{ name: 'Dashboard', location: '/admin/dashboard' }, { name: 'Product Brand' }]}
             />
-            <div className='bg-white px-10 py-5 rounded-md flex gap-4'>
+            <form className='bg-white px-10 py-5 rounded-md flex gap-4'>
                 <Input
                     type='text'
                     name='title'
@@ -82,7 +83,7 @@ const Brand = () => {
                         'Add Brand'
                     )}
                 </Button>
-            </div>
+            </form>
             {isLoading ? <Loading /> : <Table title='Brands' columns={columns} dataSource={dataSource} />}
         </div>
     );

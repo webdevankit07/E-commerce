@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useAppDispatch, useAppSelector } from '@/hooks/storeHooks';
 import { createCategory, deleteCategory, getAllCategories } from '@/redux/features/categories/categorySlice';
-import { useEffect, useState } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 import { Oval } from 'react-loader-spinner';
 
 const Category = () => {
@@ -43,7 +43,8 @@ const Category = () => {
         ),
     }));
 
-    const handleCreateBrand = async () => {
+    const handleCreateBrand = async (e: MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
         await dispatch(createCategory(categoryName));
         setCategoryName('');
     };
