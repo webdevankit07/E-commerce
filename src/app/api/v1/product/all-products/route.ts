@@ -43,17 +43,16 @@ export const GET = async (req: NextRequest) => {
             let selectFix = select.split(',').join(' ');
             productData = productData.select(selectFix);
         }
-
         //! ....... Pagination ....... //
         let pageNo = (page && +page) || 1;
-        let Limit = (limit && +limit) || 10;
+        let Limit = (limit && +limit) || 0;
         let skip = (pageNo - 1) * Limit;
-        const leftRange = skip + 1;
-        const rightRange = Limit * pageNo;
 
         const totalProducts = await Product.countDocuments();
         if (skip >= totalProducts && totalProducts > 1)
             return NextResponse.json({ message: 'Page does not exist', success: false }, { status: 400 });
+        const leftRange = Limit === 0 ? 1 : skip + 1;
+        const rightRange = Limit === 0 ? totalProducts : Limit * pageNo;
 
         productData = productData.skip(skip).limit(Limit);
         const products = await productData;

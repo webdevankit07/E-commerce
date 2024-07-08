@@ -20,6 +20,9 @@ import { DownOutlined } from '@ant-design/icons';
 import Image from 'next/image';
 import { RxCross2 } from 'react-icons/rx';
 import { useRouter } from 'next/navigation';
+import { getAllCategories } from '@/redux/features/categories/categorySlice';
+import { getAllBrands } from '@/redux/features/brand/brandSlice';
+import { getAllColors } from '@/redux/features/color/colorSlice';
 
 const UpdateProduct = ({ params }: { params: { id: string } }) => {
     const { isLoading, isError } = useAppSelector((state) => state.product);
@@ -32,6 +35,12 @@ const UpdateProduct = ({ params }: { params: { id: string } }) => {
     const [IsLoading, setIsLoading] = useState(false);
     const dispatch = useAppDispatch();
     const router = useRouter();
+
+    useEffect(() => {
+        !categories.length && dispatch(getAllCategories());
+        !brands.length && dispatch(getAllBrands());
+        !colors.length && dispatch(getAllColors());
+    }, [categories.length, brands.length, colors.length, dispatch]);
 
     const Categories = categories.map((category) => category.title);
     const Brands = brands.map((brand) => brand.name);
@@ -62,7 +71,7 @@ const UpdateProduct = ({ params }: { params: { id: string } }) => {
         formState: { errors },
     } = useForm<UpdateProductData>();
 
-    if (IsLoading || !product || !colors) {
+    if (IsLoading || !product || !categories.length || !brands.length || !colors.length) {
         return <Loading />;
     } else {
         const options = colors.map((color) => ({ value: color.name, label: color.name }));
