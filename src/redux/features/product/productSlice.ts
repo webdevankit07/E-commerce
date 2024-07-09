@@ -1,5 +1,5 @@
 import toast from 'react-hot-toast';
-import { CreateProduct, DeleteProduct, getProducts, UpdateProduct } from '@/services/products';
+import { clientProducts, CreateProduct, DeleteProduct, getProducts, UpdateProduct } from '@/services/products';
 import { CreateProductInfo, ProductSliceInitialStateType, UpdateProductInfo } from '@/types';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { handleAxiosError } from '@/config/axios';
@@ -14,6 +14,20 @@ export const getAllProducts = createAsyncThunk('products/getAllProducts', async 
         throw rejectWithValue(err);
     }
 });
+
+export const getClientProducts = createAsyncThunk(
+    'products/getAll-clientProducts',
+    async (queries: string, { rejectWithValue }) => {
+        try {
+            const products = await clientProducts(queries);
+            return products;
+        } catch (error) {
+            const err = await handleAxiosError(error);
+            toast.error(err);
+            throw rejectWithValue(err);
+        }
+    }
+);
 
 export const createProduct = createAsyncThunk(
     'products/create-product',
@@ -67,6 +81,7 @@ export const deleteProduct = createAsyncThunk('products/delete-product', async (
 
 const initialState: ProductSliceInitialStateType = {
     products: [],
+    clientProducts: null,
     isLoading: false,
     isProductEditing: false,
     isProductDeleting: false,
@@ -92,6 +107,23 @@ const productsSlice = createSlice({
                 state.isError = false;
             })
             .addCase(getAllProducts.rejected, (state, { error }) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.isSuccess = false;
+                state.products = [];
+                state.message = error;
+            })
+            .addCase(getClientProducts.pending, (state) => {
+                state.isError = false;
+                state.isLoading = true;
+            })
+            .addCase(getClientProducts.fulfilled, (state, { payload }) => {
+                state.clientProducts = payload;
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.isError = false;
+            })
+            .addCase(getClientProducts.rejected, (state, { error }) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.isSuccess = false;

@@ -6,36 +6,42 @@ import { GoHeart, GoHeartFill } from 'react-icons/go';
 import { IoEyeSharp } from 'react-icons/io5';
 import { FaShuffle } from 'react-icons/fa6';
 import { FaCartArrowDown } from 'react-icons/fa6';
+import { ProductType } from '@/types';
+import { formatePrice } from '@/lib/utils';
 
 interface ProductCardprops {
     grid?: number;
+    product: ProductType;
 }
 
-const ProductCard = ({ grid }: ProductCardprops) => {
+const ProductCard = ({ grid, product }: ProductCardprops) => {
+    const { title, description, brand, category, colors, images, price, quantity, totalRating } = product;
     const handleRating = (newRating: number) => {
         console.log(newRating);
     };
 
     return (
-        <div className={`drop-shadow rounded-md p-4 bg-white ${grid === 1 && 'flex gap-10'}`}>
+        <div className={`drop-shadow rounded-md p-3 bg-white ${grid === 1 && 'flex gap-10'}`}>
             <div
-                className={`group  justify-center items-center relative  overflow-hidden ${grid === 1 && 'w-[500px]'}`}
+                className={`group  justify-center items-center relative mb-2 rounded  overflow-hidden ${
+                    grid === 1 && 'min-w-[250px] min-h-[250px] max-h-[250px]'
+                }`}
             >
                 <Link href={`/products/${'asdbahsbdj'}`}>
-                    <div className={`min-h-[200px] w-auto`}>
+                    <div className={`min-h-[200px]`}>
                         <Image
-                            src={'/images/headphones.webp'}
+                            src={images[0].url}
                             fill
                             sizes='100%'
                             alt='product-image'
-                            className='group-hover:opacity-0 transition duration-500'
+                            className='group-hover:opacity-0 hover:scale-120 ease-in-out transition duration-500'
                         />
                         <Image
-                            src={'/images/headphone.webp'}
+                            src={images[1].url}
                             fill
                             sizes='100%'
                             alt='product-image'
-                            className='opacity-0 group-hover:opacity-100 transition duration-500'
+                            className='opacity-0 group-hover:opacity-100 hover:scale-110 ease-in-out transition duration-500'
                         />
                     </div>
                 </Link>
@@ -67,19 +73,21 @@ const ProductCard = ({ grid }: ProductCardprops) => {
                 </div>
             </div>
             <Link href={`/products/${'asdbahsbdj'}`} className='py-2 space-y-1'>
-                <h6 className='text-[#bf4800] text-[13px] font-medium'>Headphone</h6>
-                <p className='line-clamp-2 text-sm font-medium text-slate-900'>
-                    Kids Headphones bulk 10 pack multi colored for students
-                </p>
-                <ReactStars count={5} value={4.5} onChange={handleRating} size={20} color2={'#ffd700'} edit={false} />
-                {grid === 1 && (
-                    <p className='text-wrap text-sm text-slate-400 py-1'>
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reprehenderit vitae illum deleniti
-                        repellendus commodi assumenda atque adipisci id, ipsum asperiores doloremque dolor ipsam
-                        incidunt deserunt harum dolorum reiciendis, odio unde.
-                    </p>
-                )}
-                <p className='text-sm font-semibold text-slate-900'>₹1200</p>
+                <h6 className='text-[#bf4800] text-[13px] font-medium'>{category}</h6>
+                <div>
+                    <p className='line-clamp-2 text-xs font-semibold text-slate-900'>{title}</p>
+                    <ReactStars
+                        count={5}
+                        value={totalRating}
+                        onChange={handleRating}
+                        size={20}
+                        color2={'#ffd700'}
+                        edit={false}
+                    />
+                </div>
+                {grid === 1 && <p className='text-wrap text-sm text-slate-700 py-1 line-clamp-5'>{description}</p>}
+                {grid === 5 && <p className='text-wrap text-xs text-slate-700 line-clamp-4'>{description}</p>}
+                <p className='text-sm font-semibold text-slate-900 pt-3'>{formatePrice(price)}</p>
             </Link>
         </div>
     );

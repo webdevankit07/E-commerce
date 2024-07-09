@@ -15,6 +15,7 @@ export const GET = async (req: NextRequest) => {
         const category = searchParams.get('category');
         const price = searchParams.get('price');
         const minPrice = searchParams.get('minPrice');
+        const color = searchParams.get('color');
         const sort = searchParams.get('sort');
         const select = searchParams.get('select');
         const page = searchParams.get('page');
@@ -26,6 +27,7 @@ export const GET = async (req: NextRequest) => {
         search && (queryObject.title = { $regex: search, $options: 'i' });
         title && (queryObject.title = { $regex: title, $options: 'i' });
         brand && (queryObject.brand = { $regex: brand, $options: 'i' });
+        color && (queryObject.colors = { $in: [new RegExp(color, 'i')] });
         category && (queryObject.category = { $regex: category, $options: 'i' });
         price && (queryObject.price = { $lte: price });
         minPrice && (queryObject.price = { $gte: minPrice });

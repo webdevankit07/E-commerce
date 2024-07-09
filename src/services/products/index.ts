@@ -19,6 +19,16 @@ export const getProducts = async () => {
     }
 };
 
+export const clientProducts = async (queries: string) => {
+    try {
+        const { data } = await Axios.get<ProductResType>(`/product/all-products?limit=10&${queries}`);
+        return data;
+    } catch (error) {
+        const err = await handleAxiosError(error);
+        throw new Error(err);
+    }
+};
+
 export const getProduct = async (productId: string) => {
     try {
         const { data } = await Axios.get<{ product: ProductType }>(`/product/${productId}`);

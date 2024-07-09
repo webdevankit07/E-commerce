@@ -26,6 +26,17 @@ export const formateDate = (timestamp: Date) => {
     return { Date: formattedDate, Time: formattedTime };
 };
 
+export const formatePrice = (amount: number) => {
+    const formattedAmount = new Intl.NumberFormat('en-IN', {
+        style: 'currency',
+        currency: 'INR',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+    }).format(amount);
+
+    return formattedAmount;
+};
+
 //!
 //!
 //!

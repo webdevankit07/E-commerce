@@ -13,9 +13,9 @@ const Home = () => {
             <Hero />
             <Services />
             <Categories />
-            <FeatureProducts />
+            {/* <FeatureProducts /> */}
             <PopularProducts />
-            <SpecialProducts />
+            {/* <SpecialProducts /> */}
             <MarqueeSection />
         </main>
     );
