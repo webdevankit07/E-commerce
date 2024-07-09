@@ -35,13 +35,12 @@ const AddProduct = () => {
     const { colors } = useAppSelector((state) => state.color);
     const [selectData, setSelectData] = useState<SelectDataType>({ category: '', brand: '', colors: [] });
     const [selectDataErrors, setSelectDataErrors] = useState({ category: '', brand: '', colors: '' });
-    // const [imageUrls, setImageUrls] = useState<string[]>([]);
     const dispatch = useAppDispatch();
     const router = useRouter();
 
     const Categories = categories.map((category) => category.title);
     const Brands = brands.map((brand) => brand.name);
-    const options = colors.map((color) => ({ value: color.name, label: color.name }));
+    const options = colors.map((color) => ({ value: color.colorCode, label: color.name }));
 
     const {
         register,
@@ -61,24 +60,6 @@ const AddProduct = () => {
             reset();
         }
     }, [isSubmitSuccessful, reset]);
-
-    // const handleImageChange = (e: React.FormEvent<HTMLInputElement>) => {
-    //     const target = e.target as HTMLInputElement;
-    //     if (!target.files) return;
-    //     for (let i = 0; i < target.files.length; i++) {
-    //         const file: File = (target.files as FileList)[i];
-    //         if (file) {
-    //             const tempUrl = URL.createObjectURL(file);
-    //             if (!imageUrls) {
-    //                 console.log({ state: 'in', imageUrls });
-    //                 setImageUrls([tempUrl]);
-    //             } else {
-    //                 console.log({ state: 'out', imageUrls });
-    //                 setImageUrls([...imageUrls, tempUrl]);
-    //             }
-    //         }
-    //     }
-    // };
 
     const handleFormSubmit: SubmitHandler<CreateProductData> = async (formData) => {
         const { productInfo, imageFiles, error } = validateFormData(formData, selectData, setSelectDataErrors);
@@ -228,29 +209,11 @@ const AddProduct = () => {
                                         {...register('images', {
                                             required: { value: true, message: 'images is required' },
                                         })}
-                                        // onChange={handleImageChange}
                                     />
                                     <span className='absolute font-semibold text-xs ml-1 text-red-500'>
                                         {errors.images?.message}
                                     </span>
                                 </div>
-                                {/* <div className='flex gap-5'>
-                                {imageUrls &&
-                                    imageUrls.map((imageUrl, index) => (
-                                        <div
-                                            className='relative hover:scale-110 transition-all duration-300'
-                                            key={index}
-                                        >
-                                            <Image
-                                                width={80}
-                                                height={80}
-                                                src={imageUrl}
-                                                alt='product-img'
-                                                className='border-[1.5px] border-slate-500 rounded hover:shadow  transition-all duration-300 p-1'
-                                            />
-                                        </div>
-                                    ))}
-                            </div> */}
                             </div>
                             <Button
                                 type='submit'

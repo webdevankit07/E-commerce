@@ -1,27 +1,25 @@
+import { ImageType } from '@/types';
 import Image from 'next/image';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
-const ImageSection = () => {
-    const [selectedImage, setSelectImage] = useState<string>('/images/headphone.webp');
+const ImageSection = ({ images }: { images: ImageType[] }) => {
+    const [selectedImage, setSelectImage] = useState<string>('');
+
+    useEffect(() => {
+        setSelectImage(images[0].url);
+    }, [images]);
 
     return (
         <section className='flex items-center w-full'>
             <div className='px-3 flex flex-col gap-2 justify-center h-[500px]'>
-                <ShortImage
-                    imageUrl='/images/headphone.webp'
-                    selectedImage={selectedImage}
-                    setSelectImage={setSelectImage}
-                />
-                <ShortImage
-                    imageUrl='/images/headphones.webp'
-                    selectedImage={selectedImage}
-                    setSelectImage={setSelectImage}
-                />
-                <ShortImage
-                    imageUrl='/images/headphone.webp'
-                    selectedImage={selectedImage}
-                    setSelectImage={setSelectImage}
-                />
+                {images.map((image) => (
+                    <ShortImage
+                        imageUrl={image.url}
+                        selectedImage={selectedImage}
+                        setSelectImage={setSelectImage}
+                        key={image.public_id}
+                    />
+                ))}
             </div>
             <div>
                 <Image src={selectedImage} width={400} height={500} alt='product-img' />

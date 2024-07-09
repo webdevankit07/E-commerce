@@ -5,7 +5,6 @@ import MarqueeSection from '@/components/Home/MarqueeSection';
 import PopularProducts from '@/components/Home/PopularProducts';
 import Services from '@/components/Home/Services';
 import SpecialProducts from '@/components/Home/SpecialProducts';
-import Loading from '@/components/shared/Loading';
 
 const Home = () => {
     return (
@@ -13,9 +12,9 @@ const Home = () => {
             <Hero />
             <Services />
             <Categories />
-            {/* <FeatureProducts /> */}
+            <FeatureProducts />
             <PopularProducts />
-            {/* <SpecialProducts /> */}
+            <SpecialProducts />
             <MarqueeSection />
         </main>
     );

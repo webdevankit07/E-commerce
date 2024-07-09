@@ -135,7 +135,6 @@ const Store = () => {
                             </div>
                         )}
                     </div>
-                    <div>Ankit</div>
                 </div>
             </Container>
         </div>

@@ -3,7 +3,6 @@ import React from 'react';
 import Container from '../shared/Container';
 import Image from 'next/image';
 
-// swiper
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';

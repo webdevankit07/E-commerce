@@ -27,7 +27,7 @@ const ProductCard = ({ grid, product }: ProductCardprops) => {
                     grid === 1 && 'min-w-[250px] min-h-[250px] max-h-[250px]'
                 }`}
             >
-                <Link href={`/products/${'asdbahsbdj'}`}>
+                <Link href={`/products/${product._id}`}>
                     <div className={`min-h-[200px]`}>
                         <Image
                             src={images[0].url}
@@ -72,7 +72,7 @@ const ProductCard = ({ grid, product }: ProductCardprops) => {
                     </Link>
                 </div>
             </div>
-            <Link href={`/products/${'asdbahsbdj'}`} className='py-2 space-y-1'>
+            <Link href={`/products/${product._id}`} className='py-2 space-y-1 text-start'>
                 <h6 className='text-[#bf4800] text-[13px] font-medium'>{category}</h6>
                 <div>
                     <p className='line-clamp-2 text-xs font-semibold text-slate-900'>{title}</p>
@@ -86,7 +86,7 @@ const ProductCard = ({ grid, product }: ProductCardprops) => {
                     />
                 </div>
                 {grid === 1 && <p className='text-wrap text-sm text-slate-700 py-1 line-clamp-5'>{description}</p>}
-                {grid === 5 && <p className='text-wrap text-xs text-slate-700 line-clamp-4'>{description}</p>}
+                {grid !== 1 && <p className='text-wrap text-xs text-slate-700 line-clamp-4'>{description}</p>}
                 <p className='text-sm font-semibold text-slate-900 pt-3'>{formatePrice(price)}</p>
             </Link>
         </div>

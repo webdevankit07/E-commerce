@@ -14,14 +14,64 @@ export const services: ServiceType[] = [
 ];
 
 export const categories: CategoryType[] = [
-    { title: 'Computers & Laptop', details: '10 Items', imgUrl: 'laptop.webp', location: '/' },
-    { title: 'Cameras & videos', details: '10 Items', imgUrl: 'camera.webp', location: '/' },
-    { title: 'Smart Television', details: '10 Items', imgUrl: 'tv.jpg', location: '/' },
-    { title: 'Smart Watches', details: '10 Items', imgUrl: 'watch.webp', location: '/' },
-    { title: 'Music & Gaming', details: '10 Items', imgUrl: 'headphones.webp', location: '/' },
-    { title: 'Mobiles & Tablets', details: '10 Items', imgUrl: 'headphone.webp', location: '/' },
-    { title: 'Headphones', details: '10 Items', imgUrl: 'phone.jpg', location: '/' },
-    { title: 'Accessories', details: '10 Items', imgUrl: 'accessories.jpg', location: '/' },
-    { title: 'Portable Speakers', details: '10 Items', imgUrl: 'speaker.webp', location: '/' },
-    { title: 'Home Appliance', details: '10 Items', imgUrl: 'home-appliance.jpg', location: '/' },
+    {
+        title: 'Computers & Laptop',
+        details: '10 Items',
+        imgUrl: 'laptop.webp',
+        location: '/products?category=Computers&Laptop',
+    },
+    {
+        title: 'Cameras & videos',
+        details: '10 Items',
+        imgUrl: 'camera.webp',
+        location: '/products?category=Cameras&videos',
+    },
+    {
+        title: 'Smart Television',
+        details: '10 Items',
+        imgUrl: 'tv.jpg',
+        location: '/products?category=Smart&Television',
+    },
+    {
+        title: 'Smart Watches',
+        details: '10 Items',
+        imgUrl: 'watch.webp',
+        location: '/products?category=Smart&Watches',
+    },
+    {
+        title: 'Music & Gaming',
+        details: '10 Items',
+        imgUrl: 'headphones.webp',
+        location: '/products?category=Music&Gaming',
+    },
+    {
+        title: 'Mobiles & Tablets',
+        details: '10 Items',
+        imgUrl: 'headphone.webp',
+        location: '/products?category=Mobiles&Tablets',
+    },
+    {
+        title: 'Headphones',
+        details: '10 Items',
+        imgUrl: 'phone.jpg',
+        location: '/products?category=Headphones',
+    },
+    {
+        title: 'Accessories',
+        details: '10 Items',
+        imgUrl: 'accessories.jpg',
+        location: '/products?category=Accessories',
+    },
+    {
+        title: 'Portable Speakers',
+        details: '10 Items',
+        imgUrl: 'speaker.webp',
+        location: '/products?category=Portable Speakers',
+    },
+    {
+        title: 'Home Appliance',
+        details: '10 Items',
+        imgUrl: 'home-appliance.jpg',
+        location: '/products?category=Home Appliance',
+    },
 ];

@@ -4,10 +4,6 @@ const Reviews = () => {
     return (
         <div className='mt-5 mb-8 grid grid-cols-2 gap-5'>
             <Review />
-            <Review />
-            <Review />
-            <Review />
-            <Review />
         </div>
     );
 };

@@ -14,89 +14,79 @@ import { RiShoppingBag3Fill } from 'react-icons/ri';
 import { FaCodeCompare } from 'react-icons/fa6';
 import { PiShareNetworkFill } from 'react-icons/pi';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { getProduct } from '@/services/products';
+import { handleAxiosError } from '@/config/axios';
+import toast from 'react-hot-toast';
+import { ProductType } from '@/types';
+import Loading from '@/components/shared/Loading';
+import { formatePrice } from '@/lib/utils';
 
 const Productdetails = ({ params }: { params: { id: string } }) => {
+    const [product, setProduct] = useState<ProductType>();
     const [quantity, setQuantity] = useState(1);
     const pathname = usePathname();
 
-    return (
+    useEffect(() => {
+        (async () => {
+            try {
+                const product = await getProduct(params.id);
+                setProduct(product);
+            } catch (error) {
+                const err = await handleAxiosError(error);
+                toast.error(err);
+            }
+        })();
+    }, [params.id]);
+
+    return !product ? (
+        <Loading />
+    ) : (
         <div className='bg-slate-100 min-h-screen'>
             <Container className='mb-5'>
                 <BreadCrumb BreadCrumbs={[{ location: '/products', name: 'Products' }, { name: params.id }]} />
                 <div className='flex bg-white p-5 mb-10 mt-5 rounded-md'>
-                    <ImageSection />
+                    <ImageSection images={product?.images} />
                     <div className='w-full space-y-5 py-5'>
                         <div>
-                            <p className='font-bold'>Kids Headphones bulk 10 pack multi colored for students</p>
+                            <p className='font-bold'>{product.title}</p>
                             <div className='flex items-center gap-3 font-semibold text-gray-500'>
-                                <ReactStars count={5} value={4.5} size={20} color2={'#ffd700'} edit={false} />
-                                <span className='text-sm'>(2 review)</span>
+                                <ReactStars
+                                    count={5}
+                                    value={product.totalRating}
+                                    size={20}
+                                    color2={'#ffd700'}
+                                    edit={false}
+                                />
+                                <span className='text-sm'>({product.ratings.length} review)</span>
                             </div>
                         </div>
                         <div className='flex items-center gap-3 font-semibold text-gray-500'>
                             <span className='text-gray-700 font-bold'>Price: </span>
-                            <span className='text-sm'>$100.00</span>
-                        </div>
-                        <div className='flex items-center gap-3 font-semibold text-gray-500'>
-                            <span className='text-gray-700 font-bold'>Type: </span>
-                            <span className='text-sm'>Headsets</span>
-                        </div>
-                        <div className='flex items-center gap-3 font-semibold text-gray-500'>
-                            <span className='text-gray-700 font-bold'>Brand: </span>
-                            <span className='text-sm'>Haviles</span>
+                            <span className='text-sm'>{formatePrice(product.price)}</span>
                         </div>
                         <div className='text-gray-500'>
                             <span className='text-gray-700 font-bold'>Categories: </span>
                             <span className='space-x-2 *:capitalize'>
-                                <Badge variant={'secondary'}>airpods</Badge>
-                                <Badge variant={'secondary'}>cameras & laptop</Badge>
-                                <Badge variant={'secondary'}>headphones</Badge>
-                                <Badge variant={'secondary'}>mini speaker</Badge>
-                                <Badge variant={'secondary'}>our store</Badge>
-                                <Badge variant={'secondary'}>portable</Badge>
-                                <Badge variant={'secondary'}>airpods</Badge>
-                                <Badge variant={'secondary'}>cameras & laptop</Badge>
-                                <Badge variant={'secondary'}>headphones</Badge>
-                                <Badge variant={'secondary'}>mini speaker</Badge>
-                                <Badge variant={'secondary'}>our store</Badge>
-                                <Badge variant={'secondary'}>portable</Badge>
+                                <Badge variant={'secondary'}>{product.category}</Badge>
                             </span>
                         </div>
                         <div className='flex items-center gap-3 font-semibold text-gray-500'>
-                            <span className='text-gray-700 font-bold'>Tags: </span>
-                            <span className='space-x-2'>
-                                <Badge variant={'secondary'}>Laptop</Badge>
-                                <Badge variant={'secondary'}>MI</Badge>
-                                <Badge variant={'secondary'}>Samsung</Badge>
-                                <Badge variant={'secondary'}>Mobile</Badge>
-                                <Badge variant={'secondary'}>Vivo</Badge>
-                                <Badge variant={'secondary'}>SmartPhones</Badge>
-                            </span>
+                            <span className='text-gray-700 font-bold'>Brand: </span>
+                            <span className='text-sm'>{product.brand}</span>
                         </div>
                         <div className='flex items-center gap-3 font-semibold text-gray-500'>
                             <span className='text-gray-700 font-bold'>Availablity: </span>
-                            <span className='text-sm'>541 in stock</span>
-                        </div>
-                        <div className='flex items-center gap-3 font-semibold text-gray-500'>
-                            <span className='text-gray-700 font-bold'>Sizes: </span>
-                            <div className='text-sm flex items-center gap-2 *:rounded *:py-1 *:px-2 *:border'>
-                                <span>S</span>
-                                <span>M</span>
-                                <span className=' border-gray-800'>L</span>
-                                <span>XL</span>
-                                <span>XXL</span>
-                            </div>
+                            <span className='text-sm'>{product.quantity} in stock</span>
                         </div>
                         <div className='font-semibold space-y-1 text-gray-500'>
                             <span className='text-gray-700 font-bold'>Color: </span>
                             <ul className='text-sm flex items-center gap-2 *:bg-red-500 *:h-[20px] *:w-[20px] *:rounded-full'>
-                                <li></li>
-                                <li></li>
-                                <li className='border-[2px] border-slate-100 outline outline-black outline-[1px]'></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
+                                {product.colors.map((color) => (
+                                    <>
+                                        <li style={{ backgroundColor: color }} className='border-gray-500'></li>
+                                    </>
+                                ))}
                             </ul>
                         </div>
                         <SetQuantity quantity={quantity} setQuantity={setQuantity} />
@@ -118,6 +108,7 @@ const Productdetails = ({ params }: { params: { id: string } }) => {
                                 className='w-40 bg-yellow-300 hover:bg-yellow-400'
                                 onClick={() => {
                                     navigator.clipboard.writeText(`${process.env.NEXT_PUBLIC_BASE_URL}${pathname}`);
+                                    toast.success('Product url Copied');
                                 }}
                             >
                                 <PiShareNetworkFill className='mr-2 text-gray-900 text-lg' />
@@ -126,7 +117,7 @@ const Productdetails = ({ params }: { params: { id: string } }) => {
                         </div>
                     </div>
                 </div>
-                <DescriprionSection />
+                <DescriprionSection description={product.description} />
                 <ReviewsSection />
             </Container>
             <PopularProducts />

@@ -74,7 +74,7 @@ const UpdateProduct = ({ params }: { params: { id: string } }) => {
     if (IsLoading || !product || !categories.length || !brands.length || !colors.length) {
         return <Loading />;
     } else {
-        const options = colors.map((color) => ({ value: color.name, label: color.name }));
+        const options = colors.map((color) => ({ value: color.colorCode, label: color.name }));
 
         const handleImageClick = (publicId: string) => {
             const images = product.images;
