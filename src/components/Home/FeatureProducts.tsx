@@ -43,7 +43,7 @@ const FeatureProducts = () => {
                             clickable: true,
                         }}
                         modules={[Pagination]}
-                        className='mySwiper pb-10'
+                        className='mySwiper pb-14'
                     >
                         {products.map((product) => (
                             <SwiperSlide key={product._id}>

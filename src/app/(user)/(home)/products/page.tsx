@@ -26,6 +26,7 @@ import {
     PaginationPrevious,
 } from '@/components/ui/pagination';
 import { ParseProductQueries } from '@/lib/utils';
+import SelectOption from '@/components/shared/Select';
 
 const Store = () => {
     const { clientProducts, isLoading } = useAppSelector((state) => state.product);
@@ -77,6 +78,8 @@ const Store = () => {
         }
     }, [clientProducts]);
 
+    const handleValueChange = () => {};
+
     const handlePrevPageCall = () => {};
     const handleNextPageCall = () => {};
 
@@ -92,19 +95,21 @@ const Store = () => {
                     </div>
                     <div className='w-full'>
                         <div className='flex items-center gap-5 bg-white py-2 px-4 rounded'>
-                            <p className='font-semibold text-slate-800'>Sort By:</p>
-                            <select className='py-1.5 px-2 focus:outline-none border-2 border-dark-2/[.5] rounded'>
-                                <option value='manual'>Featured</option>
-                                <option value='best-selling' selected>
-                                    Best Selling
-                                </option>
-                                <option value='title-ascending'>Alphabetically, A-Z</option>
-                                <option value='title-descending'>Alphabetically, Z-A</option>
-                                <option value='price-ascending'>Price, low to high</option>
-                                <option value='price-descending'>Price, high to low</option>
-                                <option value='created-ascending'>Date, old to new</option>
-                                <option value='created-descending'>Date, new to old</option>
-                            </select>
+                            <div className='flex items-center gap-3 max-w-[300px] w-full'>
+                                <p className='font-semibold text-slate-800 text-nowrap'>Sort By:</p>
+                                <SelectOption
+                                    trigger='Best Selling'
+                                    selectItems={[
+                                        'Alphabetically, A-Z',
+                                        'Alphabetically, Z-A',
+                                        'Price, low to high',
+                                        'Price, high to low',
+                                        'Date, old to new',
+                                        'Date, new to old',
+                                    ]}
+                                    onValueChange={handleValueChange}
+                                />
+                            </div>
                             <div className='flex items-center gap-2 ml-auto'>
                                 <p className='font-medium text-gray-800 mr-4'>
                                     {clientProducts?.totalProducts} products

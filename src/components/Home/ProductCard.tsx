@@ -12,6 +12,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks/storeHooks';
 import { toggleCompare, toggleWishList } from '@/redux/features/auth/authSlice';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 interface ProductCardprops {
     grid?: number;
@@ -20,7 +21,9 @@ interface ProductCardprops {
 
 const ProductCard = ({ grid, product }: ProductCardprops) => {
     const { title, description, category, images, price, totalRating } = product;
-    const { isLoading, isError } = useAppSelector((state) => state.auth);
+    const { user, isLoading, isError } = useAppSelector((state) => state.auth);
+    const [inWishList, setInWishlist] = useState(false);
+    const [inCompare, setInCompare] = useState(false);
     const dispatch = useAppDispatch();
     const router = useRouter();
 
@@ -28,11 +31,27 @@ const ProductCard = ({ grid, product }: ProductCardprops) => {
         console.log(newRating);
     };
 
+    useEffect(() => {
+        const inWishlist = user?.wishlist.filter((Product) => Product._id === product._id);
+        if (inWishlist?.length) {
+            setInWishlist(true);
+        }
+        const inCompare = user?.compare.filter((Product) => Product._id === product._id);
+        if (inCompare?.length) {
+            setInCompare(true);
+        }
+    }, [user?.wishlist, product._id, user?.compare]);
+
     const handleWishlistToggle = async () => {
         await dispatch(toggleWishList(product._id));
         if (!isLoading && !isError) {
-            toast.success('Added to wishlist');
-            router.push('/wishlist');
+            toast.success(!inWishList ? 'Added to wishlist' : 'Removed from wishlist');
+            if (!inWishList) {
+                router.push('/wishlist');
+                setInWishlist(true);
+            } else {
+                setInWishlist(false);
+            }
         }
     };
 
@@ -41,6 +60,7 @@ const ProductCard = ({ grid, product }: ProductCardprops) => {
         if (!isLoading && !isError) {
             toast.success('Added to compare');
             router.push('/compare-products');
+            setInCompare(true);
         }
     };
 
@@ -70,24 +90,36 @@ const ProductCard = ({ grid, product }: ProductCardprops) => {
                     </div>
                 </Link>
                 <div
-                    className={`group/heart text-right absolute right-1.5 top-0 text-lg ${grid === 1 && 'right-2.5'}`}
+                    className={`group/heart text-right absolute right-1.5 top-0 text-lg cursor-pointer ${
+                        grid === 1 && 'right-2.5'
+                    }`}
                     onClick={handleWishlistToggle}
                 >
-                    <div className='group-hover/heart:hidden'>
-                        <GoHeart />
-                    </div>
-                    <div className='hidden group-hover/heart:block text-red-500'>
-                        <GoHeartFill />
-                    </div>
+                    {inWishList ? (
+                        <div className='text-red-500'>
+                            <GoHeartFill />
+                        </div>
+                    ) : (
+                        <div>
+                            <div className='group-hover/heart:hidden'>
+                                <GoHeart />
+                            </div>
+                            <div className='hidden group-hover/heart:block text-red-500'>
+                                <GoHeartFill />
+                            </div>
+                        </div>
+                    )}
                 </div>
                 <div
                     className={`absolute flex flex-col gap-1 top-6 text-slate-800 group-hover:right-1 -right-10 transition-all duration-400 *:drop-shadow-md *:cursor-pointer ${
                         grid === 1 && 'group-hover:right-2'
                     }`}
                 >
-                    <div onClick={handleCompareToggle}>
-                        <FaShuffle className='text-2xl p-1 hover:bg-yellow-1 transition duration-200 rounded-full' />
-                    </div>
+                    {!inCompare && (
+                        <div onClick={handleCompareToggle}>
+                            <FaShuffle className='text-2xl p-1 hover:bg-yellow-1 transition duration-200 rounded-full' />
+                        </div>
+                    )}
                     <Link href={`/products/${product._id}`}>
                         <IoEyeSharp className='text-2xl p-1 hover:bg-yellow-1 transition duration-200 rounded-full' />
                     </Link>
