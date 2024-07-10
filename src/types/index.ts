@@ -82,6 +82,7 @@ export type UserResType = {
     email: string;
     mobile: string;
     role: 'user' | 'admin';
+    wishlist: WishList | [];
 };
 
 export type AuthInitialStateType = {
@@ -107,6 +108,10 @@ export type SignUpResType = {
     user: UserResType;
     message: string;
     success: boolean;
+};
+export type WishList = ProductType[];
+export type WishListResType = {
+    user: UserResType;
 };
 
 //!

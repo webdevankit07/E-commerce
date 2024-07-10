@@ -8,9 +8,10 @@ const ProductCardSkeleton = () => {
                 <Skeleton className={`w-[100px] h-4`} />
                 <Skeleton className={`w-full h-4`} />
                 <Skeleton className={`w-[100px] h-4`} />
-                <Skeleton className={`w-full h-4`} />
-                <Skeleton className={`w-full h-4`} />
-                <Skeleton className={`w-full h-4`} />
+                <Skeleton className={`w-full h-3`} />
+                <Skeleton className={`w-full h-3`} />
+                <Skeleton className={`w-full h-3`} />
+                <Skeleton className={`w-full h-3`} />
                 <Skeleton className={`w-[100px] h-4`} />
             </div>
         </div>

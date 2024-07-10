@@ -8,6 +8,10 @@ import { FaShuffle } from 'react-icons/fa6';
 import { FaCartArrowDown } from 'react-icons/fa6';
 import { ProductType } from '@/types';
 import { formatePrice } from '@/lib/utils';
+import { useAppDispatch, useAppSelector } from '@/hooks/storeHooks';
+import { toggleWishList } from '@/redux/features/auth/authSlice';
+import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 interface ProductCardprops {
     grid?: number;
@@ -15,9 +19,21 @@ interface ProductCardprops {
 }
 
 const ProductCard = ({ grid, product }: ProductCardprops) => {
-    const { title, description, brand, category, colors, images, price, quantity, totalRating } = product;
+    const { title, description, category, images, price, totalRating } = product;
+    const { isLoading, isError } = useAppSelector((state) => state.auth);
+    const dispatch = useAppDispatch();
+    const router = useRouter();
+
     const handleRating = (newRating: number) => {
         console.log(newRating);
+    };
+
+    const handleWishlistToggle = async () => {
+        await dispatch(toggleWishList(product._id));
+        if (!isLoading && !isError) {
+            toast.success('Added to wishlist');
+            router.push('/wishlist');
+        }
     };
 
     return (
@@ -45,9 +61,9 @@ const ProductCard = ({ grid, product }: ProductCardprops) => {
                         />
                     </div>
                 </Link>
-                <Link
-                    href='/wishlist'
+                <div
                     className={`group/heart text-right absolute right-1.5 top-0 text-lg ${grid === 1 && 'right-2.5'}`}
+                    onClick={handleWishlistToggle}
                 >
                     <div className='group-hover/heart:hidden'>
                         <GoHeart />
@@ -55,7 +71,7 @@ const ProductCard = ({ grid, product }: ProductCardprops) => {
                     <div className='hidden group-hover/heart:block text-red-500'>
                         <GoHeartFill />
                     </div>
-                </Link>
+                </div>
                 <div
                     className={`absolute flex flex-col gap-1 top-6 text-slate-800 group-hover:right-1 -right-10 transition-all duration-400 *:drop-shadow-md ${
                         grid === 1 && 'group-hover:right-2'

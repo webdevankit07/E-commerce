@@ -1,33 +1,26 @@
-import { ColorType, ProductType } from '@/types';
+import { ColorType } from '@/types';
 import Link from 'next/link';
-import { ChangeEvent, Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction } from 'react';
+import { Input } from '../ui/input';
+import debounce from 'lodash.debounce';
 
 interface FilterSectionProps {
     colors: ColorType[];
-    stock: { inStock: ProductType[] | []; outOfStock: ProductType[] | [] };
-    setFilterProducts: Dispatch<SetStateAction<ProductType[]>>;
+    maxPrice: number;
+    setMaxPrice: Dispatch<SetStateAction<number>>;
 }
 
-const FilterSection = ({ colors, stock, setFilterProducts }: FilterSectionProps) => {
-    const handleStockFilter = (e: ChangeEvent<HTMLInputElement>) => {
-        e.preventDefault();
-        if (e.target.name === 'inStock') {
-            setFilterProducts(stock.inStock);
-        } else if (e.target.name === 'outOfStock') {
-            setFilterProducts(stock.outOfStock);
-        }
-    };
-
+const FilterSection = ({ colors, maxPrice, setMaxPrice }: FilterSectionProps) => {
     return (
         <section>
-            <div className='bg-white rounded-md py-3 px-4'>
+            <div className='bg-white rounded-md py-3 px-4 w-full'>
                 <h3 className='font-semibold text-slate-900 mb-4'>Filter By</h3>
                 <div className='my-5'>
                     <h5 className='font-semibold text-slate-700 text-sm mb-1.5'>Colors</h5>
                     <div>
                         <ul className='flex items-center flex-wrap gap-2.5'>
                             {colors.map((color) => (
-                                <Link href={`/products?color=${color.name}`} key={color._id}>
+                                <Link href={`/products?color=${color.colorCode.slice(1)}`} key={color._id}>
                                     <li
                                         style={{ backgroundColor: color.colorCode }}
                                         className='w-5 h-5 rounded-full border border-gray-500'
@@ -38,21 +31,15 @@ const FilterSection = ({ colors, stock, setFilterProducts }: FilterSectionProps)
                     </div>
                 </div>
                 <div className='my-5'>
-                    <h5 className='font-semibold text-slate-700 text-sm mb-1.5'>Price (&#8377;)</h5>
-                    <div className='flex items-center gap-5'>
-                        <input
-                            type='number'
-                            id='from'
-                            className='border border-dark-1/[.5] rounded py-2 px-2 text-sm focus:outline-none w-[100px] bg-slate-100'
-                            placeholder='From'
-                        />
-                        <input
-                            type='number'
-                            id='from'
-                            className='border border-dark-1/[.5] rounded py-2 px-2 text-sm focus:outline-none w-[100px] bg-slate-100'
-                            placeholder='To'
-                        />
-                    </div>
+                    <h5 className='font-semibold text-slate-700 text-sm mb-1.5'>Max Price (&#8377;)</h5>
+                    <Input
+                        type='number'
+                        placeholder='Max Price'
+                        onChange={debounce((e) => {
+                            const val = +e.target.value;
+                            setMaxPrice(val === 0 ? 1000000000000000 : val);
+                        }, 1000)}
+                    />
                 </div>
             </div>
         </section>

@@ -4,7 +4,7 @@ import { ScrollArea } from '../ui/scroll-area';
 
 const ShopByCategory = ({ categories }: { categories: ProductCategoryType[] }) => {
     return (
-        <div className='bg-white rounded-md py-3 px-4'>
+        <div className='bg-white rounded-md py-3 px-4 w-full'>
             <h3 className='font-semibold text-slate-700 mb-2.5'>Shop By categories</h3>
             <div>
                 <ScrollArea className='h-[250px]'>

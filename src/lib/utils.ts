@@ -124,3 +124,28 @@ export const validateFormData = (
 
     return { productInfo, imageFiles, error };
 };
+
+interface ParseProductQueriesParameters {
+    search: string;
+    title: string;
+    brand: string;
+    color: string;
+    category: string;
+    maxPrice: number;
+    pageNo: number;
+}
+export const ParseProductQueries = ({
+    search,
+    title,
+    brand,
+    category,
+    color,
+    maxPrice,
+    pageNo,
+}: ParseProductQueriesParameters) => {
+    const url = `${search && `search=${search}&`}${title && `title=${title}&`}${brand && `brand=${brand}&`}${
+        category && `category=${category}&`
+    }${color && `color=${color}&`}${maxPrice && `price=${maxPrice}&`}${pageNo && `page=${pageNo}&`}`;
+
+    return url;
+};

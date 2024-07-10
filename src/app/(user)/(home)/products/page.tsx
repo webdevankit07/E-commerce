@@ -5,17 +5,27 @@ import ShopByBrand from '@/components/Our Store/ShopByBrand';
 import ShopByCategory from '@/components/Our Store/ShopByCategory';
 import BreadCrumb from '@/components/shared/Breadcrumb';
 import Container from '@/components/shared/Container';
-import Loading from '@/components/shared/Loading';
+import ProductCardSkeleton from '@/components/skeleton/ProductCardSkeleton';
 import { useAppDispatch, useAppSelector } from '@/hooks/storeHooks';
 import { getAllBrands } from '@/redux/features/brand/brandSlice';
 import { getAllCategories } from '@/redux/features/categories/categorySlice';
 import { getAllColors } from '@/redux/features/color/colorSlice';
 import { getClientProducts } from '@/redux/features/product/productSlice';
-import { ProductResType, ProductType } from '@/types';
+import { ProductType } from '@/types';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { FaBars } from 'react-icons/fa';
 import { FaGripLinesVertical } from 'react-icons/fa';
+import {
+    Pagination,
+    PaginationContent,
+    PaginationEllipsis,
+    PaginationItem,
+    PaginationLink,
+    PaginationNext,
+    PaginationPrevious,
+} from '@/components/ui/pagination';
+import { ParseProductQueries } from '@/lib/utils';
 
 const Store = () => {
     const { clientProducts, isLoading } = useAppSelector((state) => state.product);
@@ -24,11 +34,10 @@ const Store = () => {
     const { brands } = useAppSelector((state) => state.brand);
 
     const [grid, setGrid] = useState(5);
-    const [stock, setStock] = useState<{ inStock: ProductType[] | []; outOfStock: ProductType[] | [] }>({
-        inStock: [],
-        outOfStock: [],
-    });
     const [filterProducts, setFilterProducts] = useState<ProductType[]>([]);
+    const [totaPage, setTotalPages] = useState(1);
+    const [pageNo, setPageNo] = useState(1);
+    const [maxPrice, setMaxPrice] = useState<number>(1000000000000000);
 
     const searchParams = useSearchParams();
     const dispatch = useAppDispatch();
@@ -38,8 +47,6 @@ const Store = () => {
     const brand = searchParams.get('brand') || '';
     const color = searchParams.get('color') || '';
     const category = searchParams.get('category') || '';
-    const price = searchParams.get('price') || '';
-    const minPrice = searchParams.get('minPrice') || '';
 
     useEffect(() => {
         (async () => {
@@ -57,33 +64,31 @@ const Store = () => {
 
     useEffect(() => {
         (async () => {
-            await dispatch(
-                getClientProducts(
-                    `search=${search}&title=${title}&brand=${brand}&category=${category}&price=${price}&minPrice=${minPrice}&color=${color}`
-                )
-            );
+            const query = ParseProductQueries({ search, title, category, maxPrice, color, brand, pageNo });
+            await dispatch(getClientProducts(query));
         })();
-    }, [dispatch, search, title, brand, category, price, minPrice, color]);
+    }, [dispatch, search, title, brand, category, maxPrice, color, pageNo]);
 
     useEffect(() => {
-        const inStock = clientProducts?.products.filter((product) => product.quantity > 0) || [];
-        const outOfStock = clientProducts?.products.filter((product) => product.quantity === 0) || [];
-        setStock({ inStock: inStock, outOfStock: outOfStock });
-    }, [clientProducts?.products]);
+        if (clientProducts) {
+            setFilterProducts(clientProducts?.products);
+            const totalPages = clientProducts.products.length / 10;
+            setTotalPages(totalPages);
+        }
+    }, [clientProducts]);
 
-    useEffect(() => {
-        setFilterProducts(stock.inStock);
-    }, [stock.inStock]);
+    const handlePrevPageCall = () => {};
+    const handleNextPageCall = () => {};
 
     return (
         <div className='bg-slate-200'>
             <Container>
                 <BreadCrumb BreadCrumbs={[{ name: 'Products' }]} />
                 <div className='flex gap-3 pb-8'>
-                    <div className='space-y-3 max-w-[250px] h-full'>
+                    <div className='space-y-3 w-[350px] h-full'>
                         <ShopByCategory categories={categories} />
                         <ShopByBrand brands={brands} />
-                        <FilterSection colors={colors} stock={stock} setFilterProducts={setFilterProducts} />
+                        <FilterSection colors={colors} maxPrice={maxPrice} setMaxPrice={setMaxPrice} />
                     </div>
                     <div className='w-full'>
                         <div className='flex items-center gap-5 bg-white py-2 px-4 rounded'>
@@ -119,14 +124,14 @@ const Store = () => {
                             </div>
                         </div>
                         {!clientProducts || isLoading ? (
-                            <Loading />
+                            <div className={`mt-4 grid gap-3 ${grid === 1 ? 'grid-cols-1' : 'grid-cols-5'}`}>
+                                {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((a) => (
+                                    <ProductCardSkeleton key={a} />
+                                ))}
+                                <ProductCardSkeleton />
+                            </div>
                         ) : (
                             <div className={`mt-4 grid gap-3 ${grid === 1 ? 'grid-cols-1' : 'grid-cols-5'}`}>
-                                {/* {clientProducts.products.map((product) => (
-                                    <>
-                                        <ProductCard grid={grid} product={product} />
-                                    </>
-                                ))} */}
                                 {filterProducts.map((product, index) => (
                                     <>
                                         <ProductCard grid={grid} product={product} />
@@ -136,6 +141,30 @@ const Store = () => {
                         )}
                     </div>
                 </div>
+                <Pagination className='pb-10'>
+                    <PaginationContent>
+                        <PaginationItem>
+                            <PaginationPrevious href='#' onClick={handlePrevPageCall} />
+                        </PaginationItem>
+                        <PaginationItem>
+                            <PaginationLink href='#'>1</PaginationLink>
+                        </PaginationItem>
+                        <PaginationItem>
+                            <PaginationLink href='#' isActive>
+                                2
+                            </PaginationLink>
+                        </PaginationItem>
+                        <PaginationItem>
+                            <PaginationLink href='#'>3</PaginationLink>
+                        </PaginationItem>
+                        <PaginationItem>
+                            <PaginationEllipsis />
+                        </PaginationItem>
+                        <PaginationItem>
+                            <PaginationNext href='#' aria-disabled onClick={handleNextPageCall} />
+                        </PaginationItem>
+                    </PaginationContent>
+                </Pagination>
             </Container>
         </div>
     );

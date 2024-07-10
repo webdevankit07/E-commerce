@@ -17,7 +17,9 @@ export const POST = async (req: NextRequest) => {
 
             userExist.refreshToken = refreshToken;
             await userExist.save();
-            const user = await User.findById(userExist._id).select('firstname lastname username email mobile role');
+            const user = await User.findById(userExist._id)
+                .select('firstname lastname username email mobile role wishlist')
+                .populate('wishlist');
 
             const response = NextResponse.json(
                 { user, message: 'User logged in successfully', success: true },

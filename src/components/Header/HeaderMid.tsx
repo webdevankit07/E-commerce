@@ -32,7 +32,7 @@ const HeaderMid = () => {
         <div className='py-3'>
             <Container>
                 <div className='flex justify-between gap-10 items-center'>
-                    <div className='flex items-center justify-between gap-16 w-full'>
+                    <div className='flex items-center justify-between gap-16 w-full max-w-[900px]'>
                         <h2 className='text-2xl font-semibold'>
                             <Link href={'/'}>ShopWave</Link>
                         </h2>
@@ -47,50 +47,51 @@ const HeaderMid = () => {
                             </span>
                         </div>
                     </div>
-                    <div className='flex justify-between items-center gap-8'>
-                        <Link href={'/compare-products'} className='flex items-center gap-3'>
-                            <TfiReload className='text-2xl' />
-                            <p className='text-xs'>
-                                Compare <br /> Products
-                            </p>
-                        </Link>
-                        <Link href={'/wishlist'} className='flex items-center gap-3'>
-                            <BsHeart className='text-2xl' />
-                            <p className='text-xs'>
-                                Favourite <br /> Wishlist
-                            </p>
-                        </Link>
-                        <div>
-                            {user ? (
-                                <div className='flex items-center gap-3'>
-                                    <DropdownMenu>
-                                        <DropdownMenuTrigger className='flex items-center gap-3 text-start'>
-                                            <FaRegUserCircle className='text-3xl' />
-                                            <p className='text-xs'>
-                                                {`${user.firstname} ${user.lastname}`} <br /> {user.email}
-                                            </p>
-                                        </DropdownMenuTrigger>
-                                        <DropdownMenuContent className='min-w-[150px] mt-3 *:cursor-pointer'>
-                                            <DropdownMenuItem>View Profile</DropdownMenuItem>
-                                            {user.role === 'admin' && (
-                                                <DropdownMenuItem>
-                                                    <Link href={'/admin/dashboard/'}>Dashboard</Link>
-                                                </DropdownMenuItem>
-                                            )}
-                                            <DropdownMenuSeparator />
-                                            <DropdownMenuItem onClick={handleSignOut}>Sign Out</DropdownMenuItem>
-                                        </DropdownMenuContent>
-                                    </DropdownMenu>
-                                </div>
-                            ) : (
-                                <Link href={'/sign-in'} className='flex items-center gap-3'>
-                                    <FaRegUser className='text-2xl' />
-                                    <p className='text-xs text-nowrap'>
-                                        Log in <br /> My Account
+                    <div>
+                        {user && (
+                            <div className='flex justify-between items-center gap-8'>
+                                <Link href={'/compare-products'} className='flex items-center gap-3'>
+                                    <TfiReload className='text-2xl' />
+                                    <p className='text-xs'>
+                                        Compare <br /> Products
                                     </p>
                                 </Link>
-                            )}
-                        </div>
+                                <Link href={'/wishlist'} className='flex items-center gap-3'>
+                                    <BsHeart className='text-2xl' />
+                                    <p className='text-xs'>
+                                        Favourite <br /> Wishlist
+                                    </p>
+                                </Link>
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger className='flex items-center gap-3 text-start'>
+                                        <FaRegUserCircle className='text-3xl' />
+                                        <p className='text-xs'>
+                                            {`${user.firstname} ${user.lastname}`} <br /> {user.email}
+                                        </p>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent className='min-w-[150px] mt-3 *:cursor-pointer'>
+                                        <DropdownMenuItem>View Profile</DropdownMenuItem>
+                                        {user.role === 'admin' && (
+                                            <DropdownMenuItem>
+                                                <Link href={'/admin/dashboard/'}>Dashboard</Link>
+                                            </DropdownMenuItem>
+                                        )}
+                                        <DropdownMenuSeparator />
+                                        <DropdownMenuItem onClick={handleSignOut}>Sign Out</DropdownMenuItem>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
+                            </div>
+                        )}
+                    </div>
+                    <div className='flex gap-5'>
+                        {!user && (
+                            <Link href={'/sign-in'} className='flex items-center gap-3'>
+                                <FaRegUser className='text-2xl' />
+                                <p className='text-xs text-nowrap'>
+                                    Log in <br /> My Account
+                                </p>
+                            </Link>
+                        )}
                         <Link href={'/cart'} className='flex items-center gap-3'>
                             <GiShoppingCart className='text-4xl text-yellow-1' />
                             <div className='text-sm space-y-1'>

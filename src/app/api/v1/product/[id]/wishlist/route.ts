@@ -7,15 +7,28 @@ export const PUT = async (req: NextRequest, { params }: { params: { id: string }
     await ConnectDB();
 
     try {
-        const { user, userId } = await validateToken(req);
+        const { userId } = await validateToken(req);
         const { id: productId } = params;
+
+        const user = await User.findById(userId);
+        if (!user) {
+            return NextResponse.json({ message: 'User not exist', success: false }, { status: 400 });
+        }
 
         const isProductAlreadyAddedToWishlist = user.wishlist.find((id) => id.toString() === productId.toString());
         let updatedUser;
         if (isProductAlreadyAddedToWishlist) {
-            updatedUser = await User.findByIdAndUpdate(userId, { $pull: { wishlist: productId } }, { new: true });
+            updatedUser = await User.findByIdAndUpdate(
+                userId,
+                { $pull: { wishlist: productId } },
+                { new: true }
+            ).populate('wishlist');
         } else {
-            updatedUser = await User.findByIdAndUpdate(userId, { $push: { wishlist: productId } }, { new: true });
+            updatedUser = await User.findByIdAndUpdate(
+                userId,
+                { $push: { wishlist: productId } },
+                { new: true }
+            ).populate('wishlist');
         }
 
         return NextResponse.json({ user: updatedUser, message: 'success', success: false }, { status: 200 });
