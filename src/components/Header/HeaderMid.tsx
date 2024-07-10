@@ -14,12 +14,16 @@ import {
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { userLogout } from '@/redux/features/auth/authSlice';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import debounce from 'lodash.debounce';
+import { useState } from 'react';
 
 const HeaderMid = () => {
     const { user, isError } = useAppSelector((state) => state.auth);
+    const [search, setSearch] = useState('');
     const dispatch = useAppDispatch();
     const router = useRouter();
+    const pathname = usePathname();
 
     const handleSignOut = async () => {
         await dispatch(userLogout());
@@ -41,9 +45,18 @@ const HeaderMid = () => {
                                 type='text'
                                 className='py-2 px-3 w-full focus:outline-none text-black'
                                 placeholder='Search Product Here...'
+                                onChange={debounce((e) => {
+                                    setSearch(e.target.value);
+                                    if (pathname === '/products') {
+                                        router.push(`/products?search=${e.target.value}`);
+                                    }
+                                }, 2000)}
                             />
-                            <span className='bg-yellow-1 text-black p-3 cursor-pointer'>
-                                <BsSearch />
+                            <span
+                                className='bg-yellow-1 text-black p-3 cursor-pointer group'
+                                onClick={() => router.push(`/products?search=${search}`)}
+                            >
+                                <BsSearch className='group-hover:scale-125 transition-all duration-200 ease-in-out' />
                             </span>
                         </div>
                     </div>
