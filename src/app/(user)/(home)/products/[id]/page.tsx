@@ -13,7 +13,7 @@ import { FaCartArrowDown } from 'react-icons/fa';
 import { RiShoppingBag3Fill } from 'react-icons/ri';
 import { FaCodeCompare } from 'react-icons/fa6';
 import { PiShareNetworkFill } from 'react-icons/pi';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { getProduct } from '@/services/products';
 import { handleAxiosError } from '@/config/axios';
@@ -21,23 +21,46 @@ import toast from 'react-hot-toast';
 import { ProductType } from '@/types';
 import Loading from '@/components/shared/Loading';
 import { formatePrice } from '@/lib/utils';
+import { useAppDispatch, useAppSelector } from '@/hooks/storeHooks';
+import { toggleCompare } from '@/redux/features/auth/authSlice';
 
 const Productdetails = ({ params }: { params: { id: string } }) => {
+    const { user, isLoading, isError } = useAppSelector((state) => state.auth);
+    const [inCompare, setInCompare] = useState(false);
     const [product, setProduct] = useState<ProductType>();
     const [quantity, setQuantity] = useState(1);
     const pathname = usePathname();
+    const dispatch = useAppDispatch();
+    const router = useRouter();
 
     useEffect(() => {
         (async () => {
             try {
                 const product = await getProduct(params.id);
                 setProduct(product);
+                const inCompare = user?.compare.filter((Product) => Product._id === product._id);
+                if (inCompare?.length) {
+                    setInCompare(true);
+                }
             } catch (error) {
                 const err = await handleAxiosError(error);
                 toast.error(err);
             }
         })();
-    }, [params.id]);
+    }, [params.id, user?.compare]);
+
+    const handleCompareToggle = async () => {
+        if (product) {
+            await dispatch(toggleCompare(product._id));
+            if (!isLoading && !isError) {
+                toast.success(inCompare ? 'Removed' : 'Added to compare');
+                !inCompare && router.push('/compare-products');
+                inCompare ? setInCompare(false) : setInCompare(true);
+            }
+        } else {
+            toast.error('Product not fetched');
+        }
+    };
 
     return !product ? (
         <Loading />
@@ -99,9 +122,13 @@ const Productdetails = ({ params }: { params: { id: string } }) => {
                                 <FaCartArrowDown className='mr-2 text-gray-900 text-lg' />
                                 Add to Cart
                             </Button>
-                            <Button variant={'outline'} className='w-40 bg-yellow-300 hover:bg-yellow-400'>
-                                <FaCodeCompare className='mr-2 text-gray-900 text-2xl' />
-                                Add to Compare
+                            <Button
+                                variant={'outline'}
+                                className='w-50 bg-yellow-300 hover:bg-yellow-400'
+                                onClick={handleCompareToggle}
+                            >
+                                <FaCodeCompare className='mr-2 text-gray-900 text-lg' />
+                                {inCompare ? 'Remove from Compare' : 'Add to Compare'}
                             </Button>
                             <Button
                                 variant={'outline'}
@@ -118,7 +145,12 @@ const Productdetails = ({ params }: { params: { id: string } }) => {
                     </div>
                 </div>
                 <DescriprionSection description={product.description} />
-                <ReviewsSection />
+                <ReviewsSection
+                    productId={product._id}
+                    totalRating={product.totalRating}
+                    ratings={product.ratings}
+                    setProduct={setProduct}
+                />
             </Container>
             <PopularProducts />
         </div>

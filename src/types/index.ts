@@ -9,7 +9,13 @@ export type RatingType = {
     _id: string;
     star: number;
     comment: string;
-    postedby: UserResType;
+    postedby: {
+        _id: string;
+        firstname: string;
+        lastname: string;
+        username: string;
+        role: string;
+    };
 };
 export type ImageType = { public_id: string; url: string; optimizeUrl: string };
 
@@ -420,6 +426,15 @@ export type DeleteEnquiryType = {
         status: string;
         _id: string;
     };
+    message: 'success';
+    success: true;
+};
+//!
+//!
+//!
+//! ********************  RatingTYpe ********************* //
+export type GiveratingResType = {
+    product: ProductType;
     message: 'success';
     success: true;
 };

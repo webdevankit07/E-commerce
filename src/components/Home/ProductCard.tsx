@@ -45,13 +45,9 @@ const ProductCard = ({ grid, product }: ProductCardprops) => {
     const handleWishlistToggle = async () => {
         await dispatch(toggleWishList(product._id));
         if (!isLoading && !isError) {
-            toast.success(!inWishList ? 'Added to wishlist' : 'Removed from wishlist');
-            if (!inWishList) {
-                router.push('/wishlist');
-                setInWishlist(true);
-            } else {
-                setInWishlist(false);
-            }
+            toast.success(!inWishList ? 'Added to wishlist' : 'Removed');
+            router.push('/wishlist');
+            setInWishlist(true);
         }
     };
 

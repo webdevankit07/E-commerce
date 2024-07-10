@@ -45,7 +45,10 @@ export const PUT = async (req: NextRequest, { params }: { params: { id: string }
             updateRating?.ratings.map((rating) => rating.star).reduce((sum, rating) => sum + rating, 0) || 0;
         const totalRating = Math.round((ratingsSum / totalratings) * 2) / 2;
 
-        const finalUpdate = await Product.findByIdAndUpdate(id, { totalRating }, { new: true });
+        const finalUpdate = await Product.findByIdAndUpdate(id, { totalRating }, { new: true }).populate(
+            'ratings.postedby',
+            '_id firstname lastname username role'
+        );
 
         return NextResponse.json({ product: finalUpdate, message: 'success', success: true }, { status: 200 });
     } catch (error: any) {

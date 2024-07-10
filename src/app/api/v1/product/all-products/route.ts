@@ -56,7 +56,10 @@ export const GET = async (req: NextRequest) => {
         const leftRange = Limit === 0 ? 1 : skip + 1;
         const rightRange = Limit === 0 ? totalProducts : Limit * pageNo;
 
-        productData = productData.skip(skip).limit(Limit);
+        productData = productData
+            .skip(skip)
+            .limit(Limit)
+            .populate('ratings.postedby', '_id firstname lastname username role');
         const products = await productData;
 
         return NextResponse.json(
