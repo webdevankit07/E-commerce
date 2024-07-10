@@ -40,3 +40,13 @@ export const togglewishList = async (productId: string) => {
         throw new Error(err);
     }
 };
+
+export const togglecompare = async (productId: string) => {
+    try {
+        const { data } = await Axios.put<WishListResType>(`/product/${productId}/compare`);
+        return data.user;
+    } catch (error) {
+        const err = await handleAxiosError(error);
+        throw new Error(err);
+    }
+};

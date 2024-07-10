@@ -83,6 +83,7 @@ export type UserResType = {
     mobile: string;
     role: 'user' | 'admin';
     wishlist: WishList | [];
+    compare: ProductType[] | [];
 };
 
 export type AuthInitialStateType = {

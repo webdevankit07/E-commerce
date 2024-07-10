@@ -13,7 +13,7 @@ const Whishlist = () => {
             <Container>
                 <BreadCrumb BreadCrumbs={[{ name: 'WishList' }]} />
                 {isLoading || !user ? (
-                    <div className='grid grid-cols-6 gap-4'>
+                    <div className='grid grid-cols-6 gap-3'>
                         {[1, 2, 3, 4, 5, 6].map((item) => (
                             <div key={item}>
                                 <ProductCardSkeleton />

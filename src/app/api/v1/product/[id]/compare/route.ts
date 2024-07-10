@@ -15,18 +15,18 @@ export const PUT = async (req: NextRequest, { params }: { params: { id: string }
             return NextResponse.json({ message: 'User not exist', success: false }, { status: 400 });
         }
 
-        const isProductAlreadyAddedToWishlist = user.wishlist.find((id) => id.toString() === productId.toString());
+        const isProductAlreadyAddedToWishlist = user.compare.find((id) => id.toString() === productId.toString());
         let updatedUser;
         if (isProductAlreadyAddedToWishlist) {
             updatedUser = await User.findByIdAndUpdate(
                 userId,
-                { $pull: { wishlist: productId } },
+                { $pull: { compare: productId } },
                 { new: true }
             ).populate('wishlist compare');
         } else {
             updatedUser = await User.findByIdAndUpdate(
                 userId,
-                { $push: { wishlist: productId } },
+                { $push: { compare: productId } },
                 { new: true }
             ).populate('wishlist compare');
         }

@@ -24,6 +24,7 @@ export interface UserSchemaType extends Document {
     cart: ObjectId;
     address: AddressType[];
     wishlist: ObjectId[];
+    compare: ObjectId[];
     refreshToken: string;
     passwordChangedAt: Date;
     passwordResetToken: string;
@@ -47,6 +48,7 @@ const UserSchema: Schema<UserSchemaType> = new Schema(
         cart: { type: Schema.Types.ObjectId, ref: 'Cart' },
         address: [{ city: String, state: String, country: String, postalCode: String }],
         wishlist: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
+        compare: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
         refreshToken: { type: String },
         passwordChangedAt: Date,
         passwordResetToken: String,

@@ -1,9 +1,10 @@
 import { useAppDispatch, useAppSelector } from '@/hooks/storeHooks';
 import { formatePrice } from '@/lib/utils';
-import { toggleWishList } from '@/redux/features/auth/authSlice';
+import { toggleCompare, toggleWishList } from '@/redux/features/auth/authSlice';
 import { ProductType } from '@/types';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { FaCartArrowDown } from 'react-icons/fa';
 import { FaShuffle } from 'react-icons/fa6';
@@ -15,8 +16,7 @@ const WishlistProduct = ({ product }: { product: ProductType }) => {
     const { images, price, category, title, description, totalRating } = product;
     const { isLoading, isError } = useAppSelector((state) => state.auth);
     const dispatch = useAppDispatch();
-
-    const handleRating = async () => {};
+    const router = useRouter();
 
     const handleWishlistToggle = async () => {
         await dispatch(toggleWishList(product._id));
@@ -25,26 +25,36 @@ const WishlistProduct = ({ product }: { product: ProductType }) => {
         }
     };
 
+    const handleCompareToggle = async () => {
+        await dispatch(toggleCompare(product._id));
+        if (!isLoading && !isError) {
+            toast.success('Added to compare');
+            router.push('/compare-products');
+        }
+    };
+
     return (
         <div className={`drop-shadow rounded-md p-2 bg-white h-[450px]`}>
             <div className={`group  justify-center items-center rounded-sm relative overflow-hidden`}>
                 <Link href={`/products/${product._id}`}>
-                    <div className={`min-h-[200px] w-auto`}>
-                        <Image
-                            src={images[0].url}
-                            fill
-                            sizes='100%'
-                            alt='product-image'
-                            className='group-hover:opacity-0 transition duration-500'
-                        />
-                        <Image
-                            src={images[1].url}
-                            fill
-                            sizes='100%'
-                            alt='product-image'
-                            className='opacity-0 group-hover:opacity-100 transition duration-500'
-                        />
-                    </div>
+                    {images && (
+                        <div className={`min-h-[200px] w-auto`}>
+                            <Image
+                                src={images[0].url}
+                                fill
+                                sizes='100%'
+                                alt='product-image'
+                                className='group-hover:opacity-0 transition duration-500'
+                            />
+                            <Image
+                                src={images[1].url}
+                                fill
+                                sizes='100%'
+                                alt='product-image'
+                                className='opacity-0 group-hover:opacity-100 transition duration-500'
+                            />
+                        </div>
+                    )}
                 </Link>
                 <div
                     className={`text-right absolute right-1.5 top-0 text-lg cursor-pointer`}
@@ -57,9 +67,9 @@ const WishlistProduct = ({ product }: { product: ProductType }) => {
                 <div
                     className={`absolute flex flex-col gap-1 top-6 text-slate-800 group-hover:right-1 -right-10 transition-all duration-400 *:drop-shadow-md`}
                 >
-                    <Link href={'/'}>
+                    <div onClick={handleCompareToggle}>
                         <FaShuffle className='text-2xl p-1 hover:bg-yellow-1 transition duration-200 rounded-full' />
-                    </Link>
+                    </div>
                     <Link href={'/'}>
                         <IoEyeSharp className='text-2xl p-1 hover:bg-yellow-1 transition duration-200 rounded-full' />
                     </Link>
@@ -72,14 +82,7 @@ const WishlistProduct = ({ product }: { product: ProductType }) => {
                 <h6 className='text-[#bf4800] text-[13px] font-medium'>{category}</h6>
                 <div>
                     <p className='line-clamp-2 text-xs font-semibold text-slate-900'>{title}</p>
-                    <ReactStars
-                        count={5}
-                        value={totalRating}
-                        onChange={handleRating}
-                        size={20}
-                        color2={'#ffd700'}
-                        edit={false}
-                    />
+                    <ReactStars count={5} value={totalRating} size={20} color2={'#ffd700'} edit={false} />
                 </div>
                 <p className='text-wrap text-xs text-slate-700 line-clamp-4'>{description}</p>
                 <p className='text-sm font-semibold text-slate-900 pt-3'>{formatePrice(price)}</p>

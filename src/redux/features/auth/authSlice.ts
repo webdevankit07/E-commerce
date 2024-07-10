@@ -1,5 +1,5 @@
 import { handleAxiosError } from '@/config/axios';
-import { login, logout, register, togglewishList } from '@/services/auth';
+import { login, logout, register, togglecompare, togglewishList } from '@/services/auth';
 import { AuthInitialStateType, LoginData, SignUpFormData, UserResType } from '@/types';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import toast from 'react-hot-toast';
@@ -46,6 +46,17 @@ export const userLogout = createAsyncThunk('auth/user-logout', async (_, { rejec
 export const toggleWishList = createAsyncThunk('auth/wishlist', async (productId: string, { rejectWithValue }) => {
     try {
         const res = await togglewishList(productId);
+        return res;
+    } catch (error) {
+        const err = await handleAxiosError(error);
+        toast.error(err);
+        throw rejectWithValue(err);
+    }
+});
+
+export const toggleCompare = createAsyncThunk('auth/compare', async (productId: string, { rejectWithValue }) => {
+    try {
+        const res = await togglecompare(productId);
         return res;
     } catch (error) {
         const err = await handleAxiosError(error);
@@ -132,6 +143,22 @@ const authSlice = createSlice({
                 state.isSuccess = true;
             })
             .addCase(toggleWishList.rejected, (state, { error }) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.isSuccess = false;
+                state.message = error;
+            })
+            .addCase(toggleCompare.pending, (state) => {
+                state.isLoading = true;
+                state.isError = false;
+            })
+            .addCase(toggleCompare.fulfilled, (state, { payload }) => {
+                state.user = payload;
+                state.isLoading = false;
+                state.isError = false;
+                state.isSuccess = true;
+            })
+            .addCase(toggleCompare.rejected, (state, { error }) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.isSuccess = false;

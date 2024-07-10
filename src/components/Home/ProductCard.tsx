@@ -9,7 +9,7 @@ import { FaCartArrowDown } from 'react-icons/fa6';
 import { ProductType } from '@/types';
 import { formatePrice } from '@/lib/utils';
 import { useAppDispatch, useAppSelector } from '@/hooks/storeHooks';
-import { toggleWishList } from '@/redux/features/auth/authSlice';
+import { toggleCompare, toggleWishList } from '@/redux/features/auth/authSlice';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 
@@ -33,6 +33,14 @@ const ProductCard = ({ grid, product }: ProductCardprops) => {
         if (!isLoading && !isError) {
             toast.success('Added to wishlist');
             router.push('/wishlist');
+        }
+    };
+
+    const handleCompareToggle = async () => {
+        await dispatch(toggleCompare(product._id));
+        if (!isLoading && !isError) {
+            toast.success('Added to compare');
+            router.push('/compare-products');
         }
     };
 
@@ -73,25 +81,25 @@ const ProductCard = ({ grid, product }: ProductCardprops) => {
                     </div>
                 </div>
                 <div
-                    className={`absolute flex flex-col gap-1 top-6 text-slate-800 group-hover:right-1 -right-10 transition-all duration-400 *:drop-shadow-md ${
+                    className={`absolute flex flex-col gap-1 top-6 text-slate-800 group-hover:right-1 -right-10 transition-all duration-400 *:drop-shadow-md *:cursor-pointer ${
                         grid === 1 && 'group-hover:right-2'
                     }`}
                 >
-                    <Link href={'/'}>
+                    <div onClick={handleCompareToggle}>
                         <FaShuffle className='text-2xl p-1 hover:bg-yellow-1 transition duration-200 rounded-full' />
-                    </Link>
-                    <Link href={'/'}>
+                    </div>
+                    <Link href={`/products/${product._id}`}>
                         <IoEyeSharp className='text-2xl p-1 hover:bg-yellow-1 transition duration-200 rounded-full' />
                     </Link>
-                    <Link href={'/'}>
+                    <div>
                         <FaCartArrowDown className='text-2xl p-1 hover:bg-yellow-1 transition duration-200 rounded-full' />
-                    </Link>
+                    </div>
                 </div>
             </div>
             <Link href={`/products/${product._id}`} className='py-2 space-y-1 text-start'>
                 <h6 className='text-[#bf4800] text-[13px] font-medium'>{category}</h6>
                 <div>
-                    <p className='line-clamp-2 text-xs font-semibold text-slate-900'>{title}</p>
+                    <p className='line-clamp-2 text-xs font-semibold text-slate-900 h-8'>{title}</p>
                     <ReactStars
                         count={5}
                         value={totalRating}
