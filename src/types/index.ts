@@ -443,17 +443,22 @@ export type GiveratingResType = {
 //!
 //!
 //! ********************  CartTypes ********************* //
+export type CartProductType = {
+    _id: string;
+    product: {
+        _id: string;
+        title: string;
+        price: number;
+        images: ImageType[];
+    };
+    count: number;
+    color: string;
+    price: number;
+};
+
 export type CartType = {
     _id: string;
-    products: [
-        {
-            _id: string;
-            product: ProductType;
-            count: number;
-            color: string;
-            price: number;
-        }
-    ];
+    products: CartProductType[];
     cartTotal: number;
     totalCartProducts: number;
     user: string;

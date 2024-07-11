@@ -34,7 +34,11 @@ export const formatePrice = (amount: number) => {
         maximumFractionDigits: 0,
     }).format(amount);
 
-    return formattedAmount;
+    if (formattedAmount === '0') {
+        return '00.00';
+    } else {
+        return formattedAmount;
+    }
 };
 
 export const formateBeforeDiscountPrice = (amount: number) => {
