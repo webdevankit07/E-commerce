@@ -15,7 +15,7 @@ interface ReviewSectionPropsType {
 const ReviewsSection = ({ productId, totalRating, ratings, setProduct }: ReviewSectionPropsType) => {
     return (
         <section>
-            <h2 className='font-semibold mt-5 mb-2'>Reviews</h2>
+            <h2 className='font-semibold text-lg mt-5 mb-2'>Reviews</h2>
             <div className='py-5 px-5 bg-white rounded'>
                 <div>
                     <h4 className='font-medium'>Customer Reviews</h4>

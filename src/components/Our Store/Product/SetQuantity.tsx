@@ -15,7 +15,7 @@ const SetQuantity = ({ quantity, setQuantity }: SetQuantityProps) => {
 
     return (
         <div className='flex gap-8 items-center'>
-            <div className='text-gray-700 font-bold'>QUANTITY: </div>
+            <div className='text-gray-700 font-bold text-xs'>QUANTITY: </div>
             <div className='flex gap-3 items-center text-base'>
                 <button
                     disabled={quantity <= 1}

@@ -37,6 +37,17 @@ export const formatePrice = (amount: number) => {
     return formattedAmount;
 };
 
+export const formateBeforeDiscountPrice = (amount: number) => {
+    const formattedAmount = new Intl.NumberFormat('en-IN', {
+        style: 'currency',
+        currency: 'INR',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+    }).format((amount * 120) / 100);
+
+    return formattedAmount;
+};
+
 //!
 //!
 //!

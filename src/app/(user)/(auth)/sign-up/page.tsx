@@ -210,8 +210,8 @@ const SignUp = () => {
                                     <Oval
                                         visible={true}
                                         width={20}
-                                        color='#e8e8e8'
-                                        secondaryColor='#ababab'
+                                        color='#ffffff'
+                                        secondaryColor='#000000'
                                         ariaLabel='oval-loading'
                                         strokeWidth={3}
                                     />

@@ -7,7 +7,7 @@ import { IoEyeSharp } from 'react-icons/io5';
 import { FaShuffle } from 'react-icons/fa6';
 import { FaCartArrowDown } from 'react-icons/fa6';
 import { ProductType } from '@/types';
-import { formatePrice } from '@/lib/utils';
+import { formateBeforeDiscountPrice, formatePrice } from '@/lib/utils';
 import { useAppDispatch, useAppSelector } from '@/hooks/storeHooks';
 import { toggleCompare, toggleWishList } from '@/redux/features/auth/authSlice';
 import toast from 'react-hot-toast';
@@ -139,7 +139,10 @@ const ProductCard = ({ grid, product }: ProductCardprops) => {
                 </div>
                 {grid === 1 && <p className='text-wrap text-sm text-slate-700 py-1 line-clamp-5'>{description}</p>}
                 {grid !== 1 && <p className='text-wrap text-xs text-slate-700 line-clamp-4'>{description}</p>}
-                <p className='text-sm font-semibold text-slate-900 pt-3'>{formatePrice(price)}</p>
+                <div className='flex items-center gap-3 pt-3 text-sm'>
+                    <p className='font-semibold text-red-700'>{formatePrice(price)}</p>
+                    <p className='line-through text-gray-500'>{formateBeforeDiscountPrice(price)}</p>
+                </div>
             </Link>
         </div>
     );

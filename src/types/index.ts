@@ -438,3 +438,35 @@ export type GiveratingResType = {
     message: 'success';
     success: true;
 };
+
+//!
+//!
+//!
+//! ********************  CartTypes ********************* //
+export type CartType = {
+    _id: string;
+    products: [
+        {
+            _id: string;
+            product: ProductType;
+            count: number;
+            color: string;
+            price: number;
+        }
+    ];
+    cartTotal: number;
+    totalCartProducts: number;
+    user: string;
+};
+export type AddToCartResType = {
+    cart: CartType;
+};
+
+export type CartInitialStateType = {
+    cart: CartType | null;
+    isError: boolean;
+    isLoading: boolean;
+    createLoading: boolean;
+    isSuccess: boolean;
+    message: string | unknown;
+};
