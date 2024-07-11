@@ -63,7 +63,7 @@ const Cart = () => {
                             </Button>
                             <div className='flex flex-col items-start gap-2 text-slate-700 font-medium text-sm'>
                                 <p>Taxes and shipping calculate at checkout</p>
-                                <Link href={'/checkout/asdbahsbdj/information'} className='w-full block'>
+                                <Link href={'/checkout/information'} className='w-full block'>
                                     <Button
                                         variant={'outline'}
                                         className='py-5 px-5 w-full text-lg hover:bg-black hover:text-white'

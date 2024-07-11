@@ -1,18 +1,25 @@
 'use client';
 import BreadCrumb from '@/components/shared/Breadcrumb';
+import Loading from '@/components/shared/Loading';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { useAppSelector } from '@/hooks/storeHooks';
+import { formatePrice } from '@/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { FormEvent } from 'react';
 import { FaChevronLeft } from 'react-icons/fa';
 
 const CheckOut = () => {
+    const { cart } = useAppSelector((state) => state.cart);
+
     const submitHandler = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
     };
 
-    return (
+    return !cart ? (
+        <Loading />
+    ) : (
         <div>
             <div className='flex *:py-20 min-h-screen'>
                 <div className='w-full border-r-2 px-10 border-slate-300'>
@@ -115,92 +122,53 @@ const CheckOut = () => {
                 <div className='w-full  px-10 bg-slate-100'>
                     <div className='max-w-[600px]'>
                         <div>
-                            <div className='flex items-center justify-between gap-10 p-3'>
-                                <Link href={'/products/asdbahsbdj'} className='flex items-center gap-5'>
-                                    <div className='relative'>
-                                        <Image
-                                            src={'/images/headphones.webp'}
-                                            width={60}
-                                            height={60}
-                                            alt='cartProduct-img'
-                                        />
-                                        <span className='absolute text-xs -top-1 -right-2 bg-black/[.6] h-5 w-5 grid place-content-center text-white rounded-full'>
-                                            1
-                                        </span>
-                                    </div>
-                                    <div className='space-y-1'>
-                                        <p className='font-medium text-sm'>
-                                            Kids Headphones bulk 10 pack multi colored for students
-                                        </p>
-                                        <div className='flex items-center gap-1 text-slate-400'>
-                                            <span className='mr-2'>XL</span>/<span>#23254</span>
+                            {cart.products.map((cartItem) => (
+                                <div
+                                    className='flex items-center justify-between gap-10 p-3 border-b'
+                                    key={cartItem._id}
+                                >
+                                    <Link
+                                        href={`/products/${cartItem.product._id}`}
+                                        className='flex items-center gap-10 w-full'
+                                    >
+                                        <div className='relative'>
+                                            <Image
+                                                src={cartItem.product.images[0].url}
+                                                width={60}
+                                                height={60}
+                                                alt='cartProduct-img'
+                                            />
+                                            <span className='absolute text-xs -top-1 -right-2 bg-black/[.6] h-5 w-5 grid place-content-center text-white rounded-full'>
+                                                {cartItem.count}
+                                            </span>
                                         </div>
-                                    </div>
-                                </Link>
-                                <span className='font-medium text-sm'>$100.00</span>
-                            </div>
-                            <div className='flex items-center justify-between gap-10 p-3'>
-                                <Link href={'/products/asdbahsbdj'} className='flex items-center gap-5'>
-                                    <div className='relative'>
-                                        <Image
-                                            src={'/images/headphone.webp'}
-                                            width={60}
-                                            height={60}
-                                            alt='cartProduct-img'
-                                        />
-                                        <span className='absolute -top-1 text-xs -right-2 bg-black/[.6] h-5 w-5 grid place-content-center text-white rounded-full'>
-                                            1
-                                        </span>
-                                    </div>
-                                    <div className='space-y-1'>
-                                        <p className='font-medium text-sm'>
-                                            Kids Headphones bulk 10 pack multi colored for students
-                                        </p>
-                                        <div className='flex items-center gap-1 text-slate-400'>
-                                            <span className='mr-2'>XL</span>/<span>#23254</span>
+                                        <div className='space-y-1'>
+                                            <p className='font-medium text-xs max-w-96'>{cartItem.product.title}</p>
+                                            <div className='flex items-center gap-1 text-slate-400'>
+                                                <span
+                                                    className='h-4 w-4 rounded-full border border-gray-800'
+                                                    style={{ backgroundColor: cartItem.color }}
+                                                ></span>
+                                            </div>
                                         </div>
-                                    </div>
-                                </Link>
-                                <span className='font-medium text-sm'>$100.00</span>
-                            </div>
-                            <div className='flex items-center justify-between gap-10 p-3'>
-                                <Link href={'/products/asdbahsbdj'} className='flex items-center gap-5'>
-                                    <div className='relative'>
-                                        <Image
-                                            src={'/images/headphones.webp'}
-                                            width={60}
-                                            height={60}
-                                            alt='cartProduct-img'
-                                        />
-                                        <span className='absolute text-xs -top-1 -right-2 bg-black/[.6] h-5 w-5 grid place-content-center text-white rounded-full'>
-                                            1
-                                        </span>
-                                    </div>
-                                    <div className='space-y-1'>
-                                        <p className='font-medium text-sm'>
-                                            Kids Headphones bulk 10 pack multi colored for students
-                                        </p>
-                                        <div className='flex items-center gap-1 text-slate-400'>
-                                            <span className='mr-2'>XL</span>/<span>#23254</span>
-                                        </div>
-                                    </div>
-                                </Link>
-                                <span className='font-medium text-sm'>$100.00</span>
-                            </div>
+                                    </Link>
+                                    <span className='font-medium text-sm'>{formatePrice(cartItem.product.price)}</span>
+                                </div>
+                            ))}
                         </div>
                         <div className='border-t-2 py-5 border-gray-300'>
                             <div className='flex items-center justify-between mb-3'>
                                 <span className='text-sm font-medium text-gray-500'>Subtotal</span>
-                                <span className='font-medium text-sm'>$219.65</span>
+                                <span className='font-medium text-sm'>{formatePrice(cart.cartTotal)}</span>
                             </div>
                             <div className='flex items-center justify-between'>
                                 <span className='text-sm font-medium text-gray-500'>Shipping</span>
-                                <span className='font-medium text-sm'>$219.65</span>
+                                <span className='font-medium text-sm'>{formatePrice(100)}</span>
                             </div>
                         </div>
                         <div className='flex items-center justify-between text-lg font-medium border-t-2 py-5 border-gray-300'>
                             <span>Total</span>
-                            <span>$219.65</span>
+                            <span>{formatePrice(cart.cartTotal + 100)}</span>
                         </div>
                     </div>
                 </div>

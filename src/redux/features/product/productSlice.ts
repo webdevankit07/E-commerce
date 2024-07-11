@@ -81,6 +81,8 @@ export const deleteProduct = createAsyncThunk('products/delete-product', async (
 
 const initialState: ProductSliceInitialStateType = {
     products: [],
+    popularProducts: [],
+    featuredProducts: [],
     clientProducts: null,
     isLoading: false,
     isProductEditing: false,
@@ -93,7 +95,18 @@ const initialState: ProductSliceInitialStateType = {
 const productsSlice = createSlice({
     name: 'customer',
     initialState,
-    reducers: {},
+    reducers: {
+        getPopularProducts: (state) => {
+            const allProducts = state.products;
+            const popularProducts = allProducts.sort((a, b) => b.totalRating - a.totalRating).slice(0, 10);
+            state.popularProducts = popularProducts;
+        },
+        getFeaturedProducts: (state) => {
+            const allProducts = state.products;
+            const popularProducts = allProducts.sort((a, b) => b.price - a.price).slice(0, 10);
+            state.featuredProducts = popularProducts;
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(getAllProducts.pending, (state) => {
@@ -188,4 +201,4 @@ const productsSlice = createSlice({
 });
 
 export default productsSlice.reducer;
-export const {} = productsSlice.actions;
+export const { getPopularProducts, getFeaturedProducts } = productsSlice.actions;

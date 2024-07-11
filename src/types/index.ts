@@ -139,6 +139,8 @@ export type CustomerInitialStateType = {
 //! ********************  ProductSlice ********************* //
 export type ProductSliceInitialStateType = {
     products: ProductType[] | [];
+    popularProducts: ProductType[] | [];
+    featuredProducts: ProductType[] | [];
     clientProducts: ProductResType | null;
     isError: boolean;
     isLoading: boolean;

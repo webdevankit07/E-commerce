@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks/storeHooks';
 import Container from '../shared/Container';
 import ProductCard from './ProductCard';
 import { useEffect } from 'react';
-import { getAllProducts } from '@/redux/features/product/productSlice';
+import { getAllProducts, getFeaturedProducts } from '@/redux/features/product/productSlice';
 
 // ! Swiper..*:
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -14,7 +14,7 @@ import { Pagination } from 'swiper/modules';
 import ProductCardSkeleton from '../skeleton/ProductCardSkeleton';
 
 const FeatureProducts = () => {
-    const { products, isLoading } = useAppSelector((state) => state.product);
+    const { products, featuredProducts, isLoading } = useAppSelector((state) => state.product);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -23,13 +23,16 @@ const FeatureProducts = () => {
                 await dispatch(getAllProducts());
             }
         })();
-    }, [dispatch, products]);
+        if (!featuredProducts.length) {
+            dispatch(getFeaturedProducts());
+        }
+    }, [dispatch, products.length, featuredProducts.length]);
 
     return (
         <section className='py-5 pb-10 bg-slate-100'>
             <Container>
                 <h3 className='font-semibold mb-4 text-lg'>Featured Collection</h3>
-                {!products?.length || isLoading ? (
+                {!featuredProducts?.length || isLoading ? (
                     <div className='grid grid-cols-6 gap-4'>
                         {[1, 2, 3, 4, 5, 6].map((_, index) => (
                             <ProductCardSkeleton key={index} />
@@ -46,7 +49,7 @@ const FeatureProducts = () => {
                         className='mySwiper'
                         style={{ paddingBottom: '60px' }}
                     >
-                        {products.map((product) => (
+                        {featuredProducts.map((product) => (
                             <SwiperSlide key={product._id}>
                                 <ProductCard product={product} />
                             </SwiperSlide>
