@@ -13,6 +13,7 @@ import { toggleCompare, toggleWishList } from '@/redux/features/auth/authSlice';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { addToCart } from '@/redux/features/cart/cartSlice';
 
 interface ProductCardprops {
     grid?: number;
@@ -20,16 +21,14 @@ interface ProductCardprops {
 }
 
 const ProductCard = ({ grid, product }: ProductCardprops) => {
-    const { title, description, category, images, price, totalRating } = product;
     const { user, isLoading, isError } = useAppSelector((state) => state.auth);
+    const { cart, isLoading: isCartLoading, isError: isCartError } = useAppSelector((state) => state.cart);
+    const { title, description, category, images, price, totalRating } = product;
     const [inWishList, setInWishlist] = useState(false);
     const [inCompare, setInCompare] = useState(false);
+    const [inCart, setInCart] = useState(false);
     const dispatch = useAppDispatch();
     const router = useRouter();
-
-    const handleRating = (newRating: number) => {
-        console.log(newRating);
-    };
 
     useEffect(() => {
         const inWishlist = user?.wishlist.filter((Product) => Product._id === product._id);
@@ -40,7 +39,11 @@ const ProductCard = ({ grid, product }: ProductCardprops) => {
         if (inCompare?.length) {
             setInCompare(true);
         }
-    }, [user?.wishlist, product._id, user?.compare]);
+        const incart = cart?.products.filter((Product) => Product.product._id === product._id);
+        if (incart?.length) {
+            setInCart(true);
+        }
+    }, [user?.wishlist, product._id, user?.compare, cart?.products]);
 
     const handleWishlistToggle = async () => {
         await dispatch(toggleWishList(product._id));
@@ -58,6 +61,13 @@ const ProductCard = ({ grid, product }: ProductCardprops) => {
             router.push('/compare-products');
             setInCompare(true);
         }
+    };
+
+    const handleAddtoCart = async () => {
+        if (!inCart) {
+            await dispatch(addToCart({ productId: product._id, cartData: { count: 1, color: product.colors[0] } }));
+        }
+        router.push('/cart');
     };
 
     return (
@@ -119,7 +129,7 @@ const ProductCard = ({ grid, product }: ProductCardprops) => {
                     <Link href={`/products/${product._id}`}>
                         <IoEyeSharp className='text-2xl p-1 hover:bg-yellow-1 transition duration-200 rounded-full' />
                     </Link>
-                    <div>
+                    <div onClick={handleAddtoCart}>
                         <FaCartArrowDown className='text-2xl p-1 hover:bg-yellow-1 transition duration-200 rounded-full' />
                     </div>
                 </div>
@@ -128,14 +138,7 @@ const ProductCard = ({ grid, product }: ProductCardprops) => {
                 <h6 className='text-[#bf4800] text-[13px] font-medium'>{category}</h6>
                 <div>
                     <p className='line-clamp-2 text-xs font-semibold text-slate-900 h-8'>{title}</p>
-                    <ReactStars
-                        count={5}
-                        value={totalRating}
-                        onChange={handleRating}
-                        size={20}
-                        color2={'#ffd700'}
-                        edit={false}
-                    />
+                    <ReactStars count={5} value={totalRating} size={20} color2={'#ffd700'} edit={false} />
                 </div>
                 {grid === 1 && <p className='text-wrap text-sm text-slate-700 py-1 line-clamp-5'>{description}</p>}
                 {grid !== 1 && <p className='text-wrap text-xs text-slate-700 line-clamp-4'>{description}</p>}
