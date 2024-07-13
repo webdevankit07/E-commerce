@@ -2,6 +2,7 @@
 import CompareProductCard from '@/components/Compare-Product/CompareProductCard';
 import BreadCrumb from '@/components/shared/Breadcrumb';
 import Container from '@/components/shared/Container';
+import NoData from '@/components/shared/NoData';
 import ProductCardSkeleton from '@/components/skeleton/ProductCardSkeleton';
 import { useAppSelector } from '@/hooks/storeHooks';
 
@@ -23,7 +24,7 @@ const CompareProducts = () => {
                 ) : (
                     <div>
                         {!user.compare.length ? (
-                            <div className='min-h-60'>No Compare Product Available</div>
+                            <NoData />
                         ) : (
                             <div className='grid grid-cols-5 gap-3'>
                                 {user.compare.map((product) => (

@@ -17,11 +17,7 @@ export const PUT = async (req: NextRequest, { params }: { params: { id: string }
         const order = await Order.findById(orderId).select('-__v');
         if (!order) return NextResponse.json({ message: 'Order not found', success: false }, { status: 400 });
 
-        const updatedOrder = await Order.findByIdAndUpdate(
-            orderId,
-            { paymentIntent: { ...order.paymentIntent, status: body.status }, orderStatus: body.status },
-            { new: true }
-        )
+        const updatedOrder = await Order.findByIdAndUpdate(orderId, { orderStatus: body.status }, { new: true })
             .select('-__v')
             .populate('products.product', 'title price images');
 
