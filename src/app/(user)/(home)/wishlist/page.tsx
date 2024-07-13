@@ -1,6 +1,7 @@
 'use client';
 import BreadCrumb from '@/components/shared/Breadcrumb';
 import Container from '@/components/shared/Container';
+import NoData from '@/components/shared/NoData';
 import ProductCardSkeleton from '@/components/skeleton/ProductCardSkeleton';
 import WishlistProduct from '@/components/wishlist/WishlistProduct';
 import { useAppSelector } from '@/hooks/storeHooks';
@@ -23,7 +24,7 @@ const Whishlist = () => {
                 ) : (
                     <div>
                         {!user.wishlist.length ? (
-                            <div className='min-h-60'>No Wishlist Product Available</div>
+                            <NoData />
                         ) : (
                             <div className='grid grid-cols-6 gap-3'>
                                 {user.wishlist.map((product) => (

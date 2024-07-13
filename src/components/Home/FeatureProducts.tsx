@@ -47,7 +47,7 @@ const FeatureProducts = () => {
                         }}
                         modules={[Pagination]}
                         className='mySwiper'
-                        style={{ paddingBottom: '60px' }}
+                        style={{ paddingBottom: '40px' }}
                     >
                         {featuredProducts.map((product) => (
                             <SwiperSlide key={product._id}>
