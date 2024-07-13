@@ -11,6 +11,7 @@ import Loading from '@/components/shared/Loading';
 import { useEffect } from 'react';
 import { emptyCart, getMyCart } from '@/redux/features/cart/cartSlice';
 import { formatePrice } from '@/lib/utils';
+import NoData from '@/components/shared/NoData';
 
 const Cart = () => {
     const { cart, isLoading } = useAppSelector((state) => state.cart);
@@ -82,7 +83,7 @@ const Cart = () => {
                         </div>
                     </div>
                 ) : (
-                    <div className='text-center wf h-72'>No Cart Product Available</div>
+                    <NoData headLine='No Cart Product Available' />
                 )}
             </Container>
         </div>

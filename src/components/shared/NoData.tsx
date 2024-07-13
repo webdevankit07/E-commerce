@@ -4,13 +4,18 @@ import { Button } from '../ui/button';
 import { useRouter } from 'next/navigation';
 import { RiHome3Line } from 'react-icons/ri';
 
-const NoData = () => {
+interface NoDataProps {
+    headLine: string;
+    className?: string;
+}
+
+const NoData = ({ headLine, className }: NoDataProps) => {
     const router = useRouter();
     return (
-        <div className='min-h-[50vh] flex flex-col items-center justify-center'>
+        <div className={`min-h-[50vh] flex flex-col items-center justify-center ${className}`}>
             <div className='flex flex-col items-center justify-center'>
-                <BsFillInboxFill size={80} className='text-slate-500' />
-                <div className='text-2xl text-slate-500'>No Data Available</div>
+                <BsFillInboxFill size={80} className='text-slate-200' />
+                <div className='text-xl text-slate-700 font-sans'>{headLine}</div>
             </div>
             <div className='flex items-center gap-3'>
                 <Button

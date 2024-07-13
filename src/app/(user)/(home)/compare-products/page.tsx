@@ -24,7 +24,7 @@ const CompareProducts = () => {
                 ) : (
                     <div>
                         {!user.compare.length ? (
-                            <NoData />
+                            <NoData headLine='No Compare Product Available' />
                         ) : (
                             <div className='grid grid-cols-5 gap-3'>
                                 {user.compare.map((product) => (

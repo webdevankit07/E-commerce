@@ -24,7 +24,7 @@ const Whishlist = () => {
                 ) : (
                     <div>
                         {!user.wishlist.length ? (
-                            <NoData />
+                            <NoData headLine='No Wishlisht Product Available' />
                         ) : (
                             <div className='grid grid-cols-6 gap-3'>
                                 {user.wishlist.map((product) => (
