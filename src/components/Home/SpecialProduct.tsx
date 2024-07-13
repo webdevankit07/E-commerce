@@ -8,16 +8,39 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ProductType } from '@/types';
 import { formateBeforeDiscountPrice, formatePrice } from '@/lib/utils';
+import { useAppDispatch, useAppSelector } from '@/hooks/storeHooks';
+import { addToCart } from '@/redux/features/cart/cartSlice';
+import { Oval } from 'react-loader-spinner';
 
 const SpecialProduct = ({ product }: { product: ProductType }) => {
-    const router = useRouter();
+    const { cart } = useAppSelector((state) => state.cart);
+    const [inCart, setInCart] = useState(false);
     const [imgUrl, setImgUrl] = useState<string>('');
+    const [isLoading, setIsLoading] = useState(false);
+    const dispatch = useAppDispatch();
+    const router = useRouter();
+
+    useEffect(() => {
+        const incart = cart?.products.filter((Product) => Product.product._id === product._id);
+        if (incart?.length) {
+            setInCart(true);
+        }
+    }, [cart, product]);
 
     useEffect(() => {
         setImgUrl(product.images[0].url);
     }, [product]);
 
     const progress = `${(product.quantity / 1000) * 100}%`;
+
+    const handleAddtoCart = async () => {
+        setIsLoading(true);
+        if (!inCart) {
+            await dispatch(addToCart({ productId: product._id, cartData: { count: 1, color: product.colors[0] } }));
+        }
+        router.push('/cart');
+        setIsLoading(false);
+    };
 
     return (
         <div>
@@ -84,20 +107,27 @@ const SpecialProduct = ({ product }: { product: ProductType }) => {
                         </p>
                         <p className='font-medium text-sm pt-2'>Products: {product.quantity}</p>
                         <Progress value={1000} style={{ width: progress }} />
-                        <Button className='mt-3 w-full bg-yellow-500 hover:bg-yellow-600 text-slate-700'>
-                            Add to Cart
+                        <Button
+                            className='mt-3 w-full bg-red-700 hover:bg-red-800 text-slate-100'
+                            onClick={handleAddtoCart}
+                        >
+                            {isLoading ? (
+                                <Oval
+                                    visible={true}
+                                    width={20}
+                                    color='#ffffff'
+                                    secondaryColor='#000000'
+                                    ariaLabel='oval-loading'
+                                    strokeWidth={3}
+                                    strokeWidthSecondary={3}
+                                />
+                            ) : (
+                                'Add to Cart'
+                            )}
                         </Button>
                     </div>
                 </div>
             </div>
-        </div>
-    );
-};
-
-const Badge = ({ value }: { value: string }) => {
-    return (
-        <div className='w-7 h-7 bg-red-600 text-white text-sm rounded-full flex justify-center items-center'>
-            {value}
         </div>
     );
 };
