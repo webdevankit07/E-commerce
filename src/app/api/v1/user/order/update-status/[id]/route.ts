@@ -19,7 +19,7 @@ export const PUT = async (req: NextRequest, { params }: { params: { id: string }
 
         const updatedOrder = await Order.findByIdAndUpdate(orderId, { orderStatus: body.status }, { new: true })
             .select('-__v')
-            .populate('products.product', 'title price images');
+            .populate('orderItems.product', 'title price images');
 
         return NextResponse.json({ order: updatedOrder, message: 'success', success: true }, { status: 200 });
     } catch (error: any) {

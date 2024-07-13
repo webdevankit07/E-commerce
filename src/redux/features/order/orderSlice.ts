@@ -20,6 +20,7 @@ export const updateOrderStatus = createAsyncThunk(
     async ({ status, orderId }: { status: string; orderId: string }, { rejectWithValue }) => {
         try {
             const order = await UpdateOrderStatus(status, orderId);
+            toast.success('Order status changed');
             return order;
         } catch (error) {
             const err = await handleAxiosError(error);

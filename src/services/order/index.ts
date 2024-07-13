@@ -1,9 +1,9 @@
 import { Axios, handleAxiosError } from '@/config/axios';
-import { CreateOrderData, CreateOrderResType, OrderResType, updateOrderResType } from '@/types';
+import { AllOrderResType, CreateOrderData, CreateOrderResType, updateOrderResType } from '@/types';
 
 export const getOrders = async () => {
     try {
-        const { data } = await Axios.get<OrderResType>('/user/orders');
+        const { data } = await Axios.get<AllOrderResType>('/user/order');
         return data.orders;
     } catch (error) {
         const err = await handleAxiosError(error);
@@ -23,7 +23,7 @@ export const createOrder = async (orderData: CreateOrderData) => {
 
 export const UpdateOrderStatus = async (status: string, orderId: string) => {
     try {
-        const { data } = await Axios.put<updateOrderResType>(`/user/orders/update-status/${orderId}`, {
+        const { data } = await Axios.put<updateOrderResType>(`/user/order/update-status/${orderId}`, {
             status,
         });
         return data.order;

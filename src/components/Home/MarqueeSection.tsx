@@ -23,7 +23,7 @@ const MarqueeSection = () => {
 
 const MarqueeImg = ({ url, alt }: { url: string; alt: string }) => {
     return (
-        <div className='min-w-[160px] h-[70px] relative'>
+        <div className='min-w-[160px] h-[70px] relative cursor-pointer'>
             <Image src={`/images/brand/${url}`} fill sizes='100%' style={{ objectFit: 'contain' }} alt={alt} />
         </div>
     );

@@ -31,7 +31,6 @@ const Order = () => {
         { title: 'Amount', dataIndex: 'amount', sorter: (a: any, b: any) => a.role.length - b.role.length },
         { title: 'Date', dataIndex: 'date', sorter: (a: any, b: any) => a.role.length - b.role.length },
         { title: 'Status', dataIndex: 'status' },
-        { title: 'Actions', dataIndex: 'actions' },
     ];
 
     const handleDelete = () => {};
@@ -42,22 +41,19 @@ const Order = () => {
 
     const dataSource = orders.map((order, index) => ({
         key: ++index,
-        customer: `${order.orderby.firstname} ${order.orderby.lastname}`,
-        product: order.products.map(({ product }) => (
+        customer: `${order.user.firstname} ${order.user.lastname}`,
+        product: order.orderItems.map(({ product }) => (
             <>
                 <p className='font-semibold'>{product ? product.title : 'Product not available'}</p>
             </>
         )),
-        amount: <p className='font-semibold'>&#8377;{order.paymentIntent.amount}</p>,
+        amount: (
+            <p className='font-semibold'>
+                &#8377;{order.totalPriceAfterDiscount !== 0 ? order.totalPriceAfterDiscount : order.totalPrice}
+            </p>
+        ),
         date: <ShowDate timestamp={order.createdAt} />,
         status: <Status status={order.orderStatus} onChange={handleStateChange} orderId={order._id} />,
-        actions: (
-            <Actions
-                Id={order._id}
-                handleDelete={handleDelete}
-                dialougeDescription='This action cannot be undone. This will permanently delete this Order.'
-            />
-        ),
     }));
 
     return (

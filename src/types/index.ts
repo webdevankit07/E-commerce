@@ -372,64 +372,6 @@ export type EnquiryInitialStateType = {
 //!
 //!
 //!
-//! ********************  OrderSlice ********************* //
-export type OrderProductType = {
-    _id: string;
-    product: {
-        _id: string;
-        title: string;
-        price: number;
-        images: ImageType[];
-    };
-    count: number;
-    color: string;
-};
-export type PaymentIntentType = {
-    id: string;
-    method: string;
-    amount: number;
-    status: string;
-    created: number;
-    currency: string;
-};
-export type OrderUserType = {
-    _id: string;
-    firstname: string;
-    lastname: string;
-    username: string;
-    email: string;
-    mobile: string;
-    role: string;
-};
-export type OrderType = {
-    _id: string;
-    products: OrderProductType[];
-    paymentIntent: PaymentIntentType;
-    orderStatus: string;
-    orderby: OrderUserType;
-    createdAt: Date;
-};
-export type OrderResType = {
-    orders: OrderType[];
-    message: string;
-    success: boolean;
-};
-export type updateOrderResType = {
-    order: OrderType;
-    message: string;
-    success: boolean;
-};
-export type OderInitialStateType = {
-    orders: OrderType[] | [];
-    isError: boolean;
-    isLoading: boolean;
-    isSuccess: boolean;
-    message: string | unknown;
-};
-
-//!
-//!
-//!
 //! ********************  EnquirySlice ********************* //
 export type DeleteEnquiryType = {
     enquiry: {
@@ -519,15 +461,46 @@ export type CreateOrderData = {
     totalPriceAfterDiscount: number;
 };
 
+export type OrderUserType = {
+    _id: string;
+    firstname: string;
+    lastname: string;
+    username: string;
+    email: string;
+    mobile: string;
+    role: string;
+};
+
+export type OrderType = {
+    _id: string;
+    user: UserResType;
+    shippingInfo: ShippingInfoType;
+    paymentInfo: PaymentInfoType;
+    orderItems: OrderItemsType;
+    totalPrice: number;
+    totalPriceAfterDiscount: number;
+    paidAt: Date;
+    orderStatus: string;
+    createdAt: Date;
+};
+
 export type CreateOrderResType = {
-    order: {
-        user: UserResType;
-        shippingInfo: ShippingInfoType;
-        paymentInfo: PaymentInfoType;
-        orderItems: OrderItemsType;
-        totalPrice: number;
-        totalPriceAfterDiscount: number;
-        paidAt: Date;
-        orderStatus: string;
-    };
+    order: OrderType;
+};
+
+export type AllOrderResType = {
+    orders: OrderType[];
+};
+
+export type updateOrderResType = {
+    order: OrderType;
+    message: string;
+    success: boolean;
+};
+export type OderInitialStateType = {
+    orders: OrderType[] | [];
+    isError: boolean;
+    isLoading: boolean;
+    isSuccess: boolean;
+    message: string | unknown;
 };
