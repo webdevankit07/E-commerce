@@ -13,9 +13,10 @@ export const GET = async (req: NextRequest, { params }: { params: { id: string }
             return NextResponse.json({ message: 'You are not Admin' }, { status: 400 });
         }
 
-        const orders = await Order.find({ orderby: id })
+        const orders = await Order.find({ user: id })
             .select('-__v')
-            .populate('products.product', 'title price images');
+            .populate('user', 'firstname lastname username email mobile')
+            .populate('orderItems.product', 'title price images');
         if (!orders || orders.length === 0) {
             return NextResponse.json({ message: 'No orders found', success: false }, { status: 400 });
         }

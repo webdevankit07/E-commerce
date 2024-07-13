@@ -5,6 +5,39 @@ import { ImHeadphones } from 'react-icons/im';
 import { BiSolidOffer } from 'react-icons/bi';
 import { FaRegCreditCard } from 'react-icons/fa';
 
+export const IndianStates = [
+    'Andhra Pradesh',
+    'Arunachal Pradesh',
+    'Assam',
+    'Bihar',
+    'Chhattisgarh',
+    'Goa',
+    'Gujarat',
+    'Haryana',
+    'Himachal Pradesh',
+    'Jharkhand',
+    'Karnataka',
+    'Kerala',
+    'Madhya Pradesh',
+    'Maharashtra',
+    'Manipur',
+    'Meghalaya',
+    'Mizoram',
+    'Nagaland',
+    'Odisha',
+    'Punjab',
+    'Rajasthan',
+    'Sikkim',
+    'Tamil Nadu',
+    'Telangana',
+    'Tripura',
+    'Uttar Pradesh',
+    'Uttarakhand',
+    'West Bengal',
+];
+
+export const countries = ['India'];
+
 export const services: ServiceType[] = [
     { Icon: LiaShippingFastSolid, title: 'Free Shipping', subtitle: 'From all orders over $5' },
     { Icon: LuGift, title: 'Daily Surprise Offer', subtitle: 'Save upto 25% off' },

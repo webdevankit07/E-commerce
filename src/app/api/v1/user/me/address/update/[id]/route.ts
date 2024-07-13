@@ -12,7 +12,6 @@ export const PUT = async (req: NextRequest, { params }: { params: { id: string }
         const { id } = params;
         const { userId } = await validateToken(req);
         const body = await req.json();
-        const { city, state, country, postalCode } = body;
         await validate(body, UpdateAddressValidator);
 
         const user = await User.findById(userId);
@@ -22,6 +21,8 @@ export const PUT = async (req: NextRequest, { params }: { params: { id: string }
         const updatedAddress = user.address.map((addr) => {
             if (addr._id.toString() === id) {
                 const updateData = {
+                    address: addr.address,
+                    subAddress: addr.subAddress,
                     city: addr.city,
                     state: addr.state,
                     country: addr.country,

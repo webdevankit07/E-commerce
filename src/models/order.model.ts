@@ -1,43 +1,58 @@
 import { Document, model, Model, models, ObjectId, Schema } from 'mongoose';
 
-type StatusType = 'Not Processed' | 'Cash on Delivery' | 'Processing' | 'Dispatched' | 'Cancelled' | 'Delivered';
-
-interface PaymentIntentType {
-    id: string;
-    method: string;
-    amount: number;
-    status: StatusType;
-    created: Date;
-    currency: string;
-}
-
 interface OrderSchemaType extends Document {
-    products: {
+    user: ObjectId;
+    shippingInfo: {
+        firstname: string;
+        lastname: string;
+        address: string;
+        city: string;
+        state: string;
+        pincode: string;
+    };
+    paymentInfo: {
+        razoepayOrderId: string;
+        razoepayPaymentId: string;
+    };
+    orderItems: {
         product: ObjectId;
-        count: number;
         color: string;
+        quantity: number;
+        price: number;
     }[];
-    paymentIntent: PaymentIntentType;
-    orderStatus: StatusType;
-    orderby: ObjectId;
+    paidAt: Date;
+    totalPrice: number;
+    totalPriceAfterDiscount: number;
+    orderStatus: string;
 }
 
 const OrderSchema: Schema<OrderSchemaType> = new Schema(
     {
-        products: [
+        user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+        shippingInfo: {
+            firstname: { type: String, required: true },
+            lastname: { type: String, required: true },
+            address: { type: String, required: true },
+            city: { type: String, required: true },
+            state: { type: String, required: true },
+            pincode: { type: String, required: true },
+        },
+        paymentInfo: {
+            razorpayOrderId: { type: String, required: true },
+            razorpayPaymentId: { type: String, required: true },
+        },
+        orderItems: [
             {
-                product: { type: Schema.Types.ObjectId, ref: 'Product' },
-                count: Number,
-                color: String,
+                product: { type: Schema.Types.ObjectId, ref: 'Product', required: true },
+                color: { type: String, required: true },
+                count: { type: Number, required: true },
+                price: { type: Number, required: true },
             },
         ],
-        paymentIntent: {},
-        orderStatus: {
-            type: String,
-            default: 'Not Processed',
-            enum: ['Not Processed', 'Cash on Delivery', 'Processing', 'Dispatched', 'Cancelled', 'Delivered'],
-        },
-        orderby: { type: Schema.Types.ObjectId, ref: 'User' },
+        paidAt: { type: Date, default: Date.now() },
+        totalPrice: { type: Number, required: true },
+        totalPriceAfterDiscount: { type: Number, required: true },
+        orderStatus: { type: String, default: 'Ordered' },
     },
     { timestamps: true }
 );

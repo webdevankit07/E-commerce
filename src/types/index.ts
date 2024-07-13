@@ -1,3 +1,4 @@
+import { CartProduct } from '@/validators/cartSchema.validators';
 import { IconType } from 'react-icons/lib';
 //! ********************  ProductTypes -- START ********************* //
 export type ColorType = {
@@ -80,6 +81,16 @@ export type SignUpFormData = {
 //!
 //!
 //! ********************  AuthSlice ********************* //
+export type AddressType = {
+    _id: string;
+    address: string;
+    subAddress: string;
+    city: string;
+    state: string;
+    country: string;
+    postalCode: string;
+};
+
 export type UserResType = {
     _id: string;
     firstname: string;
@@ -90,6 +101,7 @@ export type UserResType = {
     role: 'user' | 'admin';
     wishlist: WishList | [];
     compare: ProductType[] | [];
+    address: AddressType[];
 };
 
 export type AuthInitialStateType = {
@@ -464,6 +476,7 @@ export type CartType = {
     cartTotal: number;
     totalCartProducts: number;
     user: string;
+    totalAfterDiscount: number;
 };
 export type AddToCartResType = {
     cart: CartType;
@@ -476,4 +489,45 @@ export type CartInitialStateType = {
     createLoading: boolean;
     isSuccess: boolean;
     message: string | unknown;
+};
+
+//!
+//!
+//!
+//! ********************  OrderSLice & Types ********************* //
+export type ShippingInfoType = {
+    firstname: string;
+    lastname: string;
+    address: string;
+    city: string;
+    state: string;
+    pincode: string;
+};
+
+export type PaymentInfoType = {
+    razorpayOrderId: string;
+    razorpayPaymentId: string;
+};
+
+export type OrderItemsType = CartProductType[];
+
+export type CreateOrderData = {
+    shippingInfo: ShippingInfoType;
+    paymentInfo: PaymentInfoType;
+    orderItems: OrderItemsType;
+    totalPrice: number;
+    totalPriceAfterDiscount: number;
+};
+
+export type CreateOrderResType = {
+    order: {
+        user: UserResType;
+        shippingInfo: ShippingInfoType;
+        paymentInfo: PaymentInfoType;
+        orderItems: OrderItemsType;
+        totalPrice: number;
+        totalPriceAfterDiscount: number;
+        paidAt: Date;
+        orderStatus: string;
+    };
 };

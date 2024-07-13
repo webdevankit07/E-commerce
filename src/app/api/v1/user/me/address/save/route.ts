@@ -15,10 +15,7 @@ export const POST = async (req: NextRequest) => {
 
         const user = await User.findByIdAndUpdate(userId, { $push: { address: body } }, { new: true });
 
-        return NextResponse.json(
-            { user, message: 'user details successfully updated', success: false },
-            { status: 200 }
-        );
+        return NextResponse.json({ user, message: 'user address updated', success: false }, { status: 200 });
     } catch (error: any) {
         console.log('Error while saving user address:', error);
         return NextResponse.json({ message: error.message, success: false }, { status: 500 });

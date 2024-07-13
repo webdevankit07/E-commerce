@@ -4,12 +4,14 @@ import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 import { accessTokenSecret, refreshTokenSecret } from '@/config';
 
-type AddressType = {
+export type AddressType = {
+    _id: string;
+    address: string;
+    subAddress: string;
     city: string;
     state: string;
     country: string;
     postalCode: string;
-    _id: ObjectId;
 };
 
 export interface UserSchemaType extends Document {
@@ -46,7 +48,9 @@ const UserSchema: Schema<UserSchemaType> = new Schema(
         role: { type: String, required: true, default: 'user' },
         isBlocked: { type: Boolean, default: false },
         cart: { type: Schema.Types.ObjectId, ref: 'Cart' },
-        address: [{ city: String, state: String, country: String, postalCode: String }],
+        address: [
+            { address: String, subAddress: String, city: String, state: String, country: String, postalCode: String },
+        ],
         wishlist: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
         compare: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
         refreshToken: { type: String },
