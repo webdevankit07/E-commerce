@@ -8,6 +8,19 @@ export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));
 }
 
+export const formateOrderDate = (timestamp: Date) => {
+    const date = new Date(timestamp);
+
+    const formattedDate = date.toLocaleDateString('en-IN', {
+        timeZone: 'Asia/Kolkata',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+    });
+
+    return formattedDate;
+};
+
 export const formateDate = (timestamp: Date) => {
     const date = new Date(timestamp);
 

@@ -52,7 +52,7 @@ const OrderSchema: Schema<OrderSchemaType> = new Schema(
         paidAt: { type: Date, default: Date.now() },
         totalPrice: { type: Number, required: true },
         totalPriceAfterDiscount: { type: Number, required: true },
-        orderStatus: { type: String, default: 'Ordered' },
+        orderStatus: { type: String, default: 'In Progress' },
     },
     { timestamps: true }
 );

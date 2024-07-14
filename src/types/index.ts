@@ -492,6 +492,10 @@ export type AllOrderResType = {
     orders: OrderType[];
 };
 
+export type GetMyOrdersResType = {
+    myOrders: OrderType[];
+};
+
 export type updateOrderResType = {
     order: OrderType;
     message: string;
@@ -499,6 +503,7 @@ export type updateOrderResType = {
 };
 export type OderInitialStateType = {
     orders: OrderType[] | [];
+    myOrders: OrderType[] | [];
     isError: boolean;
     isLoading: boolean;
     isSuccess: boolean;

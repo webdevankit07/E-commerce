@@ -1,5 +1,5 @@
 import { handleAxiosError } from '@/config/axios';
-import { getOrders, UpdateOrderStatus } from '@/services/order';
+import { getOrders, myOrders, UpdateOrderStatus } from '@/services/order';
 import { OderInitialStateType } from '@/types';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import toast from 'react-hot-toast';
@@ -7,6 +7,17 @@ import toast from 'react-hot-toast';
 export const getAllOrders = createAsyncThunk('order/all-orders', async (_, { rejectWithValue }) => {
     try {
         const orders = await getOrders();
+        return orders;
+    } catch (error) {
+        const err = await handleAxiosError(error);
+        toast.error(err);
+        throw rejectWithValue(err);
+    }
+});
+
+export const getMyOrders = createAsyncThunk('order/my-orders', async (_, { rejectWithValue }) => {
+    try {
+        const orders = await myOrders();
         return orders;
     } catch (error) {
         const err = await handleAxiosError(error);
@@ -32,6 +43,7 @@ export const updateOrderStatus = createAsyncThunk(
 
 const initialState: OderInitialStateType = {
     orders: [],
+    myOrders: [],
     isLoading: false,
     isSuccess: false,
     isError: false,
@@ -55,6 +67,23 @@ const orderSlice = createSlice({
                 state.isError = false;
             })
             .addCase(getAllOrders.rejected, (state, { error }) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.isSuccess = false;
+                state.orders = [];
+                state.message = error;
+            })
+            .addCase(getMyOrders.pending, (state) => {
+                state.isError = false;
+                state.isLoading = true;
+            })
+            .addCase(getMyOrders.fulfilled, (state, { payload }) => {
+                state.myOrders = payload;
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.isError = false;
+            })
+            .addCase(getMyOrders.rejected, (state, { error }) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.isSuccess = false;

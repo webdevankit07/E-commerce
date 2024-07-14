@@ -80,8 +80,6 @@ const Status = ({
             </SelectTrigger>
             <SelectContent>
                 <SelectGroup>
-                    <SelectItem value='Submitted'>Not Processed</SelectItem>
-                    <SelectItem value='Contacted'>Cash on Delivery</SelectItem>
                     <SelectItem value='In Progress'>Processing</SelectItem>
                     <SelectItem value='Dispatched'>Dispatched</SelectItem>
                     <SelectItem value='Delivered'>Delivered</SelectItem>

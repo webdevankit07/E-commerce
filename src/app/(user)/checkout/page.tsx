@@ -101,7 +101,7 @@ const CheckOut = () => {
                         const orderData = await createOrder(orderDetails)
                             .then(() => {
                                 dispatch(emptyCart());
-                                toast.error('Order created');
+                                toast.success('Order created');
                                 router.push('/products');
                             })
                             .catch(async (error) => {

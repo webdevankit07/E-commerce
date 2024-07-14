@@ -68,6 +68,7 @@ const HeaderBottom = () => {
                         <Link href={'/'}>Home</Link>
                         <Link href={'/products'}>Our Store</Link>
                         <Link href={'/contact'}>Contact</Link>
+                        <Link href={'/my-account/orders'}>My Orders</Link>
                     </div>
                 </div>
             </Container>

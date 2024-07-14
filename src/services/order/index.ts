@@ -1,10 +1,20 @@
 import { Axios, handleAxiosError } from '@/config/axios';
-import { AllOrderResType, CreateOrderData, CreateOrderResType, updateOrderResType } from '@/types';
+import { AllOrderResType, CreateOrderData, CreateOrderResType, GetMyOrdersResType, updateOrderResType } from '@/types';
 
 export const getOrders = async () => {
     try {
         const { data } = await Axios.get<AllOrderResType>('/user/order');
         return data.orders;
+    } catch (error) {
+        const err = await handleAxiosError(error);
+        throw new Error(err);
+    }
+};
+
+export const myOrders = async () => {
+    try {
+        const { data } = await Axios.get<GetMyOrdersResType>('/user/me/order');
+        return data.myOrders;
     } catch (error) {
         const err = await handleAxiosError(error);
         throw new Error(err);

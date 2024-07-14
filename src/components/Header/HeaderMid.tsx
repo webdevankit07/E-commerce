@@ -97,7 +97,12 @@ const HeaderMid = () => {
                                         </p>
                                     </DropdownMenuTrigger>
                                     <DropdownMenuContent className='min-w-[150px] mt-3 *:cursor-pointer'>
-                                        <DropdownMenuItem>View Profile</DropdownMenuItem>
+                                        <DropdownMenuItem onClick={() => router.push('/my-account/profile')}>
+                                            View Profile
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem onClick={() => router.push('/my-account/orders')}>
+                                            My Orders
+                                        </DropdownMenuItem>
                                         {user.role === 'admin' && (
                                             <DropdownMenuItem>
                                                 <Link href={'/admin/dashboard/'}>Dashboard</Link>
