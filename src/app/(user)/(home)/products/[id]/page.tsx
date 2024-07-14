@@ -41,6 +41,7 @@ const Productdetails = ({ params }: { params: { id: string } }) => {
             try {
                 const product = await getProduct(params.id);
                 setProduct(product);
+                setSelectedColor(product.colors[0]);
                 const inCompare = user?.compare.filter((Product) => Product._id === product._id);
                 if (inCompare?.length) {
                     setInCompare(true);

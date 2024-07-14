@@ -58,9 +58,9 @@ const ProfileLayout = ({ children }: { children: ReactNode }) => {
                 <Layout className='min-h-screen'>
                     <ScrollArea className='h-screen'>
                         <div className='min-h-screen flex flex-col'>
-                            <Content className='flex-1 bg-zinc-200'>
+                            <Content className='flex-1 bg-slate-50'>
                                 <CustomHeader />
-                                <div className='px-4 pb-10 bg-slate-50 min-h-[90vh]'>{children}</div>
+                                <div className='px-4 pb-10'>{children}</div>
                             </Content>
                             <Footer className='text-center bg-dark-4 text-white py-3.5'>
                                 ShopWave ©{new Date().getFullYear()} Created by WebDev Ankit

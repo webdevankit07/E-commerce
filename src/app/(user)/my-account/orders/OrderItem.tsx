@@ -15,10 +15,10 @@ const OrderItem = ({ item, orderId }: OrderItemPropsType) => {
                 <Image src={item.product.images[0].url} height={100} width={100} alt='as' />
             </Link>
             <div>
-                <div className='text-orange-800 font-bold'>Order ID: {orderId}</div>
+                <div className='text-orange-900 font-bold'>Order ID: {orderId}</div>
                 <div className='font-semibold text-slate-900'>
-                    <Link href={`/products/${item.product._id}`} className='space-y-1'>
-                        {item.product.title}{' '}
+                    <Link href={`/products/${item.product._id}`} className='space-y-1 hover:text-slate-900'>
+                        {item.product.title}
                     </Link>
                 </div>
                 <div className='flex items-center gap-10 font-bold pt-2 text-slate-900'>
