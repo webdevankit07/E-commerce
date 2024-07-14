@@ -4,16 +4,39 @@ import BreadCrumb from '@/components/shared/Breadcrumb';
 import Container from '@/components/shared/Container';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { handleAxiosError } from '@/config/axios';
+import { resetPassword } from '@/services/auth';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
+import toast from 'react-hot-toast';
 import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
+import { Oval } from 'react-loader-spinner';
 
-const ResetPassword = () => {
+const ResetPassword = ({ params }: { params: { id: string } }) => {
     const [showPassword, setShowPassword] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const router = useRouter();
+    const { id: token } = params;
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        if (password !== confirmPassword) {
+            return toast.error('Password does not match');
+        }
+
+        setIsLoading(true);
+        try {
+            await resetPassword(token, password);
+            setIsLoading(false);
+            router.push('/sign-in');
+        } catch (error) {
+            const err = await handleAxiosError(error);
+            toast.error(err);
+            setIsLoading(false);
+        }
     };
 
     return (
@@ -31,6 +54,8 @@ const ResetPassword = () => {
                                     className='bg-gray-100 w-full py-5'
                                     placeholder='New Password'
                                     autoComplete='off'
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
                                 />
                                 <span className='absolute text-xs mt-1 ml-1 text-red-500'></span>
                                 <div
@@ -47,6 +72,8 @@ const ResetPassword = () => {
                                     className='bg-gray-100 w-full py-5'
                                     placeholder='Confirm Password'
                                     autoComplete='off'
+                                    value={confirmPassword}
+                                    onChange={(e) => setConfirmPassword(e.target.value)}
                                 />
                                 <span className='absolute text-xs mt-1 ml-1 text-red-500'></span>
                             </div>
@@ -54,7 +81,19 @@ const ResetPassword = () => {
                                 type='submit'
                                 className='bg-yellow-1 text-slate-800 hover:bg-yellow-500 active:bg-yellow-1 mt-5'
                             >
-                                Change Password
+                                {isLoading ? (
+                                    <Oval
+                                        visible={true}
+                                        width={20}
+                                        color='#ffffff'
+                                        secondaryColor='#000000'
+                                        ariaLabel='oval-loading'
+                                        strokeWidth={3}
+                                        strokeWidthSecondary={3}
+                                    />
+                                ) : (
+                                    'Change Password'
+                                )}
                             </Button>
                             <Button
                                 type='button'

@@ -71,3 +71,23 @@ export const togglecompare = async (productId: string) => {
         throw new Error(err);
     }
 };
+
+export const sendPasswordRestToken = async (email: string) => {
+    try {
+        const { data } = await Axios.post(`/user/me/forgot-password-token`, { email });
+        return data;
+    } catch (error) {
+        const err = await handleAxiosError(error);
+        throw new Error(err);
+    }
+};
+
+export const resetPassword = async (token: string, newPassword: string) => {
+    try {
+        const { data } = await Axios.put(`/user/me/reset-password/${token}`, { newPassword });
+        return data;
+    } catch (error) {
+        const err = await handleAxiosError(error);
+        throw new Error(err);
+    }
+};

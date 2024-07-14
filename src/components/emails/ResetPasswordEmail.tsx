@@ -26,7 +26,7 @@ const ResetPasswordEmail = (token: string, username: string) => {
                 </Row>
                 <Row>
                     <Button
-                        href={`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/user/reset-token/${token}`}
+                        href={`${process.env.NEXT_PUBLIC_BASE_URL}/reset-password/${token}`}
                         style={{ color: '#001c9a' }}
                     >
                         Reset password

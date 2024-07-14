@@ -15,7 +15,7 @@ const ValidateToken = ({ children }: { children: ReactNode }) => {
                 const { data } = await Axios.get('/auth/validateToken');
                 dispatch(setCurrentUser(data.user));
             } catch (error) {
-                router.push('/');
+                router.refresh();
             }
         })();
     }, [dispatch, router]);

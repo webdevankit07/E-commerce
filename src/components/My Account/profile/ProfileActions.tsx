@@ -10,7 +10,6 @@ import { DialogClose } from '@radix-ui/react-dialog';
 import { Button } from '@/components/ui/button';
 import { MdDeleteSweep } from 'react-icons/md';
 import { RxCross2 } from 'react-icons/rx';
-import { Divider } from 'antd';
 
 interface ProfileActionsTypes {
     handleDeleteAccount: () => void;

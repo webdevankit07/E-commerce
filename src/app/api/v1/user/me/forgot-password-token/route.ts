@@ -4,10 +4,11 @@ import User from '@/models/user.model';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const POST = async (req: NextRequest) => {
-    await ConnectDB()
-    
+    await ConnectDB();
+
     try {
         const body = await req.json();
+        console.log(body);
 
         const user = await User.findOne({ email: body.email });
         if (!user)
