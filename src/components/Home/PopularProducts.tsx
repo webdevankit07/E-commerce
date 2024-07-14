@@ -46,7 +46,7 @@ const PopularProducts = () => {
                         }}
                         modules={[Pagination]}
                         className='mySwiper'
-                        style={{ paddingBottom: '40px' }}
+                        style={{ paddingBottom: '50px' }}
                     >
                         {popularProducts?.map((product) => (
                             <SwiperSlide key={product._id}>

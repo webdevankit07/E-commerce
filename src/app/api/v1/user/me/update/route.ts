@@ -10,7 +10,7 @@ export const PUT = async (req: NextRequest) => {
 
     try {
         const body = await req.json();
-        const { user } = await validateToken(req);
+        const { user, userId } = await validateToken(req);
         await validate(body, updateUserValidator);
         const { firstname, lastname, username, email, mobile } = body;
 
@@ -42,8 +42,14 @@ export const PUT = async (req: NextRequest) => {
         }
 
         await user.save();
+        const updatedUser = await User.findById(userId)
+            .select('firstname lastname username email mobile role wishlist compare')
+            .populate('wishlist compare');
 
-        return NextResponse.json({ message: 'user details successfully updated', success: false }, { status: 200 });
+        return NextResponse.json(
+            { user: updatedUser, message: 'user details successfully updated', success: false },
+            { status: 200 }
+        );
     } catch (error: any) {
         console.log('Error while fetching user:', error);
         return NextResponse.json({ message: error.message, success: false }, { status: 500 });

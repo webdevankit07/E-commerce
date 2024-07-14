@@ -17,21 +17,25 @@ const MyOrders = () => {
 
     useEffect(() => {
         (async () => {
-            if (!myOrders.length) {
+            if (!myOrders || !myOrders.length) {
                 await dispatch(getMyOrders());
             }
         })();
-        const filterOrders = myOrders.filter((order) => {
-            if (selectedBtnFilter === 'All') {
-                return order;
-            } else {
-                return order.orderStatus === selectedBtnFilter;
-            }
-        });
-        setOrders(filterOrders);
+        if (myOrders && myOrders.length) {
+            const filterOrders = myOrders.filter((order) => {
+                if (selectedBtnFilter === 'All') {
+                    return order;
+                } else {
+                    return order.orderStatus === selectedBtnFilter;
+                }
+            });
+            setOrders(filterOrders);
+        }
     }, [myOrders, dispatch, selectedBtnFilter]);
 
-    return !myOrders.length ? (
+    console.log(myOrders);
+
+    return !myOrders ? (
         <Loading />
     ) : (
         <div className='pt-2'>

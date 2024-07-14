@@ -1,5 +1,6 @@
+import { UpdateUserData } from '@/app/(user)/my-account/profile/page';
 import { handleAxiosError } from '@/config/axios';
-import { login, logout, register, togglecompare, togglewishList } from '@/services/auth';
+import { deleteAccount, login, logout, register, togglecompare, togglewishList, update } from '@/services/auth';
 import { AuthInitialStateType, LoginData, SignUpFormData, UserResType } from '@/types';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import toast from 'react-hot-toast';
@@ -35,6 +36,33 @@ export const userLogout = createAsyncThunk('auth/user-logout', async (_, { rejec
     try {
         const res = await logout();
         toast.success('Logged Out');
+        return res;
+    } catch (error) {
+        const err = await handleAxiosError(error);
+        toast.error(err);
+        throw rejectWithValue(err);
+    }
+});
+
+export const updateUser = createAsyncThunk(
+    'auth/update-user',
+    async (userData: UpdateUserData, { rejectWithValue }) => {
+        try {
+            const res = await update(userData);
+            toast.success('User Updated');
+            return res;
+        } catch (error) {
+            const err = await handleAxiosError(error);
+            toast.error(err);
+            throw rejectWithValue(err);
+        }
+    }
+);
+
+export const deleteUserAccount = createAsyncThunk('auth/delete-user-account', async (_, { rejectWithValue }) => {
+    try {
+        const res = await deleteAccount();
+        toast.success('User Deleted');
         return res;
     } catch (error) {
         const err = await handleAxiosError(error);
@@ -126,6 +154,36 @@ const authSlice = createSlice({
                 state.user = null;
             })
             .addCase(userLogout.rejected, (state, { error }) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.isSuccess = false;
+                state.message = error;
+            })
+            .addCase(updateUser.pending, (state) => {
+                state.isLoading = true;
+                state.isError = false;
+            })
+            .addCase(updateUser.fulfilled, (state, { payload }) => {
+                state.user = payload;
+                state.isLoading = false;
+                state.isSuccess = true;
+            })
+            .addCase(updateUser.rejected, (state, { error }) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.isSuccess = false;
+                state.message = error;
+            })
+            .addCase(deleteUserAccount.pending, (state) => {
+                state.isLoading = true;
+                state.isError = false;
+            })
+            .addCase(deleteUserAccount.fulfilled, (state) => {
+                state.user = null;
+                state.isLoading = false;
+                state.isSuccess = true;
+            })
+            .addCase(deleteUserAccount.rejected, (state, { error }) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.isSuccess = false;

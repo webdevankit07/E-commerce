@@ -19,7 +19,7 @@ export const GET = async (req: NextRequest) => {
             .populate('orderItems.product', 'title price images')
             .populate('user', 'firstname lastname username email mobile role');
         if (!orders) {
-            return NextResponse.json({ message: 'You have no orders', success: false }, { status: 200 });
+            return NextResponse.json({ message: 'No orders found', success: false }, { status: 400 });
         }
 
         return NextResponse.json({ orders, message: 'success', success: true }, { status: 200 });

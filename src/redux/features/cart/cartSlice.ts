@@ -15,6 +15,16 @@ export const getMyCart = createAsyncThunk('cart/get-my-cart', async (_, { reject
     }
 });
 
+export const getCart = createAsyncThunk('cart/get-cart', async (_, { rejectWithValue }) => {
+    try {
+        const cart = await myCart();
+        return cart;
+    } catch (error) {
+        const err = await handleAxiosError(error);
+        throw rejectWithValue(err);
+    }
+});
+
 export const addToCart = createAsyncThunk(
     'cart/add-to-cart',
     async (
@@ -104,6 +114,22 @@ const colorSlice = createSlice({
                 state.isError = false;
             })
             .addCase(getMyCart.rejected, (state, { error }) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.isSuccess = false;
+                state.message = error;
+            })
+            .addCase(getCart.pending, (state) => {
+                state.isError = false;
+                state.isLoading = true;
+            })
+            .addCase(getCart.fulfilled, (state, { payload }) => {
+                state.cart = payload;
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.isError = false;
+            })
+            .addCase(getCart.rejected, (state, { error }) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.isSuccess = false;

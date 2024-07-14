@@ -34,6 +34,9 @@ export const POST = async (request: NextRequest) => {
         const accessToken = user.genaratetAccessToken();
         const refreshToken = user.genaratetRefreshToken();
 
+        user.refreshToken = refreshToken;
+        await user.save();
+
         const response = NextResponse.json(
             { user, message: 'User registered successfully', success: true },
             { status: 201 }
@@ -46,7 +49,7 @@ export const POST = async (request: NextRequest) => {
         response.cookies.set('refresh_token', refreshToken, {
             httpOnly: true,
             secure: true,
-            maxAge: 1000 * 60 * 60 * 24 * 3,
+            maxAge: 1000 * 60 * 60 * 72,
         });
         return response;
     } catch (error: any) {

@@ -31,9 +31,11 @@ const ProductCard = ({ grid, product }: ProductCardprops) => {
     const router = useRouter();
 
     useEffect(() => {
-        const inWishlist = user?.wishlist.filter((Product) => Product._id === product._id);
-        if (inWishlist?.length) {
-            setInWishlist(true);
+        if (user?.wishlist.length) {
+            const inWishlist = user?.wishlist.filter((Product) => Product._id === product._id);
+            if (inWishlist?.length) {
+                setInWishlist(true);
+            }
         }
         const inCompare = user?.compare.filter((Product) => Product._id === product._id);
         if (inCompare?.length) {
@@ -77,19 +79,19 @@ const ProductCard = ({ grid, product }: ProductCardprops) => {
                     grid === 1 && 'min-w-[250px] min-h-[250px] max-h-[250px]'
                 }`}
             >
-                <Link href={`/products/${product._id}`}>
+                <Link href={`/products/${product._id}`} className='relative'>
                     <div className={`min-h-[200px]`}>
                         <Image
                             src={images[0].url}
-                            fill
-                            sizes='100%'
+                            width={grid === 1 ? 300 : 200}
+                            height={grid === 1 ? 300 : 250}
                             alt='product-image'
-                            className='group-hover:opacity-0 hover:scale-120 ease-in-out transition duration-500'
+                            className='group-hover:opacity-0 hover:scale-120 ease-in-out absolute transition duration-500'
                         />
                         <Image
                             src={images[1].url}
-                            fill
-                            sizes='100%'
+                            width={grid === 1 ? 300 : 200}
+                            height={grid === 1 ? 300 : 250}
                             alt='product-image'
                             className='opacity-0 group-hover:opacity-100 hover:scale-110 ease-in-out transition duration-500'
                         />

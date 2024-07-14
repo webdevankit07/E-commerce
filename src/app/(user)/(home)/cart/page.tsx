@@ -23,13 +23,15 @@ const Cart = () => {
         }
     }, [dispatch, cart]);
 
-    return isLoading || !cart ? (
+    return isLoading ? (
         <Loading />
     ) : (
         <div className='bg-slate-100 pb-10'>
             <Container>
                 <BreadCrumb BreadCrumbs={[{ name: 'Cart' }]} />
-                {cart.products.length ? (
+                {!cart ? (
+                    <NoData headLine='No Cart Product Available' />
+                ) : (
                     <div className='bg-white p-5 rounded-md shadow-md mt-5'>
                         <Table>
                             <TableHeader>
@@ -82,8 +84,6 @@ const Cart = () => {
                             </div>
                         </div>
                     </div>
-                ) : (
-                    <NoData headLine='No Cart Product Available' />
                 )}
             </Container>
         </div>

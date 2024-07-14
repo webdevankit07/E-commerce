@@ -39,6 +39,7 @@ const Store = () => {
     const [totaPage, setTotalPages] = useState(1);
     const [pageNo, setPageNo] = useState(1);
     const [maxPrice, setMaxPrice] = useState<number>(1000000000000000);
+    const [sortBy, setSortBy] = useState('');
 
     const searchParams = useSearchParams();
     const dispatch = useAppDispatch();
@@ -78,7 +79,9 @@ const Store = () => {
         }
     }, [clientProducts]);
 
-    const handleValueChange = () => {};
+    const handleValueChange = (val: string) => {
+        console.log(val);
+    };
 
     const handlePrevPageCall = () => {};
     const handleNextPageCall = () => {};
@@ -137,10 +140,8 @@ const Store = () => {
                             </div>
                         ) : (
                             <div className={`mt-4 grid gap-3 ${grid === 1 ? 'grid-cols-1' : 'grid-cols-5'}`}>
-                                {filterProducts.map((product, index) => (
-                                    <>
-                                        <ProductCard grid={grid} product={product} />
-                                    </>
+                                {filterProducts.map((product) => (
+                                    <ProductCard grid={grid} product={product} key={product._id} />
                                 ))}
                             </div>
                         )}

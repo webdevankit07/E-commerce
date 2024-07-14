@@ -17,7 +17,7 @@ import { userLogout } from '@/redux/features/auth/authSlice';
 import { usePathname, useRouter } from 'next/navigation';
 import debounce from 'lodash.debounce';
 import { useEffect, useState } from 'react';
-import { getMyCart } from '@/redux/features/cart/cartSlice';
+import { getCart } from '@/redux/features/cart/cartSlice';
 import { formatePrice } from '@/lib/utils';
 
 const HeaderMid = () => {
@@ -30,7 +30,7 @@ const HeaderMid = () => {
 
     useEffect(() => {
         if (!cart) {
-            dispatch(getMyCart());
+            dispatch(getCart());
         }
     }, [dispatch, cart]);
 

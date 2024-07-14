@@ -68,7 +68,7 @@ const CheckOut = () => {
                 key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID as string,
                 amount: amount,
                 currency: currency,
-                name: 'Webdev Ankit',
+                name: `${user.firstname} ${user.lastname}`,
                 description: 'Test Transaction',
                 order_id: order_id,
                 handler: async (response: any) => {
@@ -98,7 +98,7 @@ const CheckOut = () => {
                             totalPrice: cart.cartTotal,
                             totalPriceAfterDiscount,
                         };
-                        const orderData = await createOrder(orderDetails)
+                        await createOrder(orderDetails)
                             .then(() => {
                                 dispatch(emptyCart());
                                 toast.success('Order created');
@@ -160,7 +160,7 @@ const CheckOut = () => {
                                     </label>
                                     <select
                                         id='country'
-                                        defaultValue={user?.address[0].country}
+                                        defaultValue={user.address.length ? user?.address[0].country : ''}
                                         className='w-full py-2 px-5 border-2 rounded border-gray-300 mt-1'
                                         {...register('country', {
                                             required: { value: true, message: 'country is required' },
@@ -226,7 +226,7 @@ const CheckOut = () => {
                                 <div className='w-full relative'>
                                     <Input
                                         placeholder='Address'
-                                        defaultValue={user?.address[0].address}
+                                        defaultValue={user.address.length ? user?.address[0].address : ''}
                                         className='px-3 py-5 border-2 border-gray-300 rounded outline-gray-500'
                                         autoComplete='off'
                                         {...register('address', {
@@ -243,7 +243,7 @@ const CheckOut = () => {
                                 <div>
                                     <Input
                                         placeholder='Appartment, Flat no. (optional)'
-                                        defaultValue={user?.address[0].subAddress}
+                                        defaultValue={user.address.length ? user?.address[0].subAddress : ''}
                                         className='px-3 py-5 border-2 border-gray-300 rounded outline-gray-500'
                                         autoComplete='off'
                                         {...register('subAddress', {
@@ -263,7 +263,7 @@ const CheckOut = () => {
                                     <div className='w-full relative'>
                                         <Input
                                             placeholder='City'
-                                            defaultValue={user?.address[0].city}
+                                            defaultValue={user.address.length ? user?.address[0].city : ''}
                                             className='px-3 py-5 border-2 border-gray-300 rounded outline-gray-500'
                                             autoComplete='off'
                                             {...register('city', {
@@ -275,7 +275,7 @@ const CheckOut = () => {
                                     <div className='w-full relative'>
                                         <select
                                             id='state'
-                                            defaultValue={user?.address[0].state}
+                                            defaultValue={user.address.length ? user?.address[0].state : ''}
                                             className='w-full py-2 px-5 border-2 rounded border-gray-300'
                                             {...register('state', {
                                                 required: { value: true, message: 'state is required' },
@@ -296,7 +296,7 @@ const CheckOut = () => {
                                         <Input
                                             type='number'
                                             placeholder='Zip Code'
-                                            defaultValue={user?.address[0].postalCode}
+                                            defaultValue={user.address.length ? user?.address[0].postalCode : ''}
                                             className='px-3 py-5 border-2 border-gray-300 rounded outline-gray-500'
                                             autoComplete='off'
                                             {...register('pincode', {
@@ -317,10 +317,7 @@ const CheckOut = () => {
                                         Return to cart
                                     </Link>
                                     <div className='space-x-5'>
-                                        <Button className='rounded-3xl py-6 px-5 text-black bg-yellow-500 hover:bg-yellow-600'>
-                                            Continue Shipping
-                                        </Button>
-                                        <Button className='rounded-3xl py-6 px-5 text-black bg-yellow-500 hover:bg-yellow-600'>
+                                        <Button className='rounded-md py-6 px-5 text-white bg-pink-800 hover:bg-pink-900'>
                                             Place order
                                         </Button>
                                     </div>

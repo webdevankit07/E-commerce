@@ -30,5 +30,7 @@ export const config = {
         '/cart',
         '/admin/dashboard',
         '/admin/dashboard/',
+        '/my-account/profile',
+        '/my-account/orders',
     ],
 };

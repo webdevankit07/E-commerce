@@ -1,7 +1,6 @@
 'use client';
-import Container from '../shared/Container';
 import Link from 'next/link';
-import { BsHeart, BsSearch } from 'react-icons/bs';
+import { BsHeart } from 'react-icons/bs';
 import { TfiReload } from 'react-icons/tfi';
 import { FaRegUser, FaRegUserCircle } from 'react-icons/fa';
 import { GiShoppingCart } from 'react-icons/gi';
@@ -15,12 +14,9 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { userLogout } from '@/redux/features/auth/authSlice';
 import { usePathname, useRouter } from 'next/navigation';
-import debounce from 'lodash.debounce';
 import { useEffect, useState } from 'react';
-import { getMyCart } from '@/redux/features/cart/cartSlice';
+import { getCart } from '@/redux/features/cart/cartSlice';
 import { formatePrice } from '@/lib/utils';
-import { Button } from 'antd';
-import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 
 const CustomHeader = () => {
     const { cart } = useAppSelector((state) => state.cart);
@@ -32,7 +28,7 @@ const CustomHeader = () => {
 
     useEffect(() => {
         if (!cart) {
-            dispatch(getMyCart());
+            dispatch(getCart());
         }
     }, [dispatch, cart]);
 

@@ -14,6 +14,8 @@ export const getOrders = async () => {
 export const myOrders = async () => {
     try {
         const { data } = await Axios.get<GetMyOrdersResType>('/user/me/order');
+        console.log({ data });
+
         return data.myOrders;
     } catch (error) {
         const err = await handleAxiosError(error);

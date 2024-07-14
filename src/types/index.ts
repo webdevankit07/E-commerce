@@ -96,6 +96,7 @@ export type UserResType = {
     firstname: string;
     lastname: string;
     username: string;
+    userPhotoURL: string;
     email: string;
     mobile: string;
     role: 'user' | 'admin';
