@@ -14,7 +14,7 @@ export const validateToken = async (req: NextRequest) => {
         if (!refreshToken) throw new Error('No refresh token');
 
         const user = await User.findById(decodedAccessTokenData._id)
-            .select('firstname lastname username email mobile role wishlist compare address')
+            .select('firstname lastname username email mobile role wishlist compare address password')
             .populate('wishlist compare');
         if (!user) throw new Error('unauthorized request');
 

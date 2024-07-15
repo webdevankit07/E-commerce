@@ -100,7 +100,7 @@ const CustomHeader = () => {
                     </div>
                 )}
             </div>
-            <div className='flex gap-6'>
+            <div className='flex gap-6 items-center justify-end pr-16'>
                 {!user && (
                     <Link href={'/sign-in'} className='flex items-center gap-3'>
                         <FaRegUser className='text-2xl' />

@@ -91,3 +91,13 @@ export const resetPassword = async (token: string, newPassword: string) => {
         throw new Error(err);
     }
 };
+
+export const updatePassword = async (oldPassword: string, newPassword: string) => {
+    try {
+        const { data } = await Axios.put(`/user/me/update-password`, { oldPassword, newPassword });
+        return data;
+    } catch (error) {
+        const err = await handleAxiosError(error);
+        throw new Error(err);
+    }
+};

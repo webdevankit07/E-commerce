@@ -60,8 +60,8 @@ const Profile = () => {
     return !user ? (
         <Loading />
     ) : (
-        <div>
-            <BreadCrumb BreadCrumbs={[{ name: 'My Account' }, { name: 'Profile' }]} />
+        <div className='border'>
+            <BreadCrumb BreadCrumbs={[{ name: 'My Account' }]} />
             <div className='max-w-[500px] mx-auto mt-20 '>
                 <form className='flex flex-col gap-5'>
                     <div className='flex items-center justify-center'>

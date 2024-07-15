@@ -12,6 +12,7 @@ export const PUT = async (req: NextRequest) => {
         const { user } = await validateToken(req);
         await validate(body, updatePasswordValidator);
         const { oldPassword, newPassword } = body;
+        console.log({ oldPassword, newPassword, user });
 
         const isPasswordCorrect = await user.isPasswordCorrect(oldPassword);
         if (!isPasswordCorrect) {

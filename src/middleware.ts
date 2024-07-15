@@ -5,7 +5,8 @@ export function middleware(request: NextRequest) {
     const path = request.nextUrl.pathname;
     const token: unknown = request.cookies.get('access_token')?.value || '';
 
-    const isAuthRoutes = path === '/sign-in' || path === '/sign-up';
+    const isAuthRoutes =
+        path === '/sign-in' || path === '/sign-up' || path === '/forgot-password' || path === '/reset-password';
     const isAdminRoutes = path === '/admin/dashboard';
 
     if (isAuthRoutes && token) {
@@ -25,6 +26,8 @@ export const config = {
     matcher: [
         '/sign-in',
         '/sign-up',
+        '/forgot-password',
+        '/reset-password',
         '/wishlist',
         '/compare-products',
         '/cart',

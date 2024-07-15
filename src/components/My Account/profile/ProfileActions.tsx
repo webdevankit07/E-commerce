@@ -10,6 +10,7 @@ import { DialogClose } from '@radix-ui/react-dialog';
 import { Button } from '@/components/ui/button';
 import { MdDeleteSweep } from 'react-icons/md';
 import { RxCross2 } from 'react-icons/rx';
+import Link from 'next/link';
 
 interface ProfileActionsTypes {
     handleDeleteAccount: () => void;
@@ -18,11 +19,11 @@ interface ProfileActionsTypes {
 
 const ProfileActions = ({ handleDeleteAccount, handleSignOut }: ProfileActionsTypes) => {
     return (
-        <section className='flex items-center justify-between mt-5'>
+        <section className='flex items-center justify-between flex-grow mt-5'>
             {/* //! Delete Account...  */}
             <Dialog>
                 <DialogTrigger>
-                    <div className='flex items-center justify-center gap-1.5 py-2 rounded-md text-xs bg-red-600/[.2] hover:bg-red-300/[.2] text-red-800 border border-red-900 px-5 font-semibold w-40 transition-all duration-200 ease-in-out'>
+                    <div className='flex items-center justify-center gap-1.5 py-2 rounded-md text-xs bg-red-600/[.2] hover:bg-red-300/[.2] text-red-800 border border-red-900 px-5 font-semibold transition-all duration-200 ease-in-out w-full'>
                         <MdDeleteSweep />
                         Delete Account
                     </div>
@@ -61,10 +62,18 @@ const ProfileActions = ({ handleDeleteAccount, handleSignOut }: ProfileActionsTy
                 </DialogContent>
             </Dialog>
 
+            {/* //! Update Password...  */}
+            <Link href={'/my-account/update-password'}>
+                <div className='flex items-center justify-center gap-1.5 py-2 rounded-md text-xs bg-red-600/[.2] hover:bg-red-300/[.2] text-red-800 border border-red-900 px-5 font-semibold w-full transition-all duration-200 ease-in-out'>
+                    <MdDeleteSweep />
+                    Update Password
+                </div>
+            </Link>
+
             {/* //! Sign Out...  */}
             <Dialog>
                 <DialogTrigger>
-                    <div className='flex items-center justify-center gap-1.5 py-2 rounded-md text-xs bg-red-600/[.2] hover:bg-red-300/[.2] text-red-800 border border-red-900 px-5 font-semibold w-40 transition-all duration-200 ease-in-out'>
+                    <div className='flex items-center justify-center gap-1.5 py-2 rounded-md text-xs bg-red-600/[.2] hover:bg-red-300/[.2] text-red-800 border border-red-900 px-5 font-semibold w-full transition-all duration-200 ease-in-out'>
                         <MdDeleteSweep />
                         Sign Out
                     </div>
