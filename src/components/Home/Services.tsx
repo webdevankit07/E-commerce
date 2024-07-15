@@ -5,9 +5,9 @@ const Services = () => {
     return (
         <section className='bg-slate-100 pt-10 pb-5'>
             <Container>
-                <div className='flex justify-between items-center'>
+                <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3'>
                     {services.map((service, index) => (
-                        <div className='flex gap-3 items-center' key={index}>
+                        <div className='flex gap-3 items-center py-3 px-5 bg-white shadow rounded' key={index}>
                             <service.Icon className='text-4xl' />
                             <div>
                                 <h6 className='font-semibold text-sm'>{service.title}</h6>

@@ -11,6 +11,8 @@ import { Button } from '@/components/ui/button';
 import { MdDeleteSweep } from 'react-icons/md';
 import { RxCross2 } from 'react-icons/rx';
 import Link from 'next/link';
+import { PiSignOutBold } from 'react-icons/pi';
+import { RiLockPasswordFill } from 'react-icons/ri';
 
 interface ProfileActionsTypes {
     handleDeleteAccount: () => void;
@@ -19,11 +21,11 @@ interface ProfileActionsTypes {
 
 const ProfileActions = ({ handleDeleteAccount, handleSignOut }: ProfileActionsTypes) => {
     return (
-        <section className='flex items-center justify-between flex-grow mt-5'>
+        <section className='flex items-center gap-2 flex-grow mt-5'>
             {/* //! Delete Account...  */}
             <Dialog>
-                <DialogTrigger>
-                    <div className='flex items-center justify-center gap-1.5 py-2 rounded-md text-xs bg-red-600/[.2] hover:bg-red-300/[.2] text-red-800 border border-red-900 px-5 font-semibold transition-all duration-200 ease-in-out w-full'>
+                <DialogTrigger className='flex-1'>
+                    <div className='flex items-center justify-center gap-1.5 py-2 rounded-md text-xs bg-red-600/[.2] hover:bg-red-300/[.2] text-red-800 border border-red-900 px-5 font-semibold transition-all duration-200 ease-in-out'>
                         <MdDeleteSweep />
                         Delete Account
                     </div>
@@ -63,18 +65,18 @@ const ProfileActions = ({ handleDeleteAccount, handleSignOut }: ProfileActionsTy
             </Dialog>
 
             {/* //! Update Password...  */}
-            <Link href={'/my-account/update-password'}>
-                <div className='flex items-center justify-center gap-1.5 py-2 rounded-md text-xs bg-red-600/[.2] hover:bg-red-300/[.2] text-red-800 border border-red-900 px-5 font-semibold w-full transition-all duration-200 ease-in-out'>
-                    <MdDeleteSweep />
+            <Link href={'/my-account/update-password'} className='flex-1'>
+                <div className='flex flex-1 items-center justify-center gap-1.5 py-2 rounded-md text-xs bg-red-600/[.2] hover:bg-red-300/[.2] text-red-800 border border-red-900 px-5 font-semibold transition-all duration-200 ease-in-out'>
+                    <RiLockPasswordFill />
                     Update Password
                 </div>
             </Link>
 
             {/* //! Sign Out...  */}
             <Dialog>
-                <DialogTrigger>
-                    <div className='flex items-center justify-center gap-1.5 py-2 rounded-md text-xs bg-red-600/[.2] hover:bg-red-300/[.2] text-red-800 border border-red-900 px-5 font-semibold w-full transition-all duration-200 ease-in-out'>
-                        <MdDeleteSweep />
+                <DialogTrigger className='flex-1'>
+                    <div className='flex flex-1 items-center justify-center gap-1.5 py-2 rounded-md text-xs bg-red-600/[.2] hover:bg-red-300/[.2] text-red-800 border border-red-900 px-5 font-semibold transition-all duration-200 ease-in-out'>
+                        <PiSignOutBold />
                         Sign Out
                     </div>
                 </DialogTrigger>
@@ -101,7 +103,7 @@ const ProfileActions = ({ handleDeleteAccount, handleSignOut }: ProfileActionsTy
                                 className='flex items-center gap-1.5 px-5 py-1 min-w-28'
                                 onClick={handleSignOut}
                             >
-                                <MdDeleteSweep />
+                                <PiSignOutBold />
                                 Sign Out
                             </Button>
                         </DialogClose>

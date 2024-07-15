@@ -85,6 +85,7 @@ const ProductCard = ({ grid, product }: ProductCardprops) => {
                             src={images[0].url}
                             width={grid === 1 ? 300 : 200}
                             height={grid === 1 ? 300 : 250}
+                            style={{ width: '100%', height: 'auto' }}
                             alt='product-image'
                             className='group-hover:opacity-0 hover:scale-120 ease-in-out absolute transition duration-500'
                         />
@@ -92,6 +93,7 @@ const ProductCard = ({ grid, product }: ProductCardprops) => {
                             src={images[1].url}
                             width={grid === 1 ? 300 : 200}
                             height={grid === 1 ? 300 : 250}
+                            style={{ width: '100%', height: 'auto' }}
                             alt='product-image'
                             className='opacity-0 group-hover:opacity-100 hover:scale-110 ease-in-out transition duration-500'
                         />

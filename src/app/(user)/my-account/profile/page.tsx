@@ -15,6 +15,7 @@ import { deleteUserAccount, updateUser, userLogout } from '@/redux/features/auth
 import { Oval } from 'react-loader-spinner';
 import Loading from '@/components/shared/Loading';
 import { useRouter } from 'next/navigation';
+import { RxUpdate } from 'react-icons/rx';
 
 export interface UpdateUserData {
     firstname: string;
@@ -60,15 +61,27 @@ const Profile = () => {
     return !user ? (
         <Loading />
     ) : (
-        <div className='border'>
-            <BreadCrumb BreadCrumbs={[{ name: 'My Account' }]} />
+        <div>
+            <BreadCrumb BreadCrumbs={[{ name: 'My Account' }, { name: 'Profile' }]} />
             <div className='max-w-[500px] mx-auto mt-20 '>
-                <form className='flex flex-col gap-5'>
+                <form className='flex flex-col'>
                     <div className='flex items-center justify-center'>
                         {user?.userPhotoURL ? (
-                            <Image src={user?.userPhotoURL} height={100} width={100} alt='user-image' />
+                            <Image
+                                src={user?.userPhotoURL}
+                                height={100}
+                                width={100}
+                                alt='user-image'
+                                className='border-2 rounded-full border-slate-200 outline outline-black shadow-lg'
+                            />
                         ) : (
-                            <Image src={userImage} height={100} width={100} alt='user-image' />
+                            <Image
+                                src={userImage}
+                                height={100}
+                                width={100}
+                                alt='user-image'
+                                className='border-2 rounded-full border-slate-200 outline outline-black shadow-lg'
+                            />
                         )}
                     </div>
                     <div className='flex flex-col gap-7'>
@@ -240,7 +253,7 @@ const Profile = () => {
                                 </>
                             ) : (
                                 <>
-                                    <MdDeleteSweep />
+                                    <RxUpdate />
                                     Update Account
                                 </>
                             )}

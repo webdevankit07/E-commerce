@@ -45,20 +45,20 @@ const SpecialProduct = ({ product }: { product: ProductType }) => {
     return (
         <div>
             <div className='drop-shadow rounded-md p-4   bg-white'>
-                <div className='flex items-center gap-5'>
+                <div className='flex flex-col sm:flex-row items-center gap-5'>
                     <div className='flex flex-col justify-between'>
-                        <div className='w-[150px] h-[170px]'>
+                        <div className='sm:w-[150px] sm:h-[170px]'>
                             <Link href={`/products/${product._id}`}>
                                 <Image
                                     src={imgUrl}
-                                    width={250}
-                                    height={200}
-                                    style={{ objectFit: 'contain', width: 'auto', height: 'auto' }}
+                                    width={400}
+                                    height={300}
+                                    style={{ width: '100%', height: 'auto' }}
                                     alt='product-image'
                                 />
                             </Link>
                         </div>
-                        <div className='flex *:flex-1 items-center justify-center'>
+                        <div className='hidden sm:flex *:flex-1 items-center justify-center'>
                             <div
                                 className='flex justify-center items-center cursor-pointer'
                                 onClick={() => setImgUrl(product.images[0].url)}

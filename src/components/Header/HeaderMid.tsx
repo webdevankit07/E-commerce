@@ -49,9 +49,9 @@ const HeaderMid = () => {
     return (
         <div className='py-3'>
             <Container>
-                <div className='flex justify-between gap-5 items-center'>
-                    <div className='flex items-center justify-between gap-16 w-full max-w-[900px] mr-10'>
-                        <h2 className='text-2xl font-semibold'>
+                <div className='flex flex-col xl:flex-row justify-between gap-5 items-center'>
+                    <div className='flex items-center justify-between gap-16 w-full max-w-[900px] lg:mr-10'>
+                        <h2 className='hidden xl:block text-2xl font-semibold'>
                             <Link href={'/'}>ShopWave</Link>
                         </h2>
                         <div className='flex justify-center items-center rounded-sm overflow-hidden w-full'>
@@ -74,7 +74,7 @@ const HeaderMid = () => {
                             </span>
                         </div>
                     </div>
-                    <div>
+                    <div className='hidden md:block'>
                         {user && (
                             <div className='flex justify-between items-center gap-8'>
                                 <Link href={'/compare-products'} className='flex items-center gap-3'>
@@ -112,31 +112,31 @@ const HeaderMid = () => {
                                         <DropdownMenuItem onClick={handleSignOut}>Sign Out</DropdownMenuItem>
                                     </DropdownMenuContent>
                                 </DropdownMenu>
-                            </div>
-                        )}
-                    </div>
-                    <div className='flex gap-6'>
-                        {!user && (
-                            <Link href={'/sign-in'} className='flex items-center gap-3'>
-                                <FaRegUser className='text-2xl' />
-                                <p className='text-xs text-nowrap'>
-                                    Log in <br /> My Account
-                                </p>
-                            </Link>
-                        )}
-                        <Link href={'/cart'}>
-                            <div className='flex items-center justify-center gap-3 text-sm space-y-1'>
-                                <div className='relative'>
-                                    <GiShoppingCart className='text-3xl text-yellow-1' />
-                                    <p className='bg-white absolute text-xs p-1 -top-1 -right-1 w-5 h-5 text-black flex items-center justify-center rounded-full text-center font-medium'>
-                                        {cartProductCount}
-                                    </p>
+                                <div className='hidden md:flex gap-6'>
+                                    {!user && (
+                                        <Link href={'/sign-in'} className='flex items-center gap-3'>
+                                            <FaRegUser className='text-2xl' />
+                                            <p className='text-xs text-nowrap'>
+                                                Log in <br /> My Account
+                                            </p>
+                                        </Link>
+                                    )}
+                                    <Link href={'/cart'}>
+                                        <div className='flex items-center justify-center gap-3 text-sm space-y-1'>
+                                            <div className='relative'>
+                                                <GiShoppingCart className='text-3xl text-yellow-1' />
+                                                <p className='bg-white absolute text-xs p-1 -top-1 -right-1 w-5 h-5 text-black flex items-center justify-center rounded-full text-center font-medium'>
+                                                    {cartProductCount}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <p className='text-center text-sm'>
+                                            {cart ? formatePrice(cart.cartTotal) : <>&#x20B9;00.00</>}
+                                        </p>
+                                    </Link>
                                 </div>
                             </div>
-                            <p className='text-center text-sm'>
-                                {cart ? formatePrice(cart.cartTotal) : <>&#x20B9;00.00</>}
-                            </p>
-                        </Link>
+                        )}
                     </div>
                 </div>
             </Container>
