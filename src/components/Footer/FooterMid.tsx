@@ -8,8 +8,8 @@ import { FaFacebook, FaGithub, FaLinkedin, FaTwitter, FaYoutube } from 'react-ic
 const FooterMid = () => {
     return (
         <div>
-            <Container className='py-10'>
-                <div className='grid grid-cols-5'>
+            <Container className='py-10 px-[40px]'>
+                <div className='grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 md:gap-10'>
                     <div>
                         <ListHeading>Contact Us</ListHeading>
                         <address className='space-y-1 text-gray-400'>
@@ -84,7 +84,6 @@ const FooterMid = () => {
                         </div>
                     </div>
                 </div>
-                <div></div>
             </Container>
         </div>
     );

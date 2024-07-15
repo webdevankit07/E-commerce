@@ -51,7 +51,7 @@ const SpecialProduct = ({ product }: { product: ProductType }) => {
                             <Link href={`/products/${product._id}`}>
                                 <Image
                                     src={imgUrl}
-                                    width={400}
+                                    width={300}
                                     height={300}
                                     style={{ width: '100%', height: 'auto' }}
                                     alt='product-image'
