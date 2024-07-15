@@ -1,12 +1,15 @@
 import React from 'react';
 import Container from '../shared/Container';
+import Link from 'next/link';
 
 const HeaderTop = () => {
     return (
         <div className='py-3 border-b border-b-dark-2 hidden sm:block'>
             <Container>
-                <div className='flex justify-between text-xs md:text-sm'>
-                    <p>Free shiping Over $100 & Free Returns</p>
+                <div className='flex items-center justify-between text-xs md:text-sm'>
+                    <h2 className='hidden sm:block text-2xl font-semibold'>
+                        <Link href={'/'}>ShopWave</Link>
+                    </h2>
                     <div className='flex gap-5'>
                         <p>
                             Hotline:{' '}
