@@ -14,8 +14,6 @@ import { getClientProducts } from '@/redux/features/product/productSlice';
 import { ProductType } from '@/types';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { FaBars } from 'react-icons/fa';
-import { FaGripLinesVertical } from 'react-icons/fa';
 import {
     Pagination,
     PaginationContent,
@@ -26,7 +24,7 @@ import {
     PaginationPrevious,
 } from '@/components/ui/pagination';
 import { ParseProductQueries } from '@/lib/utils';
-import SelectOption from '@/components/shared/Select';
+import StoreHeader from '@/components/Our Store/StoreHeader';
 
 const Store = () => {
     const { clientProducts, isLoading } = useAppSelector((state) => state.product);
@@ -91,55 +89,44 @@ const Store = () => {
             <Container>
                 <BreadCrumb BreadCrumbs={[{ name: 'Products' }]} />
                 <div className='flex gap-3 pb-8'>
-                    <div className='space-y-3 w-[350px] h-full'>
+                    <div className='space-y-3 hidden lg:block w-[350px] h-full'>
                         <ShopByCategory categories={categories} />
                         <ShopByBrand brands={brands} />
-                        <FilterSection colors={colors} maxPrice={maxPrice} setMaxPrice={setMaxPrice} />
+                        <FilterSection colors={colors} setMaxPrice={setMaxPrice} />
                     </div>
                     <div className='w-full'>
-                        <div className='flex items-center gap-5 bg-white py-2 px-4 rounded'>
-                            <div className='flex items-center gap-3 max-w-[300px] w-full'>
-                                <p className='font-semibold text-slate-800 text-nowrap'>Sort By:</p>
-                                <SelectOption
-                                    trigger='Best Selling'
-                                    selectItems={[
-                                        'Alphabetically, A-Z',
-                                        'Alphabetically, Z-A',
-                                        'Price, low to high',
-                                        'Price, high to low',
-                                        'Date, old to new',
-                                        'Date, new to old',
-                                    ]}
-                                    onValueChange={handleValueChange}
-                                />
-                            </div>
-                            <div className='flex items-center gap-2 ml-auto'>
-                                <p className='font-medium text-gray-800 mr-4'>
-                                    {clientProducts?.totalProducts} products
-                                </p>
-                                <FaBars
-                                    className={`bg-slate-200 p-1.5 text-3xl rounded-md hover:bg-slate-800 hover:text-white shadow transition duration-200 cursor-pointer ${
-                                        grid === 5 && 'bg-slate-800 text-white'
-                                    }`}
-                                    onClick={() => setGrid(5)}
-                                />
-                                <FaGripLinesVertical
-                                    className={`bg-slate-200 p-1.5 text-3xl rounded-md hover:bg-slate-800 hover:text-white shadow transition duration-200 cursor-pointer ${
-                                        grid === 1 && 'bg-slate-800 text-white'
-                                    }`}
-                                    onClick={() => setGrid(1)}
-                                />
-                            </div>
-                        </div>
+                        <StoreHeader
+                            clientProducts={clientProducts}
+                            handleValueChange={handleValueChange}
+                            grid={grid}
+                            setGrid={setGrid}
+                            categories={categories}
+                            brands={brands}
+                            colors={colors}
+                            maxPrice={maxPrice}
+                            setMaxPrice={setMaxPrice}
+                        />
                         {!clientProducts || isLoading ? (
-                            <div className={`mt-4 grid gap-3 ${grid === 1 ? 'grid-cols-1' : 'grid-cols-5'}`}>
+                            <div
+                                className={`mt-4 grid gap-3 ${
+                                    grid === 1
+                                        ? 'grid-cols-1'
+                                        : 'grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5'
+                                }`}
+                            >
                                 {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((a) => (
                                     <ProductCardSkeleton key={a} />
                                 ))}
                                 <ProductCardSkeleton />
                             </div>
                         ) : (
-                            <div className={`mt-4 grid gap-3 ${grid === 1 ? 'grid-cols-1' : 'grid-cols-5'}`}>
+                            <div
+                                className={`mt-4 grid gap-3 ${
+                                    grid === 1
+                                        ? 'grid-cols-1'
+                                        : 'grid-cols-1 min-[470px]:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5'
+                                }`}
+                            >
                                 {filterProducts.map((product) => (
                                     <ProductCard grid={grid} product={product} key={product._id} />
                                 ))}

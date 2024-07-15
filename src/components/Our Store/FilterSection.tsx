@@ -6,11 +6,10 @@ import debounce from 'lodash.debounce';
 
 interface FilterSectionProps {
     colors: ColorType[];
-    maxPrice: number;
     setMaxPrice: Dispatch<SetStateAction<number>>;
 }
 
-const FilterSection = ({ colors, maxPrice, setMaxPrice }: FilterSectionProps) => {
+const FilterSection = ({ colors, setMaxPrice }: FilterSectionProps) => {
     return (
         <section>
             <div className='bg-white rounded-md py-3 px-4 w-full'>
@@ -30,7 +29,7 @@ const FilterSection = ({ colors, maxPrice, setMaxPrice }: FilterSectionProps) =>
                         </ul>
                     </div>
                 </div>
-                <div className='my-5'>
+                <div className='my-5 hidden lg:block'>
                     <h5 className='font-semibold text-slate-700 text-sm mb-1.5'>Max Price (&#8377;)</h5>
                     <Input
                         type='number'
