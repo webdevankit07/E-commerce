@@ -1,17 +1,13 @@
 'use client';
 import Container from '../shared/Container';
 import Link from 'next/link';
-import { BsHeart, BsSearch } from 'react-icons/bs';
-import { TfiReload } from 'react-icons/tfi';
-import { FaRegUser, FaRegUserCircle } from 'react-icons/fa';
-import { GiShoppingCart } from 'react-icons/gi';
+import { BsSearch } from 'react-icons/bs';
+import { FaRegUser } from 'react-icons/fa';
 import { useAppDispatch, useAppSelector } from '@/hooks/storeHooks';
-import { userLogout } from '@/redux/features/auth/authSlice';
 import { usePathname, useRouter } from 'next/navigation';
 import debounce from 'lodash.debounce';
-import { useEffect, useState } from 'react';
+import { KeyboardEvent, useEffect, useState } from 'react';
 import { getCart } from '@/redux/features/cart/cartSlice';
-import { formatePrice } from '@/lib/utils';
 import MidHeaderActions from './MidHeaderActions';
 
 const HeaderMid = () => {
@@ -33,6 +29,12 @@ const HeaderMid = () => {
         cartProductCount = cart.totalCartProducts > 9 ? `${cart?.totalCartProducts}` : `${cart?.totalCartProducts}`;
     }
 
+    const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            router.push(`/products?search=${search}`);
+        }
+    };
+
     return (
         <div className='py-3'>
             <Container>
@@ -44,6 +46,7 @@ const HeaderMid = () => {
                                     type='text'
                                     className='py-2 px-3 w-full focus:outline-none text-black'
                                     placeholder='Search Product Here...'
+                                    onKeyDown={handleKeyPress}
                                     onChange={debounce((e) => {
                                         setSearch(e.target.value);
                                         if (pathname === '/products') {

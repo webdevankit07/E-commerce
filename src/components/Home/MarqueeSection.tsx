@@ -7,7 +7,7 @@ const MarqueeSection = () => {
         <section>
             <Container className='py-5'>
                 <Marquee>
-                    <div className='flex gap-16 items-center'>
+                    <div className='flex gap-5 md:gap-16 items-center'>
                         <MarqueeImg url='apple.png' alt='apple-logo' />
                         <MarqueeImg url='canon.png' alt='canon-logo' />
                         <MarqueeImg url='intel.png' alt='intel-logo' />
@@ -23,7 +23,7 @@ const MarqueeSection = () => {
 
 const MarqueeImg = ({ url, alt }: { url: string; alt: string }) => {
     return (
-        <div className='min-w-[160px] h-[70px] relative cursor-pointer'>
+        <div className='min-w-[100px] h-[40px] md:min-w-[160px] md:h-[70px] relative cursor-pointer'>
             <Image src={`/images/brand/${url}`} fill sizes='100%' style={{ objectFit: 'contain' }} alt={alt} />
         </div>
     );

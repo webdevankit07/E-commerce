@@ -8,6 +8,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import '@/app/globals.css';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+import { AspectRatio } from '../ui/aspect-ratio';
 
 const Hero = () => {
     return (
@@ -25,25 +26,37 @@ const Hero = () => {
                     speed={1000}
                     loop={true}
                     modules={[Autoplay, Pagination, Navigation]}
-                    className='rounded-md h-[350px]'
+                    className='rounded-md overflow-hidden'
                 >
                     <SwiperSlide>
-                        <Image src={'/images/banner (4).jpg'} fill priority alt='main-banner' />
+                        <AspectRatio ratio={16 / 4}>
+                            <Image src={'/images/banner (4).jpg'} fill priority alt='main-banner' />
+                        </AspectRatio>
                     </SwiperSlide>
                     <SwiperSlide>
-                        <Image src={'/images/banner (5).jpg'} fill alt='main-banner' />
+                        <AspectRatio ratio={16 / 4}>
+                            <Image src={'/images/banner (5).jpg'} fill alt='main-banner' />
+                        </AspectRatio>
+                    </SwiperSlide>
+                    <SwiperSlide className=''>
+                        <AspectRatio ratio={16 / 4}>
+                            <Image src={'/images/banner (2).jpg'} fill alt='main-banner' />
+                        </AspectRatio>
                     </SwiperSlide>
                     <SwiperSlide>
-                        <Image src={'/images/banner (2).jpg'} fill alt='main-banner' />
+                        <AspectRatio ratio={16 / 4}>
+                            <Image src={'/images/banner (3).jpg'} fill alt='main-banner' />
+                        </AspectRatio>
                     </SwiperSlide>
                     <SwiperSlide>
-                        <Image src={'/images/banner (3).jpg'} fill alt='main-banner' />
+                        <AspectRatio ratio={16 / 4}>
+                            <Image src={'/images/banner (1).jpg'} fill alt='main-banner' />
+                        </AspectRatio>
                     </SwiperSlide>
                     <SwiperSlide>
-                        <Image src={'/images/banner (1).jpg'} fill alt='main-banner' />
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <Image src={'/images/banner (1).png'} fill alt='main-banner' />
+                        <AspectRatio ratio={16 / 4}>
+                            <Image src={'/images/banner (1).png'} fill alt='main-banner' />
+                        </AspectRatio>
                     </SwiperSlide>
                 </Swiper>
             </Container>

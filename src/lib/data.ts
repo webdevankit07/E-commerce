@@ -39,7 +39,7 @@ export const IndianStates = [
 export const countries = ['India'];
 
 export const services: ServiceType[] = [
-    { Icon: LiaShippingFastSolid, title: 'Free Shipping', subtitle: 'From all orders over $5' },
+    { Icon: LiaShippingFastSolid, title: 'Free Shipping', subtitle: 'From all orders over ₹500' },
     { Icon: LuGift, title: 'Daily Surprise Offer', subtitle: 'Save upto 25% off' },
     { Icon: ImHeadphones, title: 'Support 24/7', subtitle: 'Shop with an expert' },
     { Icon: BiSolidOffer, title: 'Affordable Prices', subtitle: 'Get Factory Default Price' },
@@ -80,13 +80,13 @@ export const categories: CategoryType[] = [
     {
         title: 'Mobiles & Tablets',
         details: '10 Items',
-        imgUrl: 'headphone.webp',
+        imgUrl: 'phone.jpg',
         location: '/products?category=Mobiles&Tablets',
     },
     {
         title: 'Headphones',
         details: '10 Items',
-        imgUrl: 'phone.jpg',
+        imgUrl: 'headphone.webp',
         location: '/products?category=Headphones',
     },
     {

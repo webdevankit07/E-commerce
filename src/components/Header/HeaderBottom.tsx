@@ -94,14 +94,13 @@ const HeaderBottom = () => {
                         <Link href={'/my-account/orders'}>My Orders</Link>
                     </div>
                     <DropdownMenu>
-                        <DropdownMenuTrigger className='flex md:hidden items-center gap-3 text-start w-full'>
-                            <div className='flex items-center justify-between border w-full rounded py-2 px-5'>
+                        <DropdownMenuTrigger className='flex md:hidden outline-none items-center gap-3 text-start w-full'>
+                            <div className='flex items-center justify-between border w-full rounded py-2 px-5 -ml-2.5'>
                                 <span>Menu</span>
                                 <TbMenuOrder />
                             </div>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent className='min-w-[80vw] md:hidden *:w-full mt-3 *:cursor-pointer'>
-                            <DropdownMenuItem></DropdownMenuItem>
+                        <DropdownMenuContent className='min-w-[90vw] md:hidden mt-3 py-1 -ml-4'>
                             <Link href={'/'}>
                                 <DropdownMenuItem>Home</DropdownMenuItem>
                             </Link>
