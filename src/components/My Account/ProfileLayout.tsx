@@ -27,7 +27,7 @@ const ProfileLayout = ({ children }: { children: ReactNode }) => {
     return (
         <Layout className='min-h-screen'>
             <ScrollArea className='h-screen'>
-                <Sider collapsible className='min-h-screen hidden md:block' width={250}>
+                <Sider collapsible className='min-h-screen max-md:hidden' width={250}>
                     <div
                         className='font-bold text-3xl text-white py-5 text-center adminLogo cursor-pointer'
                         onClick={() => router.push('/')}

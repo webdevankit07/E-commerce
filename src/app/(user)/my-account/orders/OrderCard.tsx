@@ -44,7 +44,7 @@ const OrderCard = ({ order }: OrderCardProps) => {
 
     return (
         <div className='mt-8 pl-5 ' key={order._id}>
-            <div className='p-5 border bg-white border-gray-800 shadow-md rounded-xl max-w-[1000px] transition-all saturate-200 ease-in-out'>
+            <div className='p-5 border bg-white border-gray-800 shadow-md rounded-xl max-w-[1000px] w-full transition-all saturate-200 ease-in-out'>
                 <div className='flex gap-2 items-center'>
                     <div>
                         <div className={`flex items-center gap-1.5 px-3 py-1 rounded-2xl ${statusBgColor}`}>

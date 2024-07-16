@@ -27,7 +27,7 @@ const Contact = () => {
                         className='border-0 rounded-md'
                     ></iframe>
                 </div>
-                <div className='bg-white py-5 px-10 rounded-md flex gap-10'>
+                <div className='bg-white py-5 px-10 rounded-md flex max-sm:flex-col gap-10'>
                     <form className='w-full' onSubmit={handleSubmit}>
                         <h2 className='font-semibold text-lg mb-4'>Contact Us</h2>
                         <input

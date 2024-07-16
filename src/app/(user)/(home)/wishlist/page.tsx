@@ -14,7 +14,7 @@ const Whishlist = () => {
             <Container>
                 <BreadCrumb BreadCrumbs={[{ name: 'WishList' }]} />
                 {isLoading || !user ? (
-                    <div className='grid grid-cols-6 gap-3'>
+                    <div className='grid max-[500px]:grid-cols-1 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3'>
                         {[1, 2, 3, 4, 5, 6].map((item) => (
                             <div key={item}>
                                 <ProductCardSkeleton />
@@ -26,7 +26,7 @@ const Whishlist = () => {
                         {!user.wishlist.length ? (
                             <NoData headLine='No Wishlisht Product Available' />
                         ) : (
-                            <div className='grid grid-cols-6 gap-3'>
+                            <div className='grid max-[500px]:grid-cols-1 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3'>
                                 {user.wishlist.map((product) => (
                                     <div key={product._id}>
                                         <WishlistProduct product={product} />

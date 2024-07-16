@@ -11,6 +11,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import '@/app/globals.css';
 import { Pagination } from 'swiper/modules';
+import Link from 'next/link';
 
 const PopularProducts = () => {
     const { products, popularProducts, isLoading } = useAppSelector((state) => state.product);
@@ -30,7 +31,15 @@ const PopularProducts = () => {
     return (
         <section className='py-5 pb-10 bg-slate-100'>
             <Container>
-                <h3 className='font-semibold mb-4 text-lg'>Our Popular Products</h3>
+                <h3 className='flex justify-between items-center font-semibold mb-4 text-lg'>
+                    <span>Our Popular Products</span>{' '}
+                    <Link
+                        href={'/products'}
+                        className='bg-yellow-950 hover:bg-yellow-950 text-sm text-white px-4 py-2 rounded'
+                    >
+                        Vew All
+                    </Link>
+                </h3>
                 {!popularProducts?.length || isLoading ? (
                     <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-4'>
                         {[1, 2, 3, 4, 5, 6].map((_, index) => (

@@ -81,7 +81,7 @@ const Productdetails = ({ params }: { params: { id: string } }) => {
         <div className='bg-slate-100 min-h-screen'>
             <Container className='mb-5'>
                 <BreadCrumb BreadCrumbs={[{ location: '/products', name: 'Products' }, { name: params.id }]} />
-                <div className='flex bg-white p-5 mb-10 mt-5 rounded-md'>
+                <div className='flex max-lg:flex-col gap-2 lg:gap-5 bg-white p-5 mb-10 mt-5 rounded-md'>
                     <ImageSection images={product?.images} />
                     <div className='w-full space-y-5 py-5'>
                         <div>
@@ -142,11 +142,7 @@ const Productdetails = ({ params }: { params: { id: string } }) => {
                             </ul>
                         </div>
                         <SetQuantity quantity={quantity} setQuantity={setQuantity} />
-                        <div className='flex gap-3 *:w-[180px] *:text-xs'>
-                            <Button variant={'outline'} className='w-40 bg-yellow-300 hover:bg-yellow-400'>
-                                <RiShoppingBag3Fill className='mr-2 text-gray-900' />
-                                Buy Now
-                            </Button>
+                        <div className='flex gap-3 flex-wrap *:flex-grow *:text-xs'>
                             <Button
                                 variant={'outline'}
                                 className='w-40 bg-yellow-300 hover:bg-yellow-400'

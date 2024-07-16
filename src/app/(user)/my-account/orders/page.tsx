@@ -33,8 +33,6 @@ const MyOrders = () => {
         }
     }, [myOrders, dispatch, selectedBtnFilter]);
 
-    console.log(myOrders);
-
     return !myOrders ? (
         <Loading />
     ) : (

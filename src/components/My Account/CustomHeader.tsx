@@ -48,7 +48,7 @@ const CustomHeader = () => {
         <div className='py-3 px-5 bg-dark-1 text-slate-100'>
             <div className='flex justify-end gap-5 items-center pr-16'>
                 {user && (
-                    <div className='flex justify-between items-center gap-10'>
+                    <div className='flex justify-between items-center gap-10 max-md:hidden'>
                         <Link href={'/compare-products'} className='flex items-center gap-3 hover:text-slate-100'>
                             <TfiReload className='text-2xl' />
                             <p className='text-xs'>
@@ -84,7 +84,7 @@ const CustomHeader = () => {
                                 <DropdownMenuItem onClick={handleSignOut}>Sign Out</DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
-                        <Link href={'/cart'} className='hover:text-slate-100'>
+                        <Link href={'/cart'} className='hover:text-slate-100 max-md:hidden'>
                             <div className='flex items-center justify-center gap-3 text-sm space-y-1'>
                                 <div className='relative'>
                                     <GiShoppingCart className='text-3xl text-yellow-1' />

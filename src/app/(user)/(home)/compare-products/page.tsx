@@ -14,7 +14,7 @@ const CompareProducts = () => {
             <Container>
                 <BreadCrumb BreadCrumbs={[{ name: 'Compare-Products' }]} />
                 {isLoading || !user ? (
-                    <div className='grid grid-cols-5 gap-3'>
+                    <div className='grid max-[500px]:grid-cols-1 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3'>
                         {[1, 2, 3, 4, 5].map((item) => (
                             <div key={item}>
                                 <ProductCardSkeleton />
@@ -26,7 +26,7 @@ const CompareProducts = () => {
                         {!user.compare.length ? (
                             <NoData headLine='No Compare Product Available' />
                         ) : (
-                            <div className='grid grid-cols-5 gap-3'>
+                            <div className='grid max-[500px]:grid-cols-1 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3'>
                                 {user.compare.map((product) => (
                                     <div key={product._id}>
                                         <CompareProductCard product={product} />

@@ -3,7 +3,7 @@ import ReactStars from 'react-stars';
 
 const Reviews = ({ ratings }: { ratings: RatingType[] }) => {
     return (
-        <div className='mt-5 mb-8 grid grid-cols-2 gap-5'>
+        <div className='mt-5 mb-8 grid md:grid-cols-2 gap-5'>
             {ratings.map((rating) => (
                 <div className='border py-3 px-5 bg-slate-50 rounded-md' key={rating._id}>
                     <p className='font-medium text-xs'>{`${rating.postedby.firstname} ${rating.postedby.lastname} - (@${rating.postedby.username})`}</p>

@@ -29,7 +29,7 @@ const Cart = () => {
         <div className='bg-slate-100 pb-10'>
             <Container>
                 <BreadCrumb BreadCrumbs={[{ name: 'Cart' }]} />
-                {!cart ? (
+                {!cart || !cart.products.length ? (
                     <NoData headLine='No Cart Product Available' />
                 ) : (
                     <div className='bg-white p-5 rounded-md shadow-md mt-5'>
@@ -48,9 +48,8 @@ const Cart = () => {
                                     <CartItem cartProduct={item} key={item._id} />
                                 ))}
                             </TableBody>
-
                             <TableFooter>
-                                <TableRow>
+                                <TableRow className='max-sm:hidden'>
                                     <TableCell colSpan={4} className='text-lg font-semibold'>
                                         Subtotal
                                     </TableCell>
@@ -61,11 +60,17 @@ const Cart = () => {
                             </TableFooter>
                         </Table>
                         <div className='border-t-[1.5px] border-slate-200 py-4 flex justify-between w-full'>
-                            <Button size={'sm'} onClick={() => dispatch(emptyCart())}>
+                            <Button size={'sm'} onClick={() => dispatch(emptyCart())} className='max-sm:hidden'>
                                 Clear Cart
                             </Button>
-                            <div className='flex flex-col items-start gap-2 text-slate-700 font-medium text-sm'>
-                                <p>Taxes and shipping calculate at checkout</p>
+                            <div className='flex flex-col items-start gap-2 text-slate-700 font-medium text-sm max-sm:w-full'>
+                                <div className='flex items-center justify-between w-full py-5'>
+                                    <div className='text-lg font-semibold'>Subtotal</div>
+                                    <div className='text-lg font-semibold text-right'>
+                                        {formatePrice(cart.cartTotal)}
+                                    </div>
+                                </div>
+                                <p className='max-sm:text-xs'>Taxes and shipping calculate at checkout</p>
                                 <Link href={'/checkout'} className='w-full block'>
                                     <Button
                                         variant={'outline'}
@@ -74,6 +79,14 @@ const Cart = () => {
                                         Checkout
                                     </Button>
                                 </Link>
+                                <Button
+                                    size={'sm'}
+                                    variant={'outline'}
+                                    className='py-5 px-5 w-full text-lg hover:bg-black hover:text-white'
+                                    onClick={() => dispatch(emptyCart())}
+                                >
+                                    Clear Cart
+                                </Button>
                                 <Link
                                     href={'/products'}
                                     className='flex items-center font-normal gap-1 mt-2 hover:text-blue-700 hover:underline'

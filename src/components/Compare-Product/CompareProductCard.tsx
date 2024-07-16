@@ -27,7 +27,7 @@ const CompareProductCard = ({ product }: { product: ProductType }) => {
             <div className={`group justify-center items-center relative`}>
                 <Link href={`/products/${product._id}`}>
                     {images && (
-                        <div className={`h-[200px] w-auto`}>
+                        <div className={`h-[150px] sm:h-[200px] w-auto`}>
                             <Image
                                 src={images[0].url}
                                 fill
@@ -46,36 +46,36 @@ const CompareProductCard = ({ product }: { product: ProductType }) => {
                     )}
                 </Link>
                 <div
-                    className={`text-right absolute -right-2 -top-2 text-lg cursor-pointer`}
+                    className={`text-right absolute -right-1 top-0 text-lg cursor-pointer`}
                     onClick={handleCompareToggle}
                 >
-                    <RxCross1 className='text-2xl hover:bg-slate-700 p-1 hover:text-slate-50 rounded-full transition duration-150' />
+                    <RxCross1 className='text-2xl bg-slate-900 hover:bg-red-600 p-1 text-slate-50 rounded-full transition duration-100 hover:scale-125' />
                 </div>
             </div>
             <div className='py-2 space-y-1'>
-                <h6 className='text-[#bf4800] text-[13px] font-medium'>Headphone</h6>
+                <h6 className='text-[#bf4800] text-xs sm:text-[13px] font-medium'>Headphone</h6>
                 <p className='text-xs font-medium text-slate-900 hover:underline cursor-pointer line-clamp-2 h-8'>
                     {title}
                 </p>
                 <ReactStars count={5} value={totalRating} size={20} color2={'#ffd700'} edit={false} />
                 <p className='text-sm font-semibold text-slate-900 py-2'>{formatePrice(price)}</p>
                 <div className='pb-3'>
-                    <div className='flex justify-between mb-2'>
-                        <span className='text-sm font-medium'>Brand: </span>
+                    <div className='flex justify-between mb-2 gap-2'>
+                        <span className='text-xs sm:text-sm text-slate-950 font-medium'>Brand: </span>
                         <span className='text-xs font-medium text-slate-600'>{brand}</span>
                     </div>
                     <hr />
                 </div>
                 <div className='pb-3'>
-                    <div className='flex justify-between mb-2'>
-                        <span className='text-sm font-medium'>Type: </span>
+                    <div className='flex justify-between mb-2 gap-2'>
+                        <span className='text-xs sm:text-sm text-slate-950 font-medium'>Type: </span>
                         <span className='text-xs font-medium text-slate-600'>{category}</span>
                     </div>
                     <hr />
                 </div>
                 <div className='pb-3'>
-                    <div className='flex justify-between mb-2'>
-                        <span className='text-sm font-medium'>Availablity: </span>
+                    <div className='flex justify-between mb-2 gap-2'>
+                        <span className='text-xs sm:text-sm text-slate-950 font-medium'>Availablity: </span>
                         <span className='text-xs font-medium text-slate-600'>
                             {product.quantity > 0 ? 'In Stock' : 'Out of Stock'}
                         </span>
@@ -83,8 +83,8 @@ const CompareProductCard = ({ product }: { product: ProductType }) => {
                     <hr />
                 </div>
                 <div className='pb-3'>
-                    <div className='flex justify-between mb-2'>
-                        <span className='text-sm font-medium'>Color: </span>
+                    <div className='flex justify-between mb-2 gap-2'>
+                        <span className='text-xs sm:text-sm text-slate-950 font-medium'>Color: </span>
                         <ul className='flex gap-1 flex-wrap text-slate-600 *:rounded-full'>
                             {colors.map((color) => (
                                 <li key={color} style={{ backgroundColor: color }} className='w-5 h-5'></li>

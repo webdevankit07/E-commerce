@@ -4,10 +4,10 @@ import Link from 'next/link';
 
 const HeaderTop = () => {
     return (
-        <div className='py-3 border-b border-b-dark-2 hidden sm:block'>
+        <div className='py-3 border-b border-b-dark-2'>
             <Container>
                 <div className='flex items-center justify-between text-xs md:text-sm'>
-                    <h2 className='hidden sm:block text-2xl font-semibold'>
+                    <h2 className='text-2xl font-semibold'>
                         <Link href={'/'}>ShopWave</Link>
                     </h2>
                     <div className='flex gap-5'>

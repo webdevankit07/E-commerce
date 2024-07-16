@@ -13,6 +13,7 @@ import {
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { TbMenuOrder } from 'react-icons/tb';
+import { DropdownMenuSeparator } from '@radix-ui/react-dropdown-menu';
 
 interface ListItemProps {
     name: string;
@@ -22,6 +23,7 @@ interface ListItemProps {
 
 const HeaderBottom = () => {
     const { categories } = useAppSelector((state) => state.category);
+    const { user } = useAppSelector((state) => state.auth);
     const [open, setOpen] = useState(false);
     const dispatch = useAppDispatch();
 
@@ -100,21 +102,26 @@ const HeaderBottom = () => {
                                 <TbMenuOrder />
                             </div>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent className='min-w-[90vw] md:hidden mt-3 py-1 -ml-4'>
-                            <Link href={'/'}>
-                                <DropdownMenuItem>Home</DropdownMenuItem>
-                            </Link>
+                        <DropdownMenuContent className='min-w-[90vw] md:hidden mt-3 py-5 px-3 -ml-4'>
+                            {user && (
+                                <>
+                                    <Link href={'/my-account/profile'}>
+                                        <DropdownMenuItem>View Profile</DropdownMenuItem>
+                                    </Link>
+                                    <Link href={'/my-account/orders'}>
+                                        <DropdownMenuItem>My Orders</DropdownMenuItem>
+                                    </Link>
+                                </>
+                            )}
                             <Link href={'/products'}>
                                 <DropdownMenuItem>Our Store</DropdownMenuItem>
                             </Link>
-                            <Link href={'/my-account/profile'}>
-                                <DropdownMenuItem>Profile</DropdownMenuItem>
-                            </Link>
-                            <Link href={'/my-account/orders'}>
-                                <DropdownMenuItem>My Orders</DropdownMenuItem>
-                            </Link>
                             <Link href={'/contact'}>
                                 <DropdownMenuItem>Contact</DropdownMenuItem>
+                            </Link>
+                            <DropdownMenuSeparator />
+                            <Link href={'/contact'} className='mt-5'>
+                                <DropdownMenuItem>Sign Out</DropdownMenuItem>
                             </Link>
                         </DropdownMenuContent>
                     </DropdownMenu>

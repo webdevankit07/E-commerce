@@ -36,11 +36,17 @@ const CartItem = ({ cartProduct }: { cartProduct: CartProductType }) => {
         <TableRow>
             <TableCell className='pr-10'>
                 <Link href={`/products/${cartProduct.product._id}`} className='flex items-center gap-5'>
-                    <div>
-                        <Image src={cartProduct.product.images[0].url} width={80} height={80} alt='cartProduct-img' />
+                    <div className='relative min-w-[60px]'>
+                        <Image
+                            src={cartProduct.product.images[0].url}
+                            width={60}
+                            height={60}
+                            style={{ width: '100%', height: 'auto' }}
+                            alt='cartProduct-img'
+                        />
                     </div>
-                    <div className='space-y-1 max-w-[450px]'>
-                        <p className='font-medium'>{cartProduct.product.title}</p>
+                    <div className='space-y-1 min-w-[300px]'>
+                        <p className='font-medium max-lg:text-xs line-clamp-2'>{cartProduct.product.title}</p>
                         {cartProduct.color && (
                             <div className='flex items-center'>
                                 <span className='font-medium mr-2'>Color: </span>
