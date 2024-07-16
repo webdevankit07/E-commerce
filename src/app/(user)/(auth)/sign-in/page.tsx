@@ -100,6 +100,13 @@ const SignIn = () => {
                             >
                                 Create a new account
                             </Button>
+                            <Button
+                                type='button'
+                                className='bg-yellow-1 text-slate-800 hover:bg-yellow-500 active:bg-yellow-1'
+                                onClick={() => router.push('/')}
+                            >
+                                Back To Home
+                            </Button>
                         </form>
                     </div>
                 </div>

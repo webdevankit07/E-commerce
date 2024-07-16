@@ -40,7 +40,7 @@ const SignUp = () => {
         <div className='pb-10 bg-slate-100 min-h-screen'>
             <Container>
                 <BreadCrumb BreadCrumbs={[{ name: 'Sign-Up' }]} />
-                <div className='flex justify-center items-center mt-28'>
+                <div className='flex justify-center items-center mt-16 md:mt-28'>
                     <div className='bg-white py-5 px-7 md:px-10 rounded-lg drop-shadow-md pb-10 max-w-[500px] w-full'>
                         <h2 className='text-center font-semibold text-slate-700 mb-5'>Create an Account</h2>
                         <form className='flex flex-col gap-4' onSubmit={handleSubmit(handleFormSubmit)}>
@@ -225,6 +225,13 @@ const SignUp = () => {
                                 onClick={() => router.push('/sign-in')}
                             >
                                 Login with an account
+                            </Button>
+                            <Button
+                                type='button'
+                                className='bg-yellow-1 text-slate-800 hover:bg-yellow-500 active:bg-yellow-1'
+                                onClick={() => router.push('/')}
+                            >
+                                Back To Home
                             </Button>
                         </form>
                     </div>

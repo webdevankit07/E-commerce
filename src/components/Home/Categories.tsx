@@ -7,6 +7,7 @@ const Categories = () => {
     return (
         <section className='bg-slate-100 pb-10 pt-5'>
             <Container>
+                <h3 className='flex justify-between items-center font-semibold mb-4 text-lg'>Shop by Categories</h3>
                 <div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-2 place-content-center gap-x-5 gap-y-5 bg-white py-5 px-5 md:px-8 rounded-sm'>
                     {categories.map((category, index) => {
                         const { location, details, imgUrl, title } = category;

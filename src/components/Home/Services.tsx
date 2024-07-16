@@ -3,7 +3,7 @@ import { services } from '@/lib/data';
 
 const Services = () => {
     return (
-        <section className='bg-slate-100 pt-10 pb-5'>
+        <section className='bg-slate-100 pb-5'>
             <Container>
                 <div className='flex flex-wrap items-center flex-grow gap-3'>
                     {services.map((service, index) => (

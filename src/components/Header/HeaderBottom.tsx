@@ -111,7 +111,7 @@ const HeaderBottom = () => {
                                 <TbMenuOrder />
                             </div>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent className='min-w-[90vw] md:hidden mt-3 py-3 px-3 -ml-4'>
+                        <DropdownMenuContent className={`min-w-[90vw] md:hidden mt-3 py-3 px-3 ${!user && 'ml-4'}`}>
                             <Link href={'/'}>
                                 <DropdownMenuItem className='flex items-center gap-3 py-2'>
                                     <IoMdHome size={15} className='text-gray-700' />
