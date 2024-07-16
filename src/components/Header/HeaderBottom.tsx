@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import Container from '../shared/Container';
-import { RiArrowDownSLine } from 'react-icons/ri';
+import { RiArrowDownSLine, RiLoginCircleFill } from 'react-icons/ri';
 import { CgMenuGridR } from 'react-icons/cg';
 import { useEffect, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/hooks/storeHooks';
@@ -17,11 +17,12 @@ import { DropdownMenuSeparator } from '@radix-ui/react-dropdown-menu';
 import { userLogout } from '@/redux/features/auth/authSlice';
 import { IoMdHome } from 'react-icons/io';
 import { IoCall, IoCart, IoStorefrontSharp } from 'react-icons/io5';
-import { FaUser } from 'react-icons/fa';
+import { FaUser, FaUserPlus } from 'react-icons/fa';
 import { HiMiniShoppingBag } from 'react-icons/hi2';
 import { FaArrowsRotate } from 'react-icons/fa6';
 import { MdFavorite } from 'react-icons/md';
 import { LiaSignOutAltSolid } from 'react-icons/lia';
+import { Button } from '../ui/button';
 
 interface ListItemProps {
     name: string;
@@ -172,8 +173,29 @@ const HeaderBottom = () => {
                                     </DropdownMenuItem>
                                 </div>
                             )}
+                            {!user && (
+                                <>
+                                    <Link href={'/sign-in'}>
+                                        <DropdownMenuItem className='flex items-center gap-3 py-2'>
+                                            <RiLoginCircleFill size={15} className='text-gray-700' />
+                                            <span>Log In</span>
+                                        </DropdownMenuItem>
+                                    </Link>
+                                    <Link href={'/sign-up'}>
+                                        <DropdownMenuItem className='flex items-center gap-3 py-2'>
+                                            <FaUserPlus size={15} className='text-gray-700' />
+                                            <span>Register</span>
+                                        </DropdownMenuItem>
+                                    </Link>
+                                </>
+                            )}
                         </DropdownMenuContent>
                     </DropdownMenu>
+                    {!user && (
+                        <Link href={'/sign-in'}>
+                            <Button>Sign in</Button>
+                        </Link>
+                    )}
                 </div>
             </Container>
         </div>

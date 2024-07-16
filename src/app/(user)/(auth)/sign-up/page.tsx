@@ -40,8 +40,8 @@ const SignUp = () => {
         <div className='pb-10 bg-slate-100 min-h-screen'>
             <Container>
                 <BreadCrumb BreadCrumbs={[{ name: 'Sign-Up' }]} />
-                <div className='flex justify-center items-center w-full mt-28'>
-                    <div className='bg-white py-5 px-10 rounded-md drop-shadow-md min-w-[500px] pb-10'>
+                <div className='flex justify-center items-center mt-28'>
+                    <div className='bg-white py-5 px-7 md:px-10 rounded-lg drop-shadow-md pb-10 max-w-[500px] w-full'>
                         <h2 className='text-center font-semibold text-slate-700 mb-5'>Create an Account</h2>
                         <form className='flex flex-col gap-4' onSubmit={handleSubmit(handleFormSubmit)}>
                             <div className='space-y-8'>

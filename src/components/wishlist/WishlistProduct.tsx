@@ -65,7 +65,7 @@ const WishlistProduct = ({ product }: { product: ProductType }) => {
     };
 
     return (
-        <div className={`drop-shadow rounded-md p-2 bg-white h-[450px]`}>
+        <div className={`drop-shadow rounded-md p-2 bg-white`}>
             <div className={`group  justify-center items-center rounded-sm relative overflow-hidden`}>
                 <Link href={`/products/${product._id}`}>
                     {images && (
@@ -88,15 +88,15 @@ const WishlistProduct = ({ product }: { product: ProductType }) => {
                     )}
                 </Link>
                 <div
-                    className={`text-right absolute right-1.5 top-0 text-lg cursor-pointer`}
+                    className={`text-right absolute right-2 top-2 text-lg cursor-pointer`}
                     onClick={handleWishlistToggle}
                 >
                     <div className='text-red-500'>
-                        <GoHeartFill />
+                        <GoHeartFill size={20} />
                     </div>
                 </div>
                 <div
-                    className={`absolute flex flex-col gap-1 top-6 text-slate-800 group-hover:right-1 -right-10 transition-all duration-400 *:drop-shadow-md`}
+                    className={`absolute flex flex-col gap-1 top-8 text-slate-800 group-hover:right-1.5 -right-10 transition-all duration-400 *:drop-shadow-md`}
                 >
                     {!inCompare && (
                         <div onClick={handleCompareToggle}>
@@ -114,7 +114,7 @@ const WishlistProduct = ({ product }: { product: ProductType }) => {
             <Link href={`/products/${product._id}`} className='pt-2 space-y-1 px-4'>
                 <h6 className='text-[#bf4800] text-[13px] font-medium'>{category}</h6>
                 <div>
-                    <p className='line-clamp-2 text-xs font-semibold text-slate-900'>{title}</p>
+                    <p className='line-clamp-2 text-xs font-semibold text-slate-900 h-[34px]'>{title}</p>
                     <ReactStars count={5} value={totalRating} size={20} color2={'#ffd700'} edit={false} />
                 </div>
                 <p className='text-wrap text-xs text-slate-700 line-clamp-4'>{description}</p>

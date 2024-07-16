@@ -40,7 +40,7 @@ const ForgotPassword = () => {
             <Container>
                 <BreadCrumb BreadCrumbs={[{ name: 'Forgot Password' }]} />
                 <div className='flex justify-center items-center w-full mt-40'>
-                    <div className='bg-white py-5 px-10 rounded-md drop-shadow-md min-w-[500px] min-h-[250px] pb-10'>
+                    <div className='bg-white py-5 px-7 md:px-10 rounded-md drop-shadow-md min-h-[250px] max-w-[500px] w-full pb-10'>
                         {tokenSend ? (
                             <div className='flex flex-col items-center gap-3 justify-center h-[200px]'>
                                 <div>
@@ -50,7 +50,6 @@ const ForgotPassword = () => {
                             </div>
                         ) : (
                             <div>
-                                {' '}
                                 <h2 className='text-center font-medium text-slate-600 mb-2'>Reset Your Password</h2>
                                 <h3 className='text-center font-medium text-xs text-slate-500 mb-5'>
                                     We will send you an email to reset your password

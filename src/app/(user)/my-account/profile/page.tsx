@@ -254,7 +254,7 @@ const Profile = () => {
                             ) : (
                                 <>
                                     <RxUpdate />
-                                    Update Account
+                                    Update Details
                                 </>
                             )}
                         </Button>
