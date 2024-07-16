@@ -8,7 +8,7 @@ interface FilterButtonsProps {
 
 const FilterButtons = ({ selectedBtnFilter, setSelectedBtnFilter }: FilterButtonsProps) => {
     return (
-        <div className='flex gap-4'>
+        <div className='flex items-center flex-wrap gap-2 md:gap-4 max-md:pb-4'>
             <OrderFilterBtn
                 value='All'
                 name='All'

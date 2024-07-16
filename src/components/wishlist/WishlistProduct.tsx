@@ -69,7 +69,7 @@ const WishlistProduct = ({ product }: { product: ProductType }) => {
             <div className={`group  justify-center items-center rounded-sm relative overflow-hidden`}>
                 <Link href={`/products/${product._id}`}>
                     {images && (
-                        <div className={`min-h-[200px] w-auto`}>
+                        <div className={`max-[500px]:h-[300px] max-[640px]:h-[200px] sm:h-[200px] w-auto`}>
                             <Image
                                 src={images[0].url}
                                 fill

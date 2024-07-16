@@ -14,6 +14,14 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { TbMenuOrder } from 'react-icons/tb';
 import { DropdownMenuSeparator } from '@radix-ui/react-dropdown-menu';
+import { userLogout } from '@/redux/features/auth/authSlice';
+import { IoMdHome } from 'react-icons/io';
+import { IoCall, IoCart, IoStorefrontSharp } from 'react-icons/io5';
+import { FaUser } from 'react-icons/fa';
+import { HiMiniShoppingBag } from 'react-icons/hi2';
+import { FaArrowsRotate } from 'react-icons/fa6';
+import { MdFavorite } from 'react-icons/md';
+import { LiaSignOutAltSolid } from 'react-icons/lia';
 
 interface ListItemProps {
     name: string;
@@ -70,7 +78,7 @@ const HeaderBottom = () => {
                             />
                         </div>
                         <div
-                            className={`absolute px-2 py-2 z-[999999] rounded-sm bg-white text-slate-950 drop-shadow-xl left-4 top-10 transition duration-200 ease-in-out ${
+                            className={`absolute px-2 py-2 z-[999999] rounded-sm bg-white text-slate-950 drop-shadow-xl left-4 top-10 transition duration-150 ease-in-out ${
                                 open ? 'scale-1 opacity-100' : 'scale-0 opacity-0'
                             }`}
                             ref={dropdownMenu}
@@ -102,27 +110,68 @@ const HeaderBottom = () => {
                                 <TbMenuOrder />
                             </div>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent className='min-w-[90vw] md:hidden mt-3 py-5 px-3 -ml-4'>
+                        <DropdownMenuContent className='min-w-[90vw] md:hidden mt-3 py-3 px-3 -ml-4'>
+                            <Link href={'/'}>
+                                <DropdownMenuItem className='flex items-center gap-3 py-2'>
+                                    <IoMdHome size={15} className='text-gray-700' />
+                                    <span>Home</span>
+                                </DropdownMenuItem>
+                            </Link>
+                            <Link href={'/products'}>
+                                <DropdownMenuItem className='flex items-center gap-3 py-2'>
+                                    <IoStorefrontSharp size={15} className='text-gray-700' />
+                                    <span>Our Store</span>
+                                </DropdownMenuItem>
+                            </Link>
                             {user && (
                                 <>
                                     <Link href={'/my-account/profile'}>
-                                        <DropdownMenuItem>View Profile</DropdownMenuItem>
+                                        <DropdownMenuItem className='flex items-center gap-3 py-2'>
+                                            <FaUser size={15} className='text-gray-700' />
+                                            <span>View Profile</span>
+                                        </DropdownMenuItem>
+                                    </Link>
+                                    <Link href={'/cart'}>
+                                        <DropdownMenuItem className='flex items-center gap-3 py-2'>
+                                            <IoCart size={15} className='text-gray-700' />
+                                            <span>Cart</span>
+                                        </DropdownMenuItem>
                                     </Link>
                                     <Link href={'/my-account/orders'}>
-                                        <DropdownMenuItem>My Orders</DropdownMenuItem>
+                                        <DropdownMenuItem className='flex items-center gap-3 py-2'>
+                                            <HiMiniShoppingBag size={15} className='text-gray-700' />
+                                            <span>My Orders</span>
+                                        </DropdownMenuItem>
+                                    </Link>
+                                    <Link href={'/compare-products'}>
+                                        <DropdownMenuItem className='flex items-center gap-3 py-2'>
+                                            <FaArrowsRotate size={15} className='text-gray-700' />
+                                            <span>Compare products</span>
+                                        </DropdownMenuItem>
+                                    </Link>
+                                    <Link href={'/wishlist'}>
+                                        <DropdownMenuItem className='flex items-center gap-3 py-2'>
+                                            <MdFavorite size={15} className='text-gray-700' />
+                                            <span>Wishlist</span>
+                                        </DropdownMenuItem>
                                     </Link>
                                 </>
                             )}
-                            <Link href={'/products'}>
-                                <DropdownMenuItem>Our Store</DropdownMenuItem>
-                            </Link>
                             <Link href={'/contact'}>
-                                <DropdownMenuItem>Contact</DropdownMenuItem>
+                                <DropdownMenuItem className='flex items-center gap-3 py-2'>
+                                    <IoCall size={15} className='text-gray-700' />
+                                    <span>Contact</span>
+                                </DropdownMenuItem>
                             </Link>
                             <DropdownMenuSeparator />
-                            <Link href={'/contact'} className='mt-5'>
-                                <DropdownMenuItem>Sign Out</DropdownMenuItem>
-                            </Link>
+                            {user && (
+                                <div onClick={() => dispatch(userLogout())}>
+                                    <DropdownMenuItem className='flex items-center gap-3 py-2'>
+                                        <LiaSignOutAltSolid size={15} className='text-gray-700' />
+                                        <span>Sign Out</span>
+                                    </DropdownMenuItem>
+                                </div>
+                            )}
                         </DropdownMenuContent>
                     </DropdownMenu>
                 </div>
@@ -136,7 +185,7 @@ const ListItem = ({ name, url, setOpen }: ListItemProps) => {
         <li>
             <Link
                 href={url}
-                className='inline-block w-full px-3 py-2 mb-1 text-sm text-nowrap hover:bg-slate-100/[0.95] rounded mr-20'
+                className='inline-block w-full px-3 py-2 mb-1 text-sm text-nowrap hover:bg-slate-100/[0.95] rounded mr-15'
                 onClick={() => setOpen(false)}
             >
                 {name}

@@ -43,8 +43,8 @@ const OrderCard = ({ order }: OrderCardProps) => {
             : 'bg-[#480000]';
 
     return (
-        <div className='mt-8 pl-5 ' key={order._id}>
-            <div className='p-5 border bg-white border-gray-800 shadow-md rounded-xl max-w-[1000px] w-full transition-all saturate-200 ease-in-out'>
+        <div className='mt-4 md:mt-8 md:pl-5 ' key={order._id}>
+            <div className='p-5 border bg-white border-gray-500 shadow-md rounded-xl max-w-[1000px] w-full transition-all saturate-200 ease-in-out'>
                 <div className='flex gap-2 items-center'>
                     <div>
                         <div className={`flex items-center gap-1.5 px-3 py-1 rounded-2xl ${statusBgColor}`}>
@@ -60,23 +60,24 @@ const OrderCard = ({ order }: OrderCardProps) => {
                         <div className='flex items-center gap-5 mt-3'>
                             <Link
                                 href={`/products/${order.orderItems[0].product._id}`}
-                                className='p-1 rounded-md border border-gray-800'
+                                className='p-1 rounded-md border border-gray-800 min-w-[100px]'
                             >
                                 <Image
                                     src={order.orderItems[0].product.images[0].url}
                                     height={100}
                                     width={100}
+                                    style={{ width: '100%', height: 'auto' }}
                                     alt='as'
                                 />
                             </Link>
                             <div>
-                                <div className='text-orange-900 font-bold text-sm'>
+                                <div className='text-orange-900 font-bold text-xs sm:text-sm'>
                                     Order ID: {order.paymentInfo.razorpayOrderId.slice(6)}
                                 </div>
                                 <div className='font-semibold text-slate-900'>
                                     <Link
                                         href={`/products/${order.orderItems[0].product._id}`}
-                                        className='space-y-1 hover:text-slate-900 mr-1'
+                                        className='space-y-1 max-sm:text-xs hover:text-slate-900 mr-1'
                                     >
                                         {order.orderItems[0].product.title}
                                     </Link>
@@ -88,7 +89,7 @@ const OrderCard = ({ order }: OrderCardProps) => {
                                             & {order.orderItems.length - 1} more items.
                                         </span>
                                     )}
-                                    <div className='flex items-center gap-10 font-bold pt-2 text-slate-900'>
+                                    <div className='flex items-center gap-10 font-bold pt-2 text-slate-900 max-sm:text-xs'>
                                         <div className='font-bold'>
                                             <span>Price: </span>
                                             {formatePrice(order.orderItems[0].price)}
@@ -99,7 +100,7 @@ const OrderCard = ({ order }: OrderCardProps) => {
                             </div>
                         </div>
                         {order.orderItems.length > 1 && (
-                            <div className='flex items-center gap-10 ml-32 font-bold pt-2 text-slate-900'>
+                            <div className='flex items-center gap-10 ml-32 font-bold pt-2 text-slate-900 max-sm:text-xs'>
                                 <div className='font-bold'>
                                     <span>Total Price: </span>
                                     {formatePrice(

@@ -45,7 +45,7 @@ const UpdatePassword = () => {
         <div className='min-h-screen mt-2'>
             <BreadCrumb BreadCrumbs={[{ name: 'My Account' }, { name: 'Update Password' }]} />
             <div className='flex justify-center items-center w-full mt-40'>
-                <div className='bg-white py-5 px-10 rounded-md drop-shadow-md max-w-[400px] sm:min-w-[500px] pb-10 w-full'>
+                <div className='bg-white py-5 px-8 md:px-10 rounded-lg drop-shadow-md max-w-[500px] pb-10 w-full'>
                     <h2 className='text-center font-medium text-slate-600 mb-5'>Update Password</h2>
                     <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
                         <div className='relative'>

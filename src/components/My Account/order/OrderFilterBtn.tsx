@@ -13,7 +13,7 @@ const OrderFilterBtn = ({ value, name, selectedBtnFilter, setSelectedBtnFilter }
         <Button
             value={value}
             variant={'outline'}
-            className={`rounded-2xl px-4 bg-transparent hover:bg-transparent text-slate-700 border-slate-400 hover:text-orange-900 hover:border-orange-900 ${
+            className={`rounded-2xl max-md:px-3 py-0 px-4 bg-transparent hover:bg-transparent text-slate-700 border-slate-400 hover:text-orange-900 hover:border-orange-900 max-sm:text-[11px] max-md:text-xs ${
                 selectedBtnFilter === value && 'text-orange-900 border-orange-900'
             }`}
             onClick={() => setSelectedBtnFilter(value)}

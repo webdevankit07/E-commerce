@@ -25,7 +25,7 @@ const ProfileActions = ({ handleDeleteAccount, handleSignOut }: ProfileActionsTy
             {/* //! Delete Account...  */}
             <Dialog>
                 <DialogTrigger className='flex-1'>
-                    <div className='flex items-center justify-center gap-1.5 py-2 rounded-md text-xs bg-red-600/[.2] hover:bg-red-300/[.2] text-red-800 border border-red-900 px-5 font-semibold transition-all duration-200 ease-in-out text-nowrap'>
+                    <div className='flex items-center justify-center gap-1.5 py-2 rounded-md text-xs bg-red-600/[.2] hover:bg-red-300/[.2] text-red-800 border border-red-900 px-5 font-semibold transition-all duration-200 ease-in-out text-nowrap w-full'>
                         <MdDeleteSweep />
                         Delete Account
                     </div>
@@ -66,7 +66,7 @@ const ProfileActions = ({ handleDeleteAccount, handleSignOut }: ProfileActionsTy
 
             {/* //! Update Password...  */}
             <Link href={'/my-account/update-password'} className='flex-1'>
-                <div className='flex flex-1 items-center justify-center gap-1.5 py-2 rounded-md text-xs bg-red-600/[.2] hover:bg-red-300/[.2] text-red-800 border border-red-900 px-5 font-semibold transition-all duration-200 ease-in-out text-nowrap'>
+                <div className='flex flex-1 items-center justify-center gap-1.5 py-2 rounded-md text-xs bg-red-600/[.2] hover:bg-red-300/[.2] text-red-800 border border-red-900 px-5 font-semibold transition-all duration-200 ease-in-out text-nowrap w-full'>
                     <RiLockPasswordFill />
                     Update Password
                 </div>
@@ -75,7 +75,7 @@ const ProfileActions = ({ handleDeleteAccount, handleSignOut }: ProfileActionsTy
             {/* //! Sign Out...  */}
             <Dialog>
                 <DialogTrigger className='flex-1'>
-                    <div className='flex flex-1 items-center justify-center gap-1.5 py-2 rounded-md text-xs bg-red-600/[.2] hover:bg-red-300/[.2] text-red-800 border border-red-900 px-5 font-semibold transition-all duration-200 ease-in-out text-nowrap'>
+                    <div className='flex flex-1 items-center justify-center gap-1.5 py-2 rounded-md text-xs bg-red-600/[.2] hover:bg-red-300/[.2] text-red-800 border border-red-900 px-5 font-semibold transition-all duration-200 ease-in-out text-nowrap w-full'>
                         <PiSignOutBold />
                         Sign Out
                     </div>

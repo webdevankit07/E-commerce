@@ -3,8 +3,8 @@ import { FiSend } from 'react-icons/fi';
 
 const FooterTop = () => {
     return (
-        <Container className='py-10 border-b border-dark-2'>
-            <div className='flex flex-col lg:flex-row lg:justify-between lg:items-center gap-5 max-sm:px-5'>
+        <Container className='py-10 border-b border-dark-2 px-3'>
+            <div className='flex flex-col lg:flex-row lg:justify-between lg:items-center gap-5'>
                 <div className='flex items-center gap-5 w-full'>
                     <FiSend className='text-3xl' />{' '}
                     <span className='text-lg lg:text-2xl xl:text-3xl'>Sign Up For Newsletter</span>
