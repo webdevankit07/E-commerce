@@ -44,7 +44,7 @@ const CustomHeader = () => {
     };
 
     return (
-        <div className='py-3 px-5 bg-dark-1 text-slate-100'>
+        <div className='py-3 px-5 bg-dark-1 text-slate-100' id='profile'>
             <div className='flex justify-end items-center gap-5  xl:pr-16'>
                 <div className='hidden lg:flex justify-between items-center gap-10'>
                     <Link href={'/compare-products'} className='flex items-center gap-3 hover:text-slate-100'>

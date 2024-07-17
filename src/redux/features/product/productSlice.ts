@@ -106,6 +106,17 @@ const productsSlice = createSlice({
             const popularProducts = allProducts.sort((a, b) => b.price - a.price).slice(0, 10);
             state.featuredProducts = popularProducts;
         },
+        filterProduct: (state, { payload }) => {
+            state.clientProducts?.products.sort((a, b) =>
+                payload === 'Price, low to high'
+                    ? a.price - b.price
+                    : payload === 'Price, high to low'
+                    ? b.price - a.price
+                    : payload === 'Alphabetically, A-Z'
+                    ? a.title.localeCompare(b.title)
+                    : b.title.localeCompare(a.title)
+            );
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -201,4 +212,4 @@ const productsSlice = createSlice({
 });
 
 export default productsSlice.reducer;
-export const { getPopularProducts, getFeaturedProducts } = productsSlice.actions;
+export const { getPopularProducts, getFeaturedProducts, filterProduct } = productsSlice.actions;

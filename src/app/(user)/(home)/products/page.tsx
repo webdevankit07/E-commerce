@@ -10,7 +10,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks/storeHooks';
 import { getAllBrands } from '@/redux/features/brand/brandSlice';
 import { getAllCategories } from '@/redux/features/categories/categorySlice';
 import { getAllColors } from '@/redux/features/color/colorSlice';
-import { getClientProducts } from '@/redux/features/product/productSlice';
+import { filterProduct, getClientProducts } from '@/redux/features/product/productSlice';
 import { ProductType } from '@/types';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -25,19 +25,18 @@ import {
 } from '@/components/ui/pagination';
 import { ParseProductQueries } from '@/lib/utils';
 import StoreHeader from '@/components/Our Store/StoreHeader';
+import toast from 'react-hot-toast';
 
 const Store = () => {
     const { clientProducts, isLoading } = useAppSelector((state) => state.product);
     const { categories } = useAppSelector((state) => state.category);
     const { colors } = useAppSelector((state) => state.color);
     const { brands } = useAppSelector((state) => state.brand);
-
-    const [grid, setGrid] = useState(5);
     const [filterProducts, setFilterProducts] = useState<ProductType[]>([]);
-    const [totaPage, setTotalPages] = useState(1);
-    const [pageNo, setPageNo] = useState(1);
+    const [pageNumbers, setPageNumbers] = useState<number[]>([0]);
+    const [grid, setGrid] = useState(5);
     const [maxPrice, setMaxPrice] = useState<number>(1000000000000000);
-    const [sortBy, setSortBy] = useState('');
+    const [pageNo, setPageNo] = useState(1);
 
     const searchParams = useSearchParams();
     const dispatch = useAppDispatch();
@@ -72,17 +71,32 @@ const Store = () => {
     useEffect(() => {
         if (clientProducts) {
             setFilterProducts(clientProducts?.products);
-            const totalPages = clientProducts.products.length / 10;
-            setTotalPages(totalPages);
+            if (clientProducts.nbHits >= 10) {
+                const pageNumbers = Array.from(
+                    { length: Math.ceil(clientProducts.totalProducts / clientProducts.products.length) },
+                    (_, i) => i + 1
+                );
+                setPageNumbers(pageNumbers);
+            }
         }
     }, [clientProducts]);
 
     const handleValueChange = (val: string) => {
-        console.log(val);
+        if (val) {
+            dispatch(filterProduct(val));
+        }
     };
 
-    const handlePrevPageCall = () => {};
-    const handleNextPageCall = () => {};
+    const handlePrevPageCall = () => {
+        if (pageNo >= 2) {
+            setPageNo(pageNo - 1);
+        }
+    };
+    const handleNextPageCall = () => {
+        if (clientProducts && pageNo < clientProducts.totalPages && clientProducts.nbHits >= 10) {
+            setPageNo(pageNo + 1);
+        }
+    };
 
     return (
         <div className='bg-slate-200'>
@@ -134,30 +148,23 @@ const Store = () => {
                         )}
                     </div>
                 </div>
-                <Pagination className='pb-10'>
-                    <PaginationContent>
-                        <PaginationItem>
-                            <PaginationPrevious href='#' onClick={handlePrevPageCall} />
-                        </PaginationItem>
-                        <PaginationItem>
-                            <PaginationLink href='#'>1</PaginationLink>
-                        </PaginationItem>
-                        <PaginationItem>
-                            <PaginationLink href='#' isActive>
-                                2
-                            </PaginationLink>
-                        </PaginationItem>
-                        <PaginationItem>
-                            <PaginationLink href='#'>3</PaginationLink>
-                        </PaginationItem>
-                        <PaginationItem>
-                            <PaginationEllipsis />
-                        </PaginationItem>
-                        <PaginationItem>
-                            <PaginationNext href='#' aria-disabled onClick={handleNextPageCall} />
-                        </PaginationItem>
-                    </PaginationContent>
-                </Pagination>
+                {clientProducts && (
+                    <Pagination className='pb-10'>
+                        <PaginationContent>
+                            <PaginationItem>
+                                <PaginationPrevious href='#' onClick={handlePrevPageCall} />
+                            </PaginationItem>
+                            {pageNumbers.map((pagenumber) => (
+                                <PaginationItem key={pagenumber} onClick={() => setPageNo(pagenumber)}>
+                                    <PaginationLink isActive={pageNo === pagenumber}>{pagenumber}</PaginationLink>
+                                </PaginationItem>
+                            ))}
+                            <PaginationItem>
+                                <PaginationNext onClick={handleNextPageCall} />
+                            </PaginationItem>
+                        </PaginationContent>
+                    </Pagination>
+                )}
             </Container>
         </div>
     );

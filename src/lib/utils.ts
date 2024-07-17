@@ -173,7 +173,7 @@ export const ParseProductQueries = ({
 }: ParseProductQueriesParameters) => {
     const url = `${search && `search=${search}&`}${title && `title=${title}&`}${brand && `brand=${brand}&`}${
         category && `category=${category}&`
-    }${color && `color=${color}&`}${maxPrice && `price=${maxPrice}&`}${pageNo && `page=${pageNo}&`}`;
+    }${color && `color=${color}&`}${maxPrice && `price=${maxPrice}&`}${`limit=${10}&`}${pageNo && `page=${pageNo}`}`;
 
     return url;
 };

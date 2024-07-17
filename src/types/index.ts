@@ -39,6 +39,7 @@ export type ProductType = {
 export type ProductResType = {
     products: ProductType[];
     pageNo: number;
+    totalPages: number;
     itemRange: string;
     nbHits: number;
     totalProducts: number;

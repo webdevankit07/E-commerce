@@ -66,6 +66,7 @@ export const GET = async (req: NextRequest) => {
             {
                 products,
                 pageNo,
+                totalPages: Math.ceil(totalProducts / products.length),
                 itemRange: `${leftRange}-${rightRange}`,
                 nbHits: products.length,
                 totalProducts,
