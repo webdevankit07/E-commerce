@@ -26,6 +26,7 @@ const SignIn = () => {
         await dispatch(userLogin(formData));
         if (!isError) {
             router.refresh();
+            router.push('/');
         }
     };
 

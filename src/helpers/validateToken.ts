@@ -2,6 +2,7 @@ import { NextRequest } from 'next/server';
 import jwt from 'jsonwebtoken';
 import User from '@/models/user.model';
 import { ObjectId } from 'mongoose';
+import Product from '@/models/product.model';
 
 export const validateToken = async (req: NextRequest) => {
     try {
@@ -13,6 +14,8 @@ export const validateToken = async (req: NextRequest) => {
         if (!decodedAccessTokenData) throw new Error('Invalid token');
         if (!refreshToken) throw new Error('No refresh token');
 
+        await User.find();
+        await Product.find();
         const user = await User.findById(decodedAccessTokenData._id)
             .select('firstname lastname username email mobile role wishlist compare address password')
             .populate('wishlist compare');

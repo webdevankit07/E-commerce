@@ -142,9 +142,9 @@ const CheckOut = () => {
         <Loading />
     ) : (
         <div>
-            <div className='flex *:py-20 min-h-screen'>
+            <div className='flex max-lg:flex-col *:py-20 min-h-screen'>
                 <div className='w-full border-r-2 px-10 border-slate-300'>
-                    <div className='ml-auto max-w-[700px]'>
+                    <div className='lg:ml-auto max-w-[700px]'>
                         <h1 className='text-2xl font-semibold'>ShopWave</h1>
                         <BreadCrumb BreadCrumbs={[{ name: 'Cart', location: '/cart' }, { name: 'Information' }]} />
                         <div className='mt-3'>

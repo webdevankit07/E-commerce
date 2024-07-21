@@ -192,7 +192,7 @@ const HeaderBottom = () => {
                         </DropdownMenuContent>
                     </DropdownMenu>
                     {!user && (
-                        <Link href={'/sign-in'}>
+                        <Link href={'/sign-in'} className='min-[764px]:hidden'>
                             <Button>Sign in</Button>
                         </Link>
                     )}
