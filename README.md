@@ -8,8 +8,6 @@ Shopwave is a dynamic e-commerce platform leveraging the power of Next.js with T
 
 -   Website Link :- https://shop-wave-webdevankit.vercel.app/
 
--   Admin Account :- [Email : - ankityadav.webdev@gmail.com, Password:- webdev@123]
-
 
 ![Screenshot 2024-07-22 101815](https://github.com/user-attachments/assets/20f3188d-ef56-489c-ab6e-889f98c446da)
 ![Screenshot 2024-07-22 101918](https://github.com/user-attachments/assets/3f3f9f9c-e0fc-405c-993b-3fe8aadf26b3)
