@@ -10,10 +10,12 @@ Sopwave is a dynamic e-commerce platform leveraging the power of Next.js with Ty
 
 -   Admin Account :- [Email : - ankityadav.webdev@gmail.com, Password:- webdev@123]
 
-![Screenshot 2024-07-22 102036](https://github.com/user-attachments/assets/1b389219-ec02-4e87-a43e-51ebc26cc670)
-![Screenshot 2024-07-22 102251](https://github.com/user-attachments/assets/8aeb81e0-32be-469d-98ed-45f7d78cc797)
+
 ![Screenshot 2024-07-22 101815](https://github.com/user-attachments/assets/20f3188d-ef56-489c-ab6e-889f98c446da)
 ![Screenshot 2024-07-22 101918](https://github.com/user-attachments/assets/3f3f9f9c-e0fc-405c-993b-3fe8aadf26b3)
+![Screenshot 2024-07-22 104353](https://github.com/user-attachments/assets/315ef0fa-e386-40e7-b688-9956e7b56a1c)
+![Screenshot 2024-07-22 102251](https://github.com/user-attachments/assets/8aeb81e0-32be-469d-98ed-45f7d78cc797)
+![Screenshot 2024-07-22 102036](https://github.com/user-attachments/assets/1b389219-ec02-4e87-a43e-51ebc26cc670)
 ![Screenshot 2024-07-22 102007](https://github.com/user-attachments/assets/d92cd4de-5416-4adc-a18b-8eb14469efb1)
 
 ## Tech Stack
