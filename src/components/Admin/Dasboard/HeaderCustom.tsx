@@ -49,7 +49,9 @@ const HeaderCustom = () => {
                         <DropdownMenuItem>
                             <Link href={'/'}>Home</Link>
                         </DropdownMenuItem>
-                        <DropdownMenuItem>View Profile</DropdownMenuItem>
+                        <DropdownMenuItem>
+                            <Link href={'/my-account/profile'}>View Profile</Link>
+                        </DropdownMenuItem>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem onClick={handleSignOut}>Sign Out</DropdownMenuItem>
                     </DropdownMenuContent>
