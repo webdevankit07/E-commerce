@@ -2,9 +2,9 @@
 
 Hi there I'm ANKIT YADAV a full stack developer with Nextjs (Reactjs), TypeScript, Nodejs and MongoDB
 
-# ShpWave - E-commerce with Admin Panel
+# ShopWave - E-commerce with Admin Panel
 
-Sopwave is a dynamic e-commerce platform leveraging the power of Next.js with TypeScript for a seamless and efficient frontend and backend experience. The platform ensures robust data management and scalability by utilizing MongoDB (with Mongoose). This modern tech stack enables Sopwave to deliver a responsive, high-performance user interface while maintaining a flexible and secure server infrastructure.
+Shopwave is a dynamic e-commerce platform leveraging the power of Next.js with TypeScript for a seamless and efficient frontend and backend experience. The platform ensures robust data management and scalability by utilizing MongoDB (with Mongoose). This modern tech stack enables Sopwave to deliver a responsive, high-performance user interface while maintaining a flexible and secure server infrastructure.
 
 -   Website Link :- https://shop-wave-webdevankit.vercel.app/
 
