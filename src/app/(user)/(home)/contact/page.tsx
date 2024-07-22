@@ -1,17 +1,43 @@
 'use client';
 import Container from '@/components/shared/Container';
 import { Button } from '@/components/ui/button';
-import { FormEvent } from 'react';
-import { FaHome } from 'react-icons/fa';
+import { FormEvent, useState } from 'react';
+import { FaClosedCaptioning, FaHome } from 'react-icons/fa';
 import { TbMapPinCode } from 'react-icons/tb';
 import { PiPhoneCallFill } from 'react-icons/pi';
 import { MdEmail } from 'react-icons/md';
 import Link from 'next/link';
 import BreadCrumb from '@/components/shared/Breadcrumb';
+import { useAppSelector } from '@/hooks/storeHooks';
+import { Axios, handleAxiosError } from '@/config/axios';
+import toast from 'react-hot-toast';
+import { Oval } from 'react-loader-spinner';
 
 const Contact = () => {
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const { user } = useAppSelector((state) => state.auth);
+    const [comment, setComment] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setIsLoading(true);
+
+        const data = {
+            name: `${user?.firstname} ${user?.lastname}`,
+            email: `${user?.email}`,
+            mobile: `${user?.mobile}`,
+            comment,
+        };
+        try {
+            await Axios.post('/contact', data);
+            toast.success('Email sent successfully');
+            setComment('');
+        } catch (error) {
+            const err = await handleAxiosError(error);
+            toast.error(err);
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
@@ -34,26 +60,43 @@ const Contact = () => {
                             type='text'
                             className='bg-gray-100 text-sm focus:outline-none rounded-md p-3 w-full mb-4'
                             placeholder='Name'
+                            value={`${user?.firstname} ${user?.lastname}`}
                         />
                         <input
                             type='email'
                             className='bg-gray-100 text-sm focus:outline-none rounded-md p-3 w-full mb-4'
                             placeholder='Email'
+                            value={`${user?.email}`}
                         />
                         <input
                             type='tel'
                             className='bg-gray-100 text-sm focus:outline-none rounded-md p-3 w-full mb-4'
                             placeholder='Mobile No.'
+                            value={`${user?.mobile}`}
                         />
                         <textarea
                             className='bg-gray-100 text-sm focus:outline-none rounded-md p-3 w-full mb-3 resize-none'
                             placeholder='Comments'
+                            value={comment}
+                            onChange={(e) => setComment(e.target.value)}
                         />
                         <Button
                             variant={'outline'}
-                            className='rounded-lg border-2 hover:bg-black hover:text-white border-slate-800'
+                            className='flex items-center justify-center rounded-lg border-2 hover:bg-black hover:text-white border-slate-800 min-w-[100px]'
                         >
-                            Submit
+                            {isLoading ? (
+                                <Oval
+                                    visible={true}
+                                    width={20}
+                                    color='#ffffff'
+                                    secondaryColor='#b6b6b6'
+                                    ariaLabel='oval-loading'
+                                    strokeWidth={3}
+                                    strokeWidthSecondary={3}
+                                />
+                            ) : (
+                                'Submit'
+                            )}
                         </Button>
                     </form>
                     <div className='w-full'>

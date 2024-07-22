@@ -101,8 +101,8 @@ const HeaderBottom = () => {
                     <div className='md:space-x-3 hidden md:block md:border-l-2 md:pl-5 *:py-2 *:px-3 *:uppercase *:text-sm *:tracking-[0.3]'>
                         <Link href={'/'}>Home</Link>
                         <Link href={'/products'}>Our Store</Link>
-                        <Link href={'/contact'}>Contact</Link>
-                        <Link href={'/my-account/orders'}>My Orders</Link>
+                        {user && <Link href={'/contact'}>Contact</Link>}
+                        {user && <Link href={'/my-account/orders'}>My Orders</Link>}
                     </div>
                     <DropdownMenu>
                         <DropdownMenuTrigger className='flex md:hidden outline-none items-center gap-3 text-start w-full'>
