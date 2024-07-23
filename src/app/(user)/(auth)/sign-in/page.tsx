@@ -24,7 +24,7 @@ const SignIn = () => {
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         await dispatch(userLogin(formData));
-        if (!isError) {
+        if (!isLoading && !isError) {
             router.refresh();
             router.push('/');
         }

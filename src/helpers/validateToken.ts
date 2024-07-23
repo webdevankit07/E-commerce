@@ -7,12 +7,14 @@ import Product from '@/models/product.model';
 export const validateToken = async (req: NextRequest) => {
     try {
         const access_token = req.cookies.get('access_token')?.value || '';
-        const refreshToken = req.cookies.get('refresh_token')?.value || '';
+        const refresh_token = req.cookies.get('refresh_token')?.value || '';
         const decodedAccessTokenData: any =
             access_token && jwt.verify(access_token, process.env.ACCESS_TOKEN_SECRET as string);
+        const decodedRefreshTokenData: any =
+            access_token && jwt.verify(refresh_token, process.env.REFRESH_TOKEN_SECRET as string);
 
         if (!decodedAccessTokenData) throw new Error('Invalid token');
-        if (!refreshToken) throw new Error('No refresh token');
+        if (!decodedRefreshTokenData) throw new Error('No refresh token');
 
         await User.find();
         await Product.find();
@@ -24,7 +26,7 @@ export const validateToken = async (req: NextRequest) => {
         const userId = user._id as ObjectId | string;
         const isAdmin = user.role === 'admin';
 
-        return { user, userId, isAdmin, refreshToken };
+        return { user, userId, isAdmin, refreshToken: refresh_token };
     } catch (error: any) {
         throw new Error(error.message);
     }

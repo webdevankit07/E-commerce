@@ -10,7 +10,6 @@ export const POST = async (req: NextRequest) => {
         const { refreshToken } = await validateToken(req);
 
         const user = await User.findOne({ refreshToken });
-        console.log(user);
         if (!user) return NextResponse.json({ message: 'Invalid refresh token', success: false }, { status: 400 });
 
         await User.findOneAndUpdate({ refreshToken }, { refreshToken: '' });
