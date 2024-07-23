@@ -10,14 +10,14 @@ import { useEffect, useState } from 'react';
 import OrderCard from './OrderCard';
 
 const MyOrders = () => {
-    const { myOrders } = useAppSelector((state) => state.order);
+    const { myOrders, isLoading } = useAppSelector((state) => state.order);
     const [selectedBtnFilter, setSelectedBtnFilter] = useState('All');
     const [orders, setOrders] = useState<OrderType[]>();
     const dispatch = useAppDispatch();
 
     useEffect(() => {
         (async () => {
-            if (!myOrders || !myOrders.length) {
+            if (!myOrders.length) {
                 await dispatch(getMyOrders());
             }
         })();
@@ -41,14 +41,16 @@ const MyOrders = () => {
             <div className='mt-5'>
                 <FilterButtons selectedBtnFilter={selectedBtnFilter} setSelectedBtnFilter={setSelectedBtnFilter} />
 
-                {!orders?.length ? (
-                    <NoData headLine='No Orders Found' />
-                ) : (
+                {orders?.length && !isLoading ? (
                     <div>
                         {orders.map((order) => (
                             <OrderCard order={order} key={order._id} />
                         ))}
                     </div>
+                ) : isLoading ? (
+                    <Loading />
+                ) : (
+                    <NoData headLine='No Orders Found' />
                 )}
             </div>
         </div>

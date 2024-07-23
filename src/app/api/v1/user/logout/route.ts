@@ -7,12 +7,12 @@ export const POST = async (req: NextRequest) => {
     await ConnectDB();
 
     try {
-        const { refreshToken } = await validateToken(req);
+        const { userId } = await validateToken(req);
 
-        const user = await User.findOne({ refreshToken });
-        if (!user) return NextResponse.json({ message: 'Invalid refresh token', success: false }, { status: 400 });
+        const user = await User.findById(userId);
+        if (!user) return NextResponse.json({ message: 'Invalid user', success: false }, { status: 400 });
 
-        await User.findOneAndUpdate({ refreshToken }, { refreshToken: '' });
+        await User.findByIdAndUpdate(userId, { refreshToken: '' });
 
         const res = NextResponse.json({ message: 'Logout successful', success: true }, { status: 200 });
         res.cookies.delete('access_token');
@@ -20,6 +20,9 @@ export const POST = async (req: NextRequest) => {
         return res;
     } catch (error: any) {
         console.log('Error while logout:', error);
-        return NextResponse.json({ message: error.message, success: false }, { status: 500 });
+        const res = NextResponse.json({ message: error.message, success: false }, { status: 500 });
+        res.cookies.delete('access_token');
+        res.cookies.delete('refresh_token');
+        return res;
     }
 };

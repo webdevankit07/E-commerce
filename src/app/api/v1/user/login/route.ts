@@ -13,10 +13,7 @@ export const POST = async (req: NextRequest) => {
 
         if (userExist && (await userExist.isPasswordCorrect(password))) {
             const accessToken = userExist.genaratetAccessToken();
-            const refreshToken = userExist.genaratetRefreshToken();
 
-            userExist.refreshToken = refreshToken;
-            await userExist.save();
             const user = await User.findById(userExist._id)
                 .select('firstname lastname username email mobile role wishlist compare')
                 .populate('wishlist compare');
@@ -30,11 +27,7 @@ export const POST = async (req: NextRequest) => {
                 secure: true,
                 maxAge: 1000 * 60 * 60 * 24,
             });
-            response.cookies.set('refresh_token', refreshToken, {
-                httpOnly: true,
-                secure: true,
-                maxAge: 1000 * 60 * 60 * 72,
-            });
+
             return response;
         } else {
             return NextResponse.json({ message: 'Invalid credentials', success: false }, { status: 400 });

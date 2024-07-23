@@ -24,7 +24,7 @@ const MidHeaderActions = ({ cartProductCount }: { cartProductCount: string }) =>
     const handleSignOut = async () => {
         await dispatch(userLogout());
         if (!isError) {
-            router.refresh();
+            router.push('/');
         }
     };
 

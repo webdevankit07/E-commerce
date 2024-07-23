@@ -39,7 +39,7 @@ const CustomHeader = () => {
     const handleSignOut = async () => {
         await dispatch(userLogout());
         if (!isError) {
-            router.refresh();
+            router.push('/');
         }
     };
 
