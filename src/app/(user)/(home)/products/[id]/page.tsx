@@ -9,7 +9,6 @@ import ImageSection from '@/components/Our Store/Product/ImageSection';
 import SetQuantity from '@/components/Our Store/Product/SetQuantity';
 import { Button } from '@/components/ui/button';
 import { FaCartArrowDown } from 'react-icons/fa';
-import { RiShoppingBag3Fill } from 'react-icons/ri';
 import { FaCodeCompare } from 'react-icons/fa6';
 import { PiShareNetworkFill } from 'react-icons/pi';
 import { usePathname, useRouter } from 'next/navigation';
@@ -55,11 +54,15 @@ const Productdetails = ({ params }: { params: { id: string } }) => {
 
     const handleCompareToggle = async () => {
         if (product) {
-            await dispatch(toggleCompare(product._id));
-            if (!isLoading && !isError) {
-                toast.success(inCompare ? 'Removed' : 'Added to compare');
-                !inCompare && router.push('/compare-products');
-                inCompare ? setInCompare(false) : setInCompare(true);
+            if (user) {
+                await dispatch(toggleCompare(product._id));
+                if (!isLoading && !isError) {
+                    toast.success(inCompare ? 'Removed' : 'Added to compare');
+                    !inCompare && router.push('/compare-products');
+                    inCompare ? setInCompare(false) : setInCompare(true);
+                }
+            } else {
+                router.push('/sign-in');
             }
         } else {
             toast.error('Product not fetched');
@@ -68,9 +71,15 @@ const Productdetails = ({ params }: { params: { id: string } }) => {
 
     const handleAddtoCart = async () => {
         if (product) {
-            await dispatch(addToCart({ productId: product?._id, cartData: { count: quantity, color: selectedColor } }));
-            if (!isCartLoading && !isCartError) {
-                router.push('/cart');
+            if (user) {
+                await dispatch(
+                    addToCart({ productId: product?._id, cartData: { count: quantity, color: selectedColor } })
+                );
+                if (!isCartLoading && !isCartError) {
+                    router.push('/cart');
+                }
+            } else {
+                router.push('/sign-in');
             }
         }
     };
