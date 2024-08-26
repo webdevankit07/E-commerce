@@ -6,6 +6,8 @@ import { GiveratingResType, ProductType, RatingType } from '@/types';
 import { Axios, handleAxiosError } from '@/config/axios';
 import toast from 'react-hot-toast';
 import { Oval } from 'react-loader-spinner';
+import { useAppSelector } from '@/hooks/storeHooks';
+import { useRouter } from 'next/navigation';
 
 interface WriteReviewProps {
     productId: string;
@@ -13,18 +15,24 @@ interface WriteReviewProps {
 }
 
 const WriteReview = ({ setProduct, productId }: WriteReviewProps) => {
+    const { user } = useAppSelector((state) => state.auth);
     const [review, setReview] = useState({ star: 0, comment: '' });
     const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter();
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setIsLoading(true);
         try {
-            const { data } = await Axios.put<GiveratingResType>(`product/review/${productId}`, review);
-            setProduct(data.product);
-            setReview({ star: 0, comment: '' });
-            toast.success('Thanks for your feedback');
-            setIsLoading(false);
+            if (user) {
+                setIsLoading(true);
+                const { data } = await Axios.put<GiveratingResType>(`product/review/${productId}`, review);
+                setProduct(data.product);
+                setReview({ star: 0, comment: '' });
+                toast.success('Thanks for your feedback');
+                setIsLoading(false);
+            } else {
+                router.push('/sign-in');
+            }
         } catch (error) {
             const err = await handleAxiosError(error);
             toast.error(err);
